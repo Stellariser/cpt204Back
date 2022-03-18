@@ -939,3 +939,29 @@ java.lang.NullPointerException: null
 2022-03-12 12:03:00.491  INFO 6700 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2022-03-12 12:03:00.492  INFO 6700 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
 2022-03-12 12:03:00.551  INFO 6700 --- [http-nio-8080-exec-2] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2022-03-19 00:11:13.731  INFO 32332 --- [main] com.DemoApplication                      : Starting DemoApplication using Java 14.0.2 on LAPTOP-5A66RGUU with PID 32332 (D:\Desktop\203Springboot\CPT202Back\target\classes started by 11517 in D:\Desktop\203Springboot\CPT202Back)
+2022-03-19 00:11:13.734  INFO 32332 --- [main] com.DemoApplication                      : No active profile set, falling back to 1 default profile: "default"
+2022-03-19 00:11:15.536  INFO 32332 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-03-19 00:11:15.548  INFO 32332 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-03-19 00:11:15.548  INFO 32332 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.58]
+2022-03-19 00:11:15.631  INFO 32332 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-03-19 00:11:15.631  INFO 32332 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1841 ms
+2022-03-19 00:11:16.313  WARN 32332 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8080 is already in use
+2022-03-19 00:11:16.316  INFO 32332 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2022-03-19 00:11:16.334  INFO 32332 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-03-19 00:11:16.348 ERROR 32332 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
