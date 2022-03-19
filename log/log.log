@@ -1145,3 +1145,8 @@ Identify and stop the process that's listening on port 8080 or configure this ap
 2022-03-19 17:21:24.517  INFO 25520 --- [main] com.DemoApplicationTests                 : Started DemoApplicationTests in 4.031 seconds (JVM running for 5.299)
 2022-03-19 17:21:25.380  INFO 25520 --- [main] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
 2022-03-19 17:21:25.928  INFO 25520 --- [SpringApplicationShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2022-03-19 20:00:04.616  INFO 19472 --- [main] com.DemoApplicationTests                 : Starting DemoApplicationTests using Java 14.0.2 on LAPTOP-5A66RGUU with PID 19472 (started by 11517 in D:\Desktop\DevelopmentEnvironment)
+2022-03-19 20:00:04.618  INFO 19472 --- [main] com.DemoApplicationTests                 : No active profile set, falling back to 1 default profile: "default"
+2022-03-19 20:00:10.455  INFO 19472 --- [main] com.DemoApplicationTests                 : Started DemoApplicationTests in 6.71 seconds (JVM running for 9.352)
+2022-03-19 20:00:11.530  INFO 19472 --- [main] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2022-03-19 20:00:12.478  INFO 19472 --- [SpringApplicationShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed

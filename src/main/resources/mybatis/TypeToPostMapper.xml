@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.First.dao.TypeToPostMapper">
+
+    <resultMap id="TypeToPostResultMap" type="com.First.pojo.TypeToPost">
+        <id column="id" jdbcType="BIGINT"  property="id"/>
+        <result column="postid" jdbcType="BIGINT"  property="postid"/>
+        <result column="typeid" jdbcType="BIGINT"  property="typeid"/>
+
+    </resultMap>
+
+    <insert id="addTypeToPost" parameterType="com.First.pojo.TypeToPost">
+        insert into typetopost (postid,typeid)
+        values (#{postid},#{typeid})
+    </insert>
+
+    <delete id="deleteTypeToPostById" parameterType="int">
+        delete from typetopost where id = #{id};
+    </delete>
+
+    <update id="updateTypeToPost" parameterType="com.First.pojo.TypeToPost">
+        update typetopost set postid=#{postid} ,typeid=#{typeid} where id =#{id}
+    </update>
+
+    <select id="queryTypeToPostById" resultMap="TypeToPostResultMap">
+        select * from typetopost where id=#{id}
+    </select>
+
+    <select id="queryAllTypeToPost" resultMap="TypeToPostResultMap">
+        select * from typetopost
+    </select>
+
+
+</mapper>
