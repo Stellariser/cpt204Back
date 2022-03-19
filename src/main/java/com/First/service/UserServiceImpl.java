@@ -25,4 +25,12 @@ public class UserServiceImpl implements UserService{
     }
 
 
+    public User queryUserById(Integer id) {
+        return userMapper.queryUserByid(id);
+    }
+
+
+    public boolean addUser(User user) {
+        return userMapper.addUser(user);
+    }
 }

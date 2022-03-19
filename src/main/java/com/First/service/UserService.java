@@ -13,4 +13,8 @@ public interface UserService {
     List<User> listUser();
 
     User queryUserByName(String name);
+
+    User queryUserById(Integer id);
+
+    boolean addUser(User user);
 }
