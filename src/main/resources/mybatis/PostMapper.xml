@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.First.dao.PostMapper">
+
+    <resultMap id="PostResultMap" type="com.First.pojo.Post">
+        <id column="id" jdbcType="BIGINT"  property="id"/>
+        <result column="postname" jdbcType="VARCHAR"  property="postname"/>
+        <result column="writerid" jdbcType="BIGINT"  property="writerid"/>
+        <result column="writername" jdbcType="VARCHAR"  property="writername"/>
+        <result column="writertime" jdbcType="VARCHAR"  property="writertime"/>
+        <result column="content" jdbcType="VARCHAR"  property="content"/>
+        <result column="classcificationid" jdbcType="BIGINT"  property="classcificationid"/>
+        <result column="commentid" jdbcType="BIGINT"  property="commentid"/>
+        <result column="typeid" jdbcType="BIGINT"  property="typeid"/>
+        <result column="anonymous" jdbcType="BIGINT"  property="anonymous"/>
+        <result column="kudos" jdbcType="BIGINT"  property="kudos"/>
+        <result column="criticism" jdbcType="BIGINT"  property="criticism"/>
+    </resultMap>
+
+    <insert id="addPost" parameterType="com.First.pojo.Post">
+        insert into post (postname,writerid,writername,writertime,content,classcificationid,commentid,typeid,anonymous,kudos,criticism)
+        values (#{postname},#{writerid},#{writername},#{writertime},#{content},#{classcificationid},#{commentid},#{typeid},#{anonymous},#{kudos},#{criticism})
+    </insert>
+
+    <delete id="deletePostById" parameterType="int">
+        delete from post where id = #{id};
+    </delete>
+
+    <update id="updatePost" parameterType="com.First.pojo.Post">
+        update post set postname=#{postname} ,writerid=#{writerid},writername=#{writername},writertime=#{writertime},content=#{content},classcificationid=#{classcificationid},commentid=#{commentid},typeid=#{typeid},anonymous=#{anonymous},kudos=#{kudos} ,criticism=#{criticism} where id =#{id}
+    </update>
+
+    <select id="queryPostById" resultMap="PostResultMap">
+        select * from post where id=#{id}
+    </select>
+
+    <select id="queryAllPost" resultMap="PostResultMap">
+        select * from post
+    </select>
+
+    <select id="queryPostByName" resultMap="PostResultMap">
+        select * from post where postname=#{postname}
+    </select>
+
+</mapper>

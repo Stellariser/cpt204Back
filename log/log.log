@@ -1131,3 +1131,12 @@ Identify and stop the process that's listening on port 8080 or configure this ap
 2022-03-19 11:56:12.532  INFO 24044 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2022-03-19 11:56:12.533  INFO 24044 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
 2022-03-19 11:56:12.561  WARN 24044 --- [http-nio-8080-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content type 'multipart/form-data;boundary=--------------------------271791388367193985953540;charset=UTF-8' not supported]
+2022-03-19 16:14:25.988  INFO 2196 --- [main] com.DemoApplication                      : Starting DemoApplication using Java 14.0.2 on LAPTOP-5A66RGUU with PID 2196 (D:\Desktop\DevelopmentEnvironment\target\classes started by 11517 in D:\Desktop\DevelopmentEnvironment)
+2022-03-19 16:14:25.992  INFO 2196 --- [main] com.DemoApplication                      : No active profile set, falling back to 1 default profile: "default"
+2022-03-19 16:14:28.261  INFO 2196 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-03-19 16:14:28.270  INFO 2196 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-03-19 16:14:28.271  INFO 2196 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.58]
+2022-03-19 16:14:28.339  INFO 2196 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-03-19 16:14:28.340  INFO 2196 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2252 ms
+2022-03-19 16:14:28.919  INFO 2196 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-03-19 16:14:28.929  INFO 2196 --- [main] com.DemoApplication                      : Started DemoApplication in 4.197 seconds (JVM running for 5.332)
