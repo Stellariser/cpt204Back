@@ -11,7 +11,7 @@ public class Friend {
     private int id;
     private int friend_a;
     private int friend_b;
-
+    //Practice Push - no meaning
     public int getId(){
         return id;
     }
