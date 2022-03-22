@@ -1,5 +1,6 @@
 package com.First.service;
 
+import com.First.VO.PostQueryInfo;
 import com.First.pojo.Post;
 import org.springframework.stereotype.Service;
 
@@ -19,4 +20,6 @@ public interface PostService {
     List<Post> queryAllPost();
 
     Post queryPostByName(String name);
+
+    List<Post> queryGlobalPost(PostQueryInfo postQueryInfo);
 }

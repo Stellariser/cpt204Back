@@ -1,5 +1,6 @@
 package com.First.service;
 
+import com.First.VO.PostQueryInfo;
 import com.First.dao.PostMapper;
 import com.First.pojo.Post;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,10 @@ public class PostServiceImpl implements PostService {
     @Override
     public Post queryPostByName(String name) {
         return postMapper.queryPostByName(name);
+    }
+
+    @Override
+    public List<Post> queryGlobalPost(PostQueryInfo postQueryInfo) {
+        return postMapper.queryGlobalPost(postQueryInfo);
     }
 }

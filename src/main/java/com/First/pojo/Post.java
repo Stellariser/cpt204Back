@@ -20,6 +20,15 @@ public class Post {
     private int anonymous;
     private int kudos;
     private int criticism;
+    private String typeContent;
+
+    public String getTypeContent() {
+        return typeContent;
+    }
+
+    public void setTypeContent(String typeContent) {
+        this.typeContent = typeContent;
+    }
 
     public String getPostname() {
         return postname;

@@ -44,4 +44,46 @@
         select * from post where postname=#{postname}
     </select>
 
+    <select id="queryGlobalPost" resultMap="PostResultMap" parameterType="com.First.VO.PostQueryInfo">
+    select ft.*,t.typename fcn
+
+    FROM t_type t,
+             (
+    select p.id,
+           p.postname,
+           p.writerid,
+           p.writername,
+           p.writertime,
+           p.content,
+           p.classcificationid,
+           p.commentid,
+           p.typeid,
+           p.anonumous,
+           p.kudos,
+           p.criticism,
+           t.typename,
+           GROUP_CONCAT(DISTINCT t.id) typelist,
+           GROUP_CONCAT(DISTINCT t.typename) typeContent
+    from post p
+        LEFT JOIN type_to_post tp on tp.postid = p.id
+        LEFT JOIN t_type ty on ty.id=tp.typeid
+    WHERE 1=1
+        <if test="typelist !=null ">
+            and t.id in
+            <foreach collection="typelist" index="index" item="item" open="(" separator="," close=")">
+                ${item}
+            </foreach>
+        </if>
+        GROUP BY p.id
+        ) ft
+
+
+
+
+
+
+    </select>
+
+
+
 </mapper>
