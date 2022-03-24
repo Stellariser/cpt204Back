@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.First.VerificationCode.VerificationCodeGenerator;
 import com.alibaba.fastjson.JSONObject;
-import com.VerificationCode.CodeImage;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,25 +13,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class VerificationCodeController {
 
-    @GetMapping(value = "getVC")
+    @GetMapping(value = "getVerificationCode")
     public String getVerificationCode() {
 
         Map<String, Object> map = new HashMap<>();
-        Map<String, Object> vcMap = new HashMap<>();
+        Map<String, Object> verificationCodeMap = new HashMap<>();
 
         try {
-            map = CodeImage.generateCode();
+            map = VerificationCodeGenerator.generateCode();
         } catch (IOException e) {
-            vcMap.put("status", 0);
-            vcMap.put("msg", "Failed to generate a verification code.");
-            return JSONObject.toJSONString(vcMap);
+            verificationCodeMap.put("status", 0);
+            verificationCodeMap.put("msg", "Failed to generate a verification code.");
+            return JSONObject.toJSONString(verificationCodeMap);
         }
 
-        vcMap.put("status", 200);
-        vcMap.put("msg", "Verification code generated successfully.");
-        vcMap.put("data", map);
+        verificationCodeMap.put("status", 200);
+        verificationCodeMap.put("msg", "Verification code generated successfully.");
+        verificationCodeMap.put("data", map);
 
-        return JSONObject.toJSONString(vcMap);
+        return JSONObject.toJSONString(verificationCodeMap);
     }
 
 }

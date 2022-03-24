@@ -1,4 +1,4 @@
-package com.VerificationCode;
+package com.First.VerificationCode;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -13,7 +13,7 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-public class CodeImage {
+public class VerificationCodeGenerator {
     /**
      * BufferedImage to base64
      * 
@@ -36,7 +36,8 @@ public class CodeImage {
      * Generate verification code
      * picture size: 120 * 40
      *
-     * @return Map<String, Object>, picture in base64 and verification code answer in lower case.
+     * @return Verification code picture in base64 and answer in lower case.
+     * @throws IOException
      */
     public static Map<String, Object> generateCode() throws IOException {
         final int WIDTH = 120;
@@ -65,7 +66,7 @@ public class CodeImage {
 
         BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 
-        Map<String, Object> vcMap = new HashMap<>();
+        Map<String, Object> codeWithAnsMap = new HashMap<>();
 
         // Pen
         Graphics pen = image.getGraphics();
@@ -106,10 +107,10 @@ public class CodeImage {
 
         String base64 = getBufferedImageToBase64(image);
 
-        vcMap.put("base64", base64);
-        vcMap.put("ansewr", answer.toLowerCase());
+        codeWithAnsMap.put("base64", base64);
+        codeWithAnsMap.put("ansewr", answer.toLowerCase());
 
-        return vcMap;
+        return codeWithAnsMap;
     }
 
 }

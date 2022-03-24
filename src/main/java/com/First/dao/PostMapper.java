@@ -23,8 +23,4 @@ public interface PostMapper {
 
     List<Post> queryGlobalPost(PostQueryInfo postQueryInfo);
 
-
-
-
-
 }

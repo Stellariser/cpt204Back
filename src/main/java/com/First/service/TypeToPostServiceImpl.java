@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class TypeToPostServiceImpl implements TypeToPostService{
+public class TypeToPostServiceImpl implements TypeToPostService {
     @Autowired
     private TypeToPostMapper typeToPostMapper;
 

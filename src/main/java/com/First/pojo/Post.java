@@ -9,34 +9,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Post {
     private int id;
-    private String postname;
-    private int writerid;
-    private String writername;
-    private String writertime;
+    private String postName;
+    private int writerId;
+    private String writerName;
+    private String writtenTime;
     private String content;
-    private int classcificationid;
-    private int commentid;
-    private int typeid;
+    private int classcificationId;
+    private int commentId;
+    private int typeId;
     private int anonymous;
     private int kudos;
     private int criticism;
     private String typeContent;
-
-    public String getTypeContent() {
-        return typeContent;
-    }
-
-    public void setTypeContent(String typeContent) {
-        this.typeContent = typeContent;
-    }
-
-    public String getPostname() {
-        return postname;
-    }
-
-    public void setPostname(String postname) {
-        this.postname = postname;
-    }
 
     public int getId() {
         return id;
@@ -46,28 +30,36 @@ public class Post {
         this.id = id;
     }
 
-    public int getWriterid() {
-        return writerid;
+    public String getPostName() {
+        return postName;
     }
 
-    public void setWriterid(int writerid) {
-        this.writerid = writerid;
+    public void setPostName(String postName) {
+        this.postName = postName;
     }
 
-    public String getWritername() {
-        return writername;
+    public int getWriterId() {
+        return writerId;
     }
 
-    public void setWritername(String writername) {
-        this.writername = writername;
+    public void setWriterId(int writerId) {
+        this.writerId = writerId;
     }
 
-    public String getWritertime() {
-        return writertime;
+    public String getWriterName() {
+        return writerName;
     }
 
-    public void setWritertime(String writertime) {
-        this.writertime = writertime;
+    public void setWriterName(String writerName) {
+        this.writerName = writerName;
+    }
+
+    public String getWrittenTime() {
+        return writtenTime;
+    }
+
+    public void setWrittenTime(String writtenTime) {
+        this.writtenTime = writtenTime;
     }
 
     public String getContent() {
@@ -78,28 +70,28 @@ public class Post {
         this.content = content;
     }
 
-    public int getClasscificationid() {
-        return classcificationid;
+    public int getClasscificationId() {
+        return classcificationId;
     }
 
-    public void setClasscificationid(int classcificationid) {
-        this.classcificationid = classcificationid;
+    public void setClasscificationId(int classcificationId) {
+        this.classcificationId = classcificationId;
     }
 
-    public int getCommentid() {
-        return commentid;
+    public int getCommentId() {
+        return commentId;
     }
 
-    public void setCommentid(int commentid) {
-        this.commentid = commentid;
+    public void setCommentId(int commentId) {
+        this.commentId = commentId;
     }
 
-    public int getTypeid() {
-        return typeid;
+    public int getTypeId() {
+        return typeId;
     }
 
-    public void setTypeid(int typeid) {
-        this.typeid = typeid;
+    public void setTypeId(int typeId) {
+        this.typeId = typeId;
     }
 
     public int getAnonymous() {
@@ -125,4 +117,13 @@ public class Post {
     public void setCriticism(int criticism) {
         this.criticism = criticism;
     }
+
+    public String getTypeContent() {
+        return typeContent;
+    }
+
+    public void setTypeContent(String typeContent) {
+        this.typeContent = typeContent;
+    }
+
 }

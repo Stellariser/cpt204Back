@@ -6,7 +6,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,38 +25,40 @@ public class PostController {
     @RequestMapping(value = "/queryPost", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public String queryDatasetsVague(String query, int pageNumber, int pageSize, String typeListString){
-        //掉一个pagehelper调取分页数据
-        PageHelper.startPage(pageNumber,pageSize);
+    public String queryDatasetsVague(String query, int pageNumber, int pageSize, String typeListString) {
+        // 掉一个pagehelper调取分页数据
+        PageHelper.startPage(pageNumber, pageSize);
         PostQueryInfo postQueryInfo = new PostQueryInfo();
         postQueryInfo.setQuery(query);
         postQueryInfo.setPageNumber(pageNumber);
         postQueryInfo.setPageSize(pageSize);
-        if(! typeListString.equals("[]") ) {
+        if (!typeListString.equals("[]")) {
             typeListString = typeListString.replaceAll("\\[", "");
             typeListString = typeListString.replaceAll("\\]", "");
             String[] TL = typeListString.split(",");
-            int[] TLI = new int [TL.length];
-            for(int i=0 ; i<TL.length;i++){ ;
+            int[] TLI = new int[TL.length];
+            for (int i = 0; i < TL.length; i++) {
+                ;
                 TLI[i] = Integer.parseInt(TL[i]);
             }
             postQueryInfo.setTypeList(TLI);
-        }else postQueryInfo.setTypeList(null);
+        } else
+            postQueryInfo.setTypeList(null);
 
         List<Post> Post = postService.queryGlobalPost(postQueryInfo);
         PageInfo<Post> pageInfo = new PageInfo<>(Post);
         HashMap<String, Object> resultMap = new HashMap<>();
         HashMap<String, Object> data = new HashMap<>();
         HashMap<String, Object> meta = new HashMap<>();
-        resultMap.put("data",data);
-        resultMap.put("meta",meta);
-        data.put("totalpage",pageInfo.getTotal());
-        data.put("pagenum",pageInfo.getPageNum());
-        data.put("Posts",pageInfo.getList());
-        meta.put("msg","获取成功");
-        meta.put("status","200");
+        resultMap.put("data", data);
+        resultMap.put("meta", meta);
+        data.put("totalpage", pageInfo.getTotal());
+        data.put("pagenum", pageInfo.getPageNum());
+        data.put("Posts", pageInfo.getList());
+        meta.put("msg", "获取成功");
+        meta.put("status", "200");
         System.out.println(resultMap);
-        //return pageInfo;
-        return JSONObject.toJSONString(resultMap) ;
+        // return pageInfo;
+        return JSONObject.toJSONString(resultMap);
     }
 }

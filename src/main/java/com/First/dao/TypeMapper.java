@@ -1,10 +1,10 @@
 package com.First.dao;
 
 import com.First.pojo.Type;
-import com.First.pojo.TypeToPost;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+
 @Component
 public interface TypeMapper {
 

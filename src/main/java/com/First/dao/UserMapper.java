@@ -2,10 +2,7 @@ package com.First.dao;
 
 import com.First.pojo.User;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -13,14 +10,12 @@ import java.util.List;
 
 public interface UserMapper {
 
-
     List<User> listUser();
 
-    User queryUserByid(Integer id);
+    User queryUserById(Integer id);
 
     User queryUserByName(String username);
 
     boolean addUser(User user);
-
 
 }

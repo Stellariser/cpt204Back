@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TypeToPost {
     private int id;
-    private int postid;
-    private int typeid;
+    private int postId;
+    private int typeId;
 
     public int getId() {
         return id;
@@ -20,19 +20,20 @@ public class TypeToPost {
         this.id = id;
     }
 
-    public int getPostid() {
-        return postid;
+    public int getPostId() {
+        return postId;
     }
 
-    public void setPostid(int postid) {
-        this.postid = postid;
+    public void setPostId(int postId) {
+        this.postId = postId;
     }
 
-    public int getTypeid() {
-        return typeid;
+    public int getTypeId() {
+        return typeId;
     }
 
-    public void setTypeid(int typeid) {
-        this.typeid = typeid;
+    public void setTypeId(int typeId) {
+        this.typeId = typeId;
     }
+
 }
