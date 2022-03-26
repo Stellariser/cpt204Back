@@ -1,5 +1,6 @@
 package com.First.service;
 
+import com.First.VO.Criteria;
 import com.First.VO.PostQueryInfo;
 import com.First.pojo.Post;
 import org.springframework.stereotype.Service;
@@ -22,4 +23,12 @@ public interface PostService {
     Post queryPostByName(String name);
 
     List<Post> queryGlobalPost(PostQueryInfo postQueryInfo);
+
+    //see the list of posts
+    //게시물 목록 조회
+    List<Post> queryGlobalPost(Criteria cri);
+
+    //total number of posts
+    int listCount();
+  
 }

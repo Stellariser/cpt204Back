@@ -76,5 +76,14 @@
         ) ft
     </select>
 
+    <!-- getting num of posts -->
+    <select id="listCount" resultType="int"> 
+	<![CDATA[
+		SELECT COUNT(id)
+		  FROM Post
+		 WHERE id > 0
+	]]>
+	</select>
+
 
 </mapper>

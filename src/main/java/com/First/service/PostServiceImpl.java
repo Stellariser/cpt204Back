@@ -1,5 +1,6 @@
 package com.First.service;
 
+import com.First.VO.Criteria;
 import com.First.VO.PostQueryInfo;
 import com.First.dao.PostMapper;
 import com.First.pojo.Post;
@@ -47,5 +48,18 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<Post> queryGlobalPost(PostQueryInfo postQueryInfo) {
         return postMapper.queryGlobalPost(postQueryInfo);
+    }
+
+    //see the list of posts
+    //게시물 목록 조회
+    @Override
+    public List<Post> queryGlobalPost(Criteria cri){
+        return postMapper.queryGlobalPost(cri);
+    }
+
+    //total number of posts
+    @Override
+    public int listCount(){
+        return postMapper.listCount();
     }
 }
