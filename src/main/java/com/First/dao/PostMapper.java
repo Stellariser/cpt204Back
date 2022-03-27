@@ -26,7 +26,7 @@ public interface PostMapper {
 
     //see the list of posts
     //게시물 목록 조회
-    List<Post> queryGlobalPost(Criteria cri);
+    List<Post> list(Criteria cri) throws Exception;
     //total number of posts
     int listCount();
   

@@ -85,5 +85,24 @@
 	]]>
 	</select>
 
+    <!--- getting list of post-->
+    <select id="listPage" resultType="com.First.pojo.Post">
+		SELECT   
+            p.id,
+            p.postname,
+            p.writername,
+            p.writertime,
+		FROM (
+            SELECT  p.id,
+                    p.postname,
+                    p.writername,
+                    p.writertime,
+                    ROW_NUMBER() OVER (ORDER BY p.id DESC) AS ROW_NUMBER
+            FROM post p
+        )
+        WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY p.id DESC
+	</select>
+
 
 </mapper>

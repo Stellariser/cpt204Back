@@ -68,11 +68,12 @@ public class PostController {
         return JSONObject.toJSONString(resultMap);
     }
 
+    //display list of post
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(Model model, Criteria cri){
+    public String list(Model model, Criteria cri) throws Exception{
         //Logger.info("list");
 
-        model.addAttribute("list", postService.queryGlobalPost(cri));
+        model.addAttribute("list", postService.list(cri));
 
         PageMaker pageMaker = new PageMaker();
         pageMaker.setCri(cri);
@@ -80,7 +81,7 @@ public class PostController {
 
         model.addAttribute("pageMaker", pageMaker);
 
-        return "post/list";
+        return "list";
 
     }
 }

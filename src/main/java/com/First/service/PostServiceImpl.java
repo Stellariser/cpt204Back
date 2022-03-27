@@ -53,8 +53,8 @@ public class PostServiceImpl implements PostService {
     //see the list of posts
     //게시물 목록 조회
     @Override
-    public List<Post> queryGlobalPost(Criteria cri){
-        return postMapper.queryGlobalPost(cri);
+    public List<Post> list(Criteria cri) throws Exception{
+        return postMapper.list(cri);
     }
 
     //total number of posts
