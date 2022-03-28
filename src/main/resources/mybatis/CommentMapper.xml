@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.First.dao.CommentMapper">
+
+    <resultMap id="CommentResultMap" type="com.First.pojo.Comment">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="writer_id" jdbcType="BIGINT" property="writerId" />
+        <result column="post_id" jdbcType="BIGINT" property="postId" />
+        <result column="written_time" jdbcType="TIMESTAMP" property="writtenTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="content" jdbcType="VARCHAR" property="content" />
+        <result column="kudos" jdbcType="BIGINT" property="kudos" />
+        <result column="criticism" jdbcType="BIGINT" property="criticism" />
+    </resultMap>
+
+    <insert id="addComment" parameterType="com.First.pojo.Comment">
+        insert into t_comment(writer_id, post_id, written_time, content)
+        values(#{writerId}, #{postId}, #{writtenTime}, #{content})
+    </insert>
+
+    <delete id="deleteCommentById" parameterType="int">
+        delete from t_comment where id = #{id};
+    </delete>
+
+    <update id="updateComment" parameterType="com.First.pojo.Comment">
+        update t_comment set update_time=#{updateTime}, content=#{content} where id =#{id}
+    </update>
+
+    <update id="updateCommentKudos" parameterType="com.First.pojo.Comment">
+        update t_comment set kudos=#{kudos} where id =#{id}
+    </update>
+
+    <update id="updateCommentCriticism" parameterType="com.First.pojo.Comment">
+        update t_comment set criticism=#{criticism} where id =#{id}
+    </update>
+
+    <update id="updatePostCriticism" parameterType="com.First.pojo.Post">
+        update t_post set criticism=#{criticism} where id =#{id}
+    </update>
+
+    <select id="queryCommentById" resultMap="CommentResultMap">
+        select * from t_comment where id = #{id}
+    </select>
+
+    <select id="queryCommentByPostId" resultMap="CommentResultMap">
+        select * from t_comment where post_id = #{postId}
+    </select>
+
+    <select id="queryCommentByWriterId" resultMap="CommentResultMap">
+        select * from t_comment where writer_id = #{writerId}
+    </select>
+
+</mapper>
