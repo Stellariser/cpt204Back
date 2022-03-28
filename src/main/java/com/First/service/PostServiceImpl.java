@@ -40,8 +40,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post queryPostByName(String name) {
-        return postMapper.queryPostByName(name);
+    public Post queryPostByTitle(String title) {
+        return postMapper.queryPostByTitle(title);
     }
 
     @Override

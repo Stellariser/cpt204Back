@@ -1,5 +1,7 @@
 package com.First.pojo;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,18 +11,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Post {
     private int id;
-    private String postName;
+    private String title;
     private int writerId;
-    private String writerName;
-    private String writtenTime;
+    private Date writtenTime;
+    private Date updateTime;
     private String content;
-    private int classcificationId;
-    private int commentId;
-    private int typeId;
     private int anonymous;
-    private int kudos;
-    private int criticism;
-    private String typeContent;
+    private int kudos; // likes?
+    private int criticism; // dislikes?
+    private int views;
 
     public int getId() {
         return id;
@@ -30,36 +29,36 @@ public class Post {
         this.id = id;
     }
 
-    public String getPostName() {
-        return postName;
+    public String getTitle() {
+        return title;
     }
 
-    public void setPostName(String postName) {
-        this.postName = postName;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public int getWriterId() {
+    public int getWriter() {
         return writerId;
     }
 
-    public void setWriterId(int writerId) {
-        this.writerId = writerId;
+    public void setWriter(int writer) {
+        this.writerId = writer;
     }
 
-    public String getWriterName() {
-        return writerName;
-    }
-
-    public void setWriterName(String writerName) {
-        this.writerName = writerName;
-    }
-
-    public String getWrittenTime() {
+    public Date getWrittenTime() {
         return writtenTime;
     }
 
-    public void setWrittenTime(String writtenTime) {
+    public void setWrittenTime(Date writtenTime) {
         this.writtenTime = writtenTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     public String getContent() {
@@ -68,30 +67,6 @@ public class Post {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public int getClasscificationId() {
-        return classcificationId;
-    }
-
-    public void setClasscificationId(int classcificationId) {
-        this.classcificationId = classcificationId;
-    }
-
-    public int getCommentId() {
-        return commentId;
-    }
-
-    public void setCommentId(int commentId) {
-        this.commentId = commentId;
-    }
-
-    public int getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId(int typeId) {
-        this.typeId = typeId;
     }
 
     public int getAnonymous() {
@@ -118,12 +93,12 @@ public class Post {
         this.criticism = criticism;
     }
 
-    public String getTypeContent() {
-        return typeContent;
+    public int getViews() {
+        return views;
     }
 
-    public void setTypeContent(String typeContent) {
-        this.typeContent = typeContent;
+    public void setViews(int views) {
+        this.views = views;
     }
 
 }
