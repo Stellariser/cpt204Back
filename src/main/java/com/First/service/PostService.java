@@ -20,7 +20,7 @@ public interface PostService {
 
     List<Post> queryAllPost();
 
-    Post queryPostByName(String name);
+    Post queryPostByTitle(String title);
 
     List<Post> queryGlobalPost(PostQueryInfo postQueryInfo);
 

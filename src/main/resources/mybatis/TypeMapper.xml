@@ -4,11 +4,11 @@
 
     <resultMap id="TypeResultMap" type="com.First.pojo.Type">
         <id column="id" jdbcType="BIGINT" property="id" />
-        <result column="typeName" jdbcType="VARCHAR" property="typeName" />
+        <result column="type_name" jdbcType="VARCHAR" property="typeName" />
     </resultMap>
 
     <insert id="addType" parameterType="com.First.pojo.Type">
-        insert into t_type (typeName)
+        insert into t_type (type_name)
         values (#{typeName})
     </insert>
 
@@ -17,7 +17,7 @@
     </delete>
 
     <update id="updateType" parameterType="com.First.pojo.Type">
-        update t_type set typeName=#{typeName} where id =#{id}
+        update t_type set type_name=#{typeName} where id =#{id}
     </update>
 
     <select id="queryTypeById" resultMap="TypeResultMap">

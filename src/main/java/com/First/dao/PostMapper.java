@@ -3,6 +3,7 @@ package com.First.dao;
 import com.First.VO.Criteria;
 import com.First.VO.PostQueryInfo;
 import com.First.pojo.Post;
+
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface PostMapper {
 
     List<Post> queryAllPost();
 
-    Post queryPostByName(String name);
+    Post queryPostByTitle(String title);
 
     List<Post> queryGlobalPost(PostQueryInfo postQueryInfo);
 

@@ -4,30 +4,30 @@
 
     <resultMap id="TypeToPostResultMap" type="com.First.pojo.TypeToPost">
         <id column="id" jdbcType="BIGINT" property="id" />
-        <result column="postid" jdbcType="BIGINT" property="postid" />
-        <result column="typeid" jdbcType="BIGINT" property="typeid" />
+        <result column="post_id" jdbcType="BIGINT" property="postId" />
+        <result column="type_id" jdbcType="BIGINT" property="typeId" />
 
     </resultMap>
 
     <insert id="addTypeToPost" parameterType="com.First.pojo.TypeToPost">
-        insert into typetopost (postid,typeid)
-        values (#{postid},#{typeid})
+        insert into t_type_to_post (post_id,type_id)
+        values (#{postId},#{typeId})
     </insert>
 
     <delete id="deleteTypeToPostById" parameterType="int">
-        delete from typetopost where id = #{id};
+        delete from t_type_to_post where id = #{id};
     </delete>
 
     <update id="updateTypeToPost" parameterType="com.First.pojo.TypeToPost">
-        update typetopost set postid=#{postid} ,typeid=#{typeid} where id =#{id}
+        update t_type_to_post set post_id=#{postId} ,type_id=#{typeId} where id =#{id}
     </update>
 
     <select id="queryTypeToPostById" resultMap="TypeToPostResultMap">
-        select * from typetopost where id=#{id}
+        select * from t_type_to_post where id=#{id}
     </select>
 
     <select id="queryAllTypeToPost" resultMap="TypeToPostResultMap">
-        select * from typetopost
+        select * from t_type_to_post
     </select>
 
 

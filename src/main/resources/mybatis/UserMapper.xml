@@ -6,26 +6,25 @@
         <id column="id" jdbcType="BIGINT" property="id" />
         <result column="username" jdbcType="VARCHAR" property="username" />
         <result column="password" jdbcType="VARCHAR" property="password" />
-        <result column="secretQuestion" jdbcType="BIGINT" property="secretQuestion" />
-        <result column="secretAnswer" jdbcType="VARCHAR" property="secretAnswer" />
+        <result column="secret_question" jdbcType="BIGINT" property="secretQuestion" />
+        <result column="secret_answer" jdbcType="VARCHAR" property="secretAnswer" />
     </resultMap>
 
     <select id="listUser" resultType="com.First.pojo.User">
-        select * from user
+        select * from t_user
 
     </select>
 
     <select id="queryUserByName" resultMap="UserResultMap">
-        select * from user where username=#{username}
+        select * from t_user where username=#{username}
     </select>
 
     <select id="queryUserById" resultMap="UserResultMap">
-        select * from user where id=#{id}
+        select * from t_user where id=#{id}
     </select>
 
     <insert id="addUser" parameterType="com.First.pojo.User">
-        insert into user(username,password,secretQuestion,secretAnswer) values(#{username},#{password},#{secretQuestion},#{secretAnswer})
+        insert into t_user(username,password,secretQuestion,secretAnswer) values(#{username},#{password},#{secretQuestion},#{secretAnswer})
     </insert>
-
 
 </mapper>

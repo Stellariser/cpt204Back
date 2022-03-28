@@ -12,6 +12,8 @@ spring:
 mybatis:
   type-aliases-package: First.pojo
   mapper-locations: classpath:/mybatis/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
 
 logging:
   file:

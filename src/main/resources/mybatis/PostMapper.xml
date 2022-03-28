@@ -4,67 +4,74 @@
 
     <resultMap id="PostResultMap" type="com.First.pojo.Post">
         <id column="id" jdbcType="BIGINT" property="id" />
-        <result column="postname" jdbcType="VARCHAR" property="postname" />
-        <result column="writerid" jdbcType="BIGINT" property="writerid" />
-        <result column="writername" jdbcType="VARCHAR" property="writername" />
-        <result column="writertime" jdbcType="VARCHAR" property="writertime" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="writer_id" jdbcType="BIGINT" property="writerId" />
+        <result column="written_time" jdbcType="TIMESTAMP" property="writtenTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
         <result column="content" jdbcType="VARCHAR" property="content" />
-        <result column="classcificationid" jdbcType="BIGINT" property="classcificationid" />
-        <result column="commentid" jdbcType="BIGINT" property="commentid" />
-        <result column="typeid" jdbcType="BIGINT" property="typeid" />
         <result column="anonymous" jdbcType="BIGINT" property="anonymous" />
         <result column="kudos" jdbcType="BIGINT" property="kudos" />
         <result column="criticism" jdbcType="BIGINT" property="criticism" />
+        <result column="views" jdbcType="BIGINT" property="views" />
     </resultMap>
 
     <insert id="addPost" parameterType="com.First.pojo.Post">
-        insert into post (postname,writerid,writername,writertime,content,classcificationid,commentid,typeid,anonymous,kudos,criticism)
-        values (#{postname},#{writerid},#{writername},#{writertime},#{content},#{classcificationid},#{commentid},#{typeid},#{anonymous},#{kudos},#{criticism})
+        insert into t_post (title,writer_id,written_time,content,anonymous) values (#{title},#{writerId},#{writtenTime},#{content},#{anonymous})
     </insert>
 
     <delete id="deletePostById" parameterType="int">
-        delete from post where id = #{id};
+        delete from t_post where id = #{id};
     </delete>
 
     <update id="updatePost" parameterType="com.First.pojo.Post">
-        update post set postname=#{postname} ,writerid=#{writerid},writername=#{writername},writertime=#{writertime},content=#{content},classcificationid=#{classcificationid},commentid=#{commentid},typeid=#{typeid},anonymous=#{anonymous},kudos=#{kudos} ,criticism=#{criticism} where id =#{id}
+        update t_post set title=#{title},update_time=#{updateTime},content=#{content},anonymous=#{anonymous} where id =#{id}
     </update>
 
-    <select id="queryPostById" resultMap="PostResultMap">
-        select * from post where id=#{id}
+    <update id="updatePostViews" parameterType="com.First.pojo.Post">
+        update t_post set views=#{views} where id =#{id}
+    </update>
+
+    <update id="updatePostKudos" parameterType="com.First.pojo.Post">
+        update t_post set kudos=#{kudos} where id =#{id}
+    </update>
+
+    <update id="updatePostCriticism" parameterType="com.First.pojo.Post">
+        update t_post set criticism=#{criticism} where id =#{id}
+    </update>
+
+    <select id="queryPostById" resultMap="PostResultMap" parameterType="int">
+        select * from t_post where id = #{id}
     </select>
 
     <select id="queryAllPost" resultMap="PostResultMap">
-        select * from post
+        select * from t_post
     </select>
 
-    <select id="queryPostByName" resultMap="PostResultMap">
-        select * from post where postname=#{postname}
+    <select id="queryPostByTitle" resultMap="PostResultMap">
+        select * from t_post where title=#{title}
     </select>
 
     <select id="queryGlobalPost" resultMap="PostResultMap" parameterType="com.First.VO.PostQueryInfo">
-        select ft.*,t.typename fcn
+        select ft.*,t.type_name fcn
 
     FROM t_type t,
              (
     select p.id,
-           p.postname,
-           p.writerid,
-           p.writername,
-           p.writertime,
+           p.title,
+           p.writer_id,
+           p.written_time,
+           p.update_time,
            p.content,
-           p.classcificationid,
-           p.commentid,
-           p.typeid,
            p.anonumous,
            p.kudos,
            p.criticism,
-           t.typename,
+           p.views,
+           t.type_name,
            GROUP_CONCAT(DISTINCT t.id) typelist,
-           GROUP_CONCAT(DISTINCT t.typename) typeContent
-    from post p
-        LEFT JOIN type_to_post tp on tp.postid = p.id
-        LEFT JOIN t_type ty on ty.id=tp.typeid
+           GROUP_CONCAT(DISTINCT t.type_name) typeContent
+    from t_post p
+        LEFT JOIN t_type_to_post tp on tp.post_id = p.id
+        LEFT JOIN t_type ty on ty.id=tp.type_id
     WHERE 1=1
         <if test="typelist !=null ">
             and t.id in
@@ -79,29 +86,29 @@
     <!-- getting num of posts -->
     <select id="listCount" resultType="int"> 
 	<![CDATA[
-		SELECT COUNT(id)
-		  FROM Post
-		 WHERE id > 0
+		select COUNT(id)
+		    FROM t_post
+		    WHERE id > 0
 	]]>
 	</select>
 
     <!--- getting list of post-->
-    <select id="listPage" resultType="com.First.pojo.Post">
-		SELECT   
-            p.id,
-            p.postname,
-            p.writername,
-            p.writertime,
-		FROM (
-            SELECT  p.id,
-                    p.postname,
-                    p.writername,
-                    p.writertime,
-                    ROW_NUMBER() OVER (ORDER BY p.id DESC) AS ROW_NUMBER
-            FROM post p
+    <select id="list" resultType="com.First.pojo.Post" parameterType="com.First.VO.Criteria">
+		select  
+            id,
+            post_title,
+            writer_id,
+            written_time
+        FROM (
+            select  id,
+                    post_title,
+                    writer_id,
+                    written_time,
+                    ROW_NUMBER() OVER(ORDER BY id DESC) AS RNUM
+            FROM t_post
         )
         WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
-		ORDER BY p.id DESC
+        ORDER BY id DESC
 	</select>
 
 

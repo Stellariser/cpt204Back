@@ -81,7 +81,7 @@ public class PostController {
 
         model.addAttribute("pageMaker", pageMaker);
 
-        return "list";
+        return "/list";
         //return JSONObject.toJSONString();
 
     }
