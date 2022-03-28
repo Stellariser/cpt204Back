@@ -69,7 +69,7 @@ public class PostController {
     }
 
     //display list of post
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     public String list(Model model, Criteria cri) throws Exception{
         //Logger.info("list");
 
@@ -82,6 +82,7 @@ public class PostController {
         model.addAttribute("pageMaker", pageMaker);
 
         return "list";
+        //return JSONObject.toJSONString();
 
     }
 }
