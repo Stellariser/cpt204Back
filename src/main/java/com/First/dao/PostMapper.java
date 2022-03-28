@@ -1,5 +1,6 @@
 package com.First.dao;
 
+import com.First.VO.Criteria;
 import com.First.VO.PostQueryInfo;
 import com.First.pojo.Post;
 import org.springframework.stereotype.Component;
@@ -22,5 +23,12 @@ public interface PostMapper {
     Post queryPostByTitle(String title);
 
     List<Post> queryGlobalPost(PostQueryInfo postQueryInfo);
+
+    //see the list of posts
+    //게시물 목록 조회
+    List<Post> list(Criteria cri) throws Exception;
+    //total number of posts
+    int listCount();
+  
 
 }

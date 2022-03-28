@@ -1,16 +1,22 @@
 package com.First.controller;
 
+import com.First.VO.Criteria;
+import com.First.VO.PageMaker;
 import com.First.VO.PostQueryInfo;
 import com.First.pojo.Post;
+import com.First.service.PostService;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import ch.qos.logback.classic.Logger;
 
 import java.util.HashMap;
 import java.util.List;
@@ -60,5 +66,22 @@ public class PostController {
         System.out.println(resultMap);
         // return pageInfo;
         return JSONObject.toJSONString(resultMap);
+    }
+
+    //display list of post
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String list(Model model, Criteria cri) throws Exception{
+        //Logger.info("list");
+
+        model.addAttribute("list", postService.list(cri));
+
+        PageMaker pageMaker = new PageMaker();
+        pageMaker.setCri(cri);
+        pageMaker.setTotalCount(postService.listCount());
+
+        model.addAttribute("pageMaker", pageMaker);
+
+        return "list";
+
     }
 }
