@@ -70,7 +70,7 @@
            GROUP_CONCAT(DISTINCT t.id) typelist,
            GROUP_CONCAT(DISTINCT t.type_name) typeContent
     from t_post p
-        LEFT JOIN type_to_post tp on tp.post_id = p.id
+        LEFT JOIN t_type_to_post tp on tp.post_id = p.id
         LEFT JOIN t_type ty on ty.id=tp.type_id
     WHERE 1=1
         <if test="typelist !=null ">
@@ -87,7 +87,7 @@
     <select id="listCount" resultType="int"> 
 	<![CDATA[
 		SELECT COUNT(id)
-		  FROM Post
+		  FROM t_post
 		 WHERE id > 0
 	]]>
 	</select>
@@ -96,16 +96,16 @@
     <select id="listPage" resultType="com.First.pojo.Post">
 		SELECT   
             p.id,
-            p.postname,
-            p.writername,
-            p.writertime,
+            p.post_title,
+            p.writer_id,
+            p.written_time,
 		FROM (
             SELECT  p.id,
-                    p.postname,
-                    p.writername,
-                    p.writertime,
+                    p.post_title,
+                    p.writer_id,
+                    p.written_time,
                     ROW_NUMBER() OVER (ORDER BY p.id DESC) AS ROW_NUMBER
-            FROM post p
+            FROM t_post p
         )
         WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
 		ORDER BY p.id DESC
