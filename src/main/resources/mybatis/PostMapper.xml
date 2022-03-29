@@ -83,17 +83,8 @@
         ) ft
     </select>
 
-    <!-- getting num of posts -->
-    <select id="listCount" resultType="int"> 
-	<![CDATA[
-		select COUNT(id)
-		    FROM t_post
-		    WHERE id > 0
-	]]>
-	</select>
-
-    <!--- getting list of post-->
-    <select id="list" resultType="com.First.pojo.Post" parameterType="com.First.VO.Criteria">
+    <!--- getting list of post -->
+    <select id="getAllOrderPresent" resultType="com.First.pojo.Post">
 		select  
             id,
             post_title,
@@ -110,6 +101,8 @@
         WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
         ORDER BY id DESC
 	</select>
+    
+    
 
 
 </mapper>

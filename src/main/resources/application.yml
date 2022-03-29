@@ -26,3 +26,4 @@ pagehelper:
   helper-dialect: mysql
   reasonable: true
   support-methods-arguments: true
+  pagehelper-params=count: countSql

@@ -1,8 +1,9 @@
 package com.First.service;
 
-import com.First.VO.Criteria;
 import com.First.VO.PostQueryInfo;
 import com.First.pojo.Post;
+import com.github.pagehelper.PageInfo;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,9 +27,8 @@ public interface PostService {
 
     //see the list of posts
     //게시물 목록 조회
-    List<Post> list(Criteria cri) throws Exception;
+    List<Post> getAllPostPresent();
 
-    //total number of posts
-    int listCount();
+    PageInfo<Post> getPostForPage(int pageNo, int pageSize);
   
 }

@@ -1,6 +1,5 @@
 package com.First.dao;
 
-import com.First.VO.Criteria;
 import com.First.VO.PostQueryInfo;
 import com.First.pojo.Post;
 
@@ -27,9 +26,7 @@ public interface PostMapper {
 
     //see the list of posts
     //게시물 목록 조회
-    List<Post> list(Criteria cri) throws Exception;
-    //total number of posts
-    int listCount();
+    List<Post> getAllPostPresent();
   
 
 }

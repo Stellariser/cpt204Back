@@ -1,9 +1,11 @@
 package com.First.service;
 
-import com.First.VO.Criteria;
 import com.First.VO.PostQueryInfo;
 import com.First.dao.PostMapper;
 import com.First.pojo.Post;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,13 +55,17 @@ public class PostServiceImpl implements PostService {
     //see the list of posts
     //게시물 목록 조회
     @Override
-    public List<Post> list(Criteria cri) throws Exception{
-        return postMapper.list(cri);
+    public List<Post> getAllPostPresent() {
+        return postMapper.getAllPostPresent();
     }
 
-    //total number of posts
     @Override
-    public int listCount(){
-        return postMapper.listCount();
+    public PageInfo<Post> getPostForPage(int pageNo, int pageSize) {
+
+        PageHelper.startPage(pageNo,pageSize);
+        List<Post> allPostList = postMapper.getAllPostPresent();
+        PageInfo<Post> pageInfo = new PageInfo<>(allPostList);
+        return pageInfo;
     }
+
 }
