@@ -1,7 +1,5 @@
 package com.First.controller;
 
-import com.First.VO.Criteria;
-import com.First.VO.PageMaker;
 import com.First.VO.PostQueryInfo;
 import com.First.pojo.Post;
 import com.First.service.PostService;
@@ -14,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ch.qos.logback.classic.Logger;
@@ -70,19 +69,10 @@ public class PostController {
 
     //display list of post
     @RequestMapping(value = "/list", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
-    public String list(Model model, Criteria cri) throws Exception{
-        //Logger.info("list");
+    @ResponseBody
+    public PageInfo<Post> list(@RequestParam(value="pageNo",defaultValue="1")int pageNo, @RequestParam(value="pageSize",defaultValue="10")int pageSize){
 
-        model.addAttribute("list", postService.list(cri));
-
-        PageMaker pageMaker = new PageMaker();
-        pageMaker.setCri(cri);
-        pageMaker.setTotalCount(postService.listCount());
-
-        model.addAttribute("pageMaker", pageMaker);
-
-        return "/list";
-        //return JSONObject.toJSONString();
-
+            PageInfo<Post> page = postService.getPostForPage(pageNo,pageSize);
+            return  page;
     }
 }
