@@ -4,6 +4,7 @@ import com.First.pojo.Comment;
 import com.First.pojo.Post;
 import com.First.pojo.Type;
 import com.First.pojo.User;
+import java.util.Date;
 import com.First.service.CommentService;
 import com.First.service.CommentServiceImpl;
 import com.First.service.PostServiceImpl;
@@ -75,23 +76,34 @@ class DemoApplicationTests {
 
     @Test
     public void CommentTest() {
-        Comment comment = new Comment();
-        comment.setId(10086);
-        comment.setPostId(7745);
-
-        commentService.addComment(comment);
-
-        Assertions.assertEquals(comment, commentService.queryCommentById(10086));
+        List<Comment> commentForm_10001 = commentService.queryCommentByWriterId(10001);
+        for(Comment comment : commentForm_10001){
+            System.out.println(comment);
+        }
 
     }
+    @Test
+    public void addCommentTest(){
+        Comment comment = new Comment();
+        comment.setWriterId(10001);
+        comment.setPostId(1);
+        comment.setContent("test");
+        comment.setWrittenTime(new Date());
+
+        Assertions.assertEquals(1, commentService.addComment(comment));
+    }
+
 
     @Test
     public void UserTest() {
         User user = new User();
-        user.setId(0001);
-        user.setUsername("Anni");
+        user.setId(10001);
+        user.setUsername("test1");
+        user.setPassword("123456");
+        user.setSecretQuestion(1);
+        user.setSecretAnswer("SuZhou");
 
-        Assertions.assertEquals(user, commentService.queryCommentByWriterId(0001));
+        Assertions.assertEquals(user, commentService.queryCommentByWriterId(10001));
     }
 
 }
