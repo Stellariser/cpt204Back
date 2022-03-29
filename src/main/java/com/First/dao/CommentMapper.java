@@ -15,7 +15,7 @@ public interface CommentMapper {
 
     int updateComment(Comment comment);
 
-    int queryCommentById(int id);
+    Comment queryCommentById(int id);
 
     List<Comment> queryCommentByPostId(int postId);
 

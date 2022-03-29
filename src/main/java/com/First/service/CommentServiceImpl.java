@@ -30,7 +30,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public int queryCommentById(int id) {
+    public Comment queryCommentById(int id) {
         return commentMapper.queryCommentById(id);
     }
 
