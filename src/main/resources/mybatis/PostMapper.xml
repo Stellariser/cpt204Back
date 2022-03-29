@@ -84,25 +84,14 @@
     </select>
 
     <!--- getting list of post -->
-    <select id="getAllOrderPresent" resultType="com.First.pojo.Post">
-		select  
+    <select id="getAllPostPresent" resultMap="PostResultMap">
+        select 
             id,
-            post_title,
+            title,
             writer_id,
             written_time
-        FROM (
-            select  id,
-                    post_title,
-                    writer_id,
-                    written_time,
-                    ROW_NUMBER() OVER(ORDER BY id DESC) AS RNUM
-            FROM t_post
-        )
-        WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
-        ORDER BY id DESC
-	</select>
+        from t_post
+    </select>
     
     
-
-
 </mapper>
