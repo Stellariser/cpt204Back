@@ -1,0 +1,3 @@
+INSERT INTO cpt202.t_post (id, title, content, writer_id, written_time, update_time, anonymous, kudos, criticism, views) VALUES (1, 'Looking for a study mate.', 'As the title said, XXXXXX', 10001, '2022-03-28 07:20:23', null, 0, 0, 0, 0);
+INSERT INTO cpt202.t_post (id, title, content, writer_id, written_time, update_time, anonymous, kudos, criticism, views) VALUES (2, 'Eating out.', 'Find a student eating with me tomorrow.', 10002, '2022-03-28 07:21:06', null, 0, 0, 0, 0);
+INSERT INTO cpt202.t_post (id, title, content, writer_id, written_time, update_time, anonymous, kudos, criticism, views) VALUES (3, 'I''m emo.', 'Want to chat with someone.', 10003, '2022-03-28 07:21:54', null, 0, 0, 0, 0);
