@@ -5,6 +5,8 @@ import com.First.dao.PostMapper;
 import com.First.pojo.Post;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+//import com.First.VO.PageInfo;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,12 +62,18 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PageInfo<Post> getPostForPage(int pageNo, int pageSize) {
+    public PageInfo<Post> getPostForPage(int pageNum, int pageSize) {
 
-        PageHelper.startPage(pageNo,pageSize);
-        List<Post> allPostList = postMapper.getAllPostPresent();
-        PageInfo<Post> pageInfo = new PageInfo<>(allPostList);
-        return pageInfo;
+        PageHelper.startPage(pageNum,pageSize);
+        PageHelper.orderBy("id ASC"); 
+        try {
+            List<Post> allPostList = postMapper.getAllPostPresent();
+            PageInfo<Post> pageInfo = new PageInfo<>(allPostList);
+            return pageInfo;
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;   
     }
 
 }

@@ -3,6 +3,7 @@ package com.First.service;
 import com.First.VO.PostQueryInfo;
 import com.First.pojo.Post;
 import com.github.pagehelper.PageInfo;
+//import com.First.VO.PageInfo;
 
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,6 @@ public interface PostService {
     //게시물 목록 조회
     List<Post> getAllPostPresent();
 
-    PageInfo<Post> getPostForPage(int pageNo, int pageSize);
+    PageInfo<Post> getPostForPage(int pageNum, int pageSize);
   
 }

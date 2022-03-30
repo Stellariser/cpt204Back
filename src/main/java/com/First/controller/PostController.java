@@ -6,9 +6,10 @@ import com.First.service.PostService;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+//import com.First.VO.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -68,11 +69,16 @@ public class PostController {
     }
 
     //display list of post
-    @RequestMapping(value = "/list", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.GET, produces="application/json")
     @ResponseBody
-    public PageInfo<Post> list(@RequestParam(value="pageNo",defaultValue="1")int pageNo, @RequestParam(value="pageSize",defaultValue="10")int pageSize){
+    public PageInfo<Post> list(@RequestParam(value="pageNo", required=false, defaultValue="1")int pageNum,
+                               @RequestParam(value="pageSize",required=false, defaultValue="10")int pageSize){
+            //PageHelper.startPage(pageNum, pageSize);
+            //Check if pageSize is properly gotten from the URL
+            System.out.println("Page size is this " + pageSize);
 
-            PageInfo<Post> page = postService.getPostForPage(pageNo,pageSize);
+            PageInfo<Post> page = postService.getPostForPage(pageNum,pageSize);
             return  page;
     }
+    
 }
