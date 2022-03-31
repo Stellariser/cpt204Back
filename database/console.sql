@@ -23,14 +23,14 @@ CREATE TABLE IF NOT EXISTS `t_friend`
 ALTER TABLE `t_user`
     AUTO_INCREMENT = 10001;
 
-ALTER TABLE `t_user`
-    ADD FOREIGN KEY (`secret_question`) REFERENCES `t_secret_question` (`id`);
+-- ALTER TABLE `t_user`
+--     ADD FOREIGN KEY (`secret_question`) REFERENCES `t_secret_question` (`id`);
 
-ALTER TABLE `t_friend`
-    ADD FOREIGN KEY (`friend_a`) REFERENCES `t_user` (`id`);
+-- ALTER TABLE `t_friend`
+--     ADD FOREIGN KEY (`friend_a`) REFERENCES `t_user` (`id`);
 
-ALTER TABLE `t_friend`
-    ADD FOREIGN KEY (`friend_b`) REFERENCES `t_user` (`id`);
+-- ALTER TABLE `t_friend`
+--     ADD FOREIGN KEY (`friend_b`) REFERENCES `t_user` (`id`);
 
 CREATE TABLE IF NOT EXISTS `t_post`
 (
@@ -59,14 +59,14 @@ CREATE TABLE IF NOT EXISTS `t_type_to_post`
     `type_id` INT NOT NULL
 );
 
-ALTER TABLE `t_post`
-    ADD FOREIGN KEY (`writer_id`) REFERENCES `t_user` (`id`);
+-- ALTER TABLE `t_post`
+--     ADD FOREIGN KEY (`writer_id`) REFERENCES `t_user` (`id`);
 
-ALTER TABLE `t_type_to_post`
-    ADD FOREIGN KEY (`post_id`) REFERENCES `t_post` (`id`);
+-- ALTER TABLE `t_type_to_post`
+--     ADD FOREIGN KEY (`post_id`) REFERENCES `t_post` (`id`);
 
-ALTER TABLE `t_type_to_post`
-    ADD FOREIGN KEY (`type_id`) REFERENCES `t_type` (`id`);
+-- ALTER TABLE `t_type_to_post`
+--     ADD FOREIGN KEY (`type_id`) REFERENCES `t_type` (`id`);
 
 CREATE TABLE IF NOT EXISTS `t_comment`
 (
@@ -80,8 +80,8 @@ CREATE TABLE IF NOT EXISTS `t_comment`
     `criticism`    INT DEFAULT 0
 );
 
-ALTER TABLE `t_comment`
-    ADD FOREIGN KEY (`writer_id`) REFERENCES `t_user` (`id`);
+-- ALTER TABLE `t_comment`
+--     ADD FOREIGN KEY (`writer_id`) REFERENCES `t_user` (`id`);
 
-ALTER TABLE `t_comment`
-    ADD FOREIGN KEY (`post_id`) REFERENCES `t_post` (`id`);
+-- ALTER TABLE `t_comment`
+--     ADD FOREIGN KEY (`post_id`) REFERENCES `t_post` (`id`);

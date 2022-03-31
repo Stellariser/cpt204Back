@@ -37,11 +37,11 @@ public class Post {
         this.title = title;
     }
 
-    public int getWriter() {
+    public int getWriterId() {
         return writerId;
     }
 
-    public void setWriter(int writer) {
+    public void setWriterId(int writer) {
         this.writerId = writer;
     }
 

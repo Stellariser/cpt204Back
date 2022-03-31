@@ -86,7 +86,7 @@ class DemoApplicationTests {
 
         Post post = new Post();
        // post.setId(4);
-        post.setWriter(10002);
+        post.setWriterId(10002);
         post.setTitle("Looking for someone to study with me.");
         post.setWrittenTime(new Date());
         post.setContent("As the title said, XXXXXX");
@@ -109,7 +109,7 @@ class DemoApplicationTests {
         Post post = new Post();
         post.setId(22);
         post.setTitle("Looking for someone to study with me.");
-        post.setWriter(10002);
+        post.setWriterId(10002);
         post.setContent("As the title said, XXXXXX");
         post.setWrittenTime(new Date(1648692914000L));
         post.setAnonymous(0);
@@ -124,7 +124,7 @@ class DemoApplicationTests {
 
         Post post = new Post();
         post.setId(1);
-        post.setWriter(10001);
+        post.setWriterId(10001);
         post.setTitle("Looking for a study mate.");
         post.setContent("As the title said, XXXXXX");
         post.setWrittenTime(new Date(1648423223000L));
@@ -140,7 +140,7 @@ class DemoApplicationTests {
         Post post = new Post();
         post.setId(22);
         post.setTitle("Looking for someone to eat with me.");
-        post.setWriter(10002);
+        post.setWriterId(10002);
         post.setContent("As the title said, I want to eat");
         post.setWrittenTime(new Date(1648692914000L));
         post.setUpdateTime(new Date());
