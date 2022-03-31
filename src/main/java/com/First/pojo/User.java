@@ -14,7 +14,15 @@ public class User {
     private String password;
     private int secretQuestion;
     private String secretAnswer;
+    private String avatar;
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
 
     public int getId() {
         return id;

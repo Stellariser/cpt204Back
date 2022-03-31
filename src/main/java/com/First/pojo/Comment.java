@@ -19,6 +19,15 @@ public class Comment {
     private String content;
     private int kudos; // likes?
     private int criticism; // dislikes?
+    private int commentAmount;
+
+    public int getCommentAmount() {
+        return commentAmount;
+    }
+
+    public void setCommentAmount(int commentAmount) {
+        this.commentAmount = commentAmount;
+    }
 
     public int getId() {
         return id;
