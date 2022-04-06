@@ -1,9 +1,12 @@
 package com;
 
+import com.First.VO.PostQueryInfo;
 import com.First.pojo.Comment;
 import com.First.pojo.Post;
 import com.First.pojo.Type;
 import com.First.pojo.User;
+
+import java.sql.Timestamp;
 import java.util.Date;
 import com.First.service.CommentService;
 import com.First.service.CommentServiceImpl;
@@ -51,12 +54,12 @@ class DemoApplicationTests {
         User user = userService.queryUserByName("admin");
 
         System.out.println(user);
-        System.out.println("aaa");
+
 
     }
 
     @Test
-    public void UserTest3() {
+    public void addUserTest3() {
 
         User user = new User();
         user.setId(10001);
@@ -64,21 +67,21 @@ class DemoApplicationTests {
         user.setPassword("123456");
         user.setSecretQuestion(1);
         user.setSecretAnswer("SuZhou");
+        user.setAvatar("/a/a");
 
-        Assertions.assertEquals(user, userService.queryUserById(10001));
+        userService.addUser(user);
     }
     @Test
-    public void UserTest4(){
+    public void queryuserbyidUserTest4(){
 
-        User user = userService.queryUserById(10002);
-              System.out.println(user);
-              System.out.println("test2");
+       User u =  userService.queryUserById(2);
+        System.out.println(u);
 
     }
 
 //postTest
     @Test
-    public void Posttext2() {
+    public void getPosttext2() {
 
         List<Post> postList = postService.queryAllPost();
         for (Post post : postList) {
@@ -87,13 +90,28 @@ class DemoApplicationTests {
     }
 
     @Test
-    public void addPostTest(){
+    public void getPosttext23() {
+        PostQueryInfo postQueryInfo = new PostQueryInfo();
+        int[] a = {};
 
+        postQueryInfo.setTypeList(null);
+
+        postQueryInfo.setPageNumber(1);
+        postQueryInfo.setPageSize(10);
+        List<Post> postList = postService.queryGlobalPost(postQueryInfo);
+        for (Post post : postList) {
+            System.out.println(post);
+        }
+    }
+
+    @Test
+    public void addPostTest(){
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         Post post = new Post();
-       // post.setId(4);
+
         post.setWriterId(10002);
         post.setTitle("Looking for someone to study with me.");
-        post.setWrittenTime(new Date());
+        post.setWrittenTime(timestamp);
         post.setContent("As the title said, XXXXXX");
         post.setAnonymous(0);
 
@@ -252,5 +270,13 @@ class DemoApplicationTests {
         Assertions.assertEquals(comment, commentService.queryCommentById(3));
 
     }
+    @Test
+    public void timestamp(){
+
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        System.out.println(timestamp);
+
+    }
+
 
 }

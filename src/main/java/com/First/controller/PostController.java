@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import ch.qos.logback.classic.Logger;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +29,8 @@ import java.util.Map;
 @RequestMapping("/post")
 public class PostController {
 
+    //String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
     @Autowired
     private com.First.service.PostService postService;
 
@@ -77,33 +80,33 @@ public class PostController {
 	public void writeView() throws Exception{
 
 	}
-    
+
 	//Write a post
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String write(@RequestBody Post newPost) throws Exception{
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         String title = newPost.getTitle();
         int writerId = newPost.getWriterId();
-        Date writtenTime = newPost.getWrittenTime();
         String content = newPost.getContent();
         int anonymous = newPost.getAnonymous();
-        
+
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> postMap = new HashMap<>();
-        
+
         //Are we allowed to have the same title?
         Post post = new Post();
         post.setTitle(title);
         post.setWriterId(writerId);
-        post.setWrittenTime(writtenTime);
+        post.setWrittenTime(timestamp);
         post.setContent(content);
         post.setAnonymous(anonymous);
         postService.addPost(post);
-        
+
         map.put("id", postService.queryPostByTitle(title).getId());
         postMap.put("data", map);
         postMap.put("status", 200);
         postMap.put("msg", "Successfully Posted.");
-        
+
 		return JSONObject.toJSONString(postMap);
 	}
 
