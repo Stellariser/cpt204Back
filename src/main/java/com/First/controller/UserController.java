@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -63,7 +64,7 @@ public class UserController {
 //
 //    }
 
-    @PostMapping(value = "register")
+    @PostMapping(value = "/register")
     public String register(@RequestBody User newUser) {
         String username = newUser.getUsername();
         String password = newUser.getPassword();
@@ -90,7 +91,9 @@ public class UserController {
         return JSONObject.toJSONString(registerMap);
     }
 
-    @PostMapping(value = "login")
+    @RequestMapping(value = "/login", produces = "text/html;charset=utf-8",method = RequestMethod.POST)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
     public String login(@RequestBody User user){
         String username = user.getUsername();
         String password = user.getPassword();

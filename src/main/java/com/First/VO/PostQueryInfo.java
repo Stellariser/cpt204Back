@@ -6,15 +6,16 @@ public class PostQueryInfo {
     private int pageSize;
     private int pageNumber;
 
-    public PostQueryInfo() {
-
-    }
 
     public PostQueryInfo(int[] typeList, String query, int pageSize, int pageNumber) {
         this.typeList = typeList;
         this.query = query;
         this.pageSize = pageSize;
         this.pageNumber = pageNumber;
+    }
+
+    public PostQueryInfo() {
+
     }
 
     public int[] getTypeList() {
