@@ -112,6 +112,7 @@ public class PostController {
         postMap.put("msg", "Successfully Posted.");
 
 		return JSONObject.toJSONString(postMap);
+        //return "write";
 	}
 
     //display list of post
