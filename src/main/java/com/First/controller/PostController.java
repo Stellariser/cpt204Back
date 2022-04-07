@@ -41,7 +41,10 @@ public class PostController {
         // 掉一个pagehelper调取分页数据
         PageHelper.startPage(pageNumber, pageSize);
         PostQueryInfo postQueryInfo = new PostQueryInfo();
-        postQueryInfo.setQuery(query);
+        if (query != null){
+            postQueryInfo.setQuery(query);
+        }
+
         postQueryInfo.setPageNumber(pageNumber);
         postQueryInfo.setPageSize(pageSize);
         if (!typeListString.equals("[]")) {
@@ -64,11 +67,12 @@ public class PostController {
         HashMap<String, Object> meta = new HashMap<>();
         resultMap.put("data", data);
         resultMap.put("meta", meta);
+        resultMap.put("status",200);
         data.put("totalpage", pageInfo.getTotal());
         data.put("pagenum", pageInfo.getPageNum());
-        data.put("Posts", pageInfo.getList());
+        data.put("postList", pageInfo.getList());
         meta.put("msg", "获取成功");
-        meta.put("status", "200");
+        meta.put("status", 200);
         System.out.println(resultMap);
         // return pageInfo;
         return JSONObject.toJSONString(resultMap);

@@ -79,6 +79,8 @@
             </foreach>
         </if>
 
+        <if test="query != null"> and title like '%${query}%'</if>
+
 
         GROUP BY p.id
     </select>
