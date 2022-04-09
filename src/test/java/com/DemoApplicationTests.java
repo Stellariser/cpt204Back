@@ -290,6 +290,13 @@ class DemoApplicationTests {
 
     }
     @Test
+    public void querypostbyid(){
+       int id = 9;
+       Post p =postService.queryPostById(id);
+        System.out.println(p);
+
+    }
+    @Test
     public void user2(){
 
         User u = userService.queryUserByName("zpy");

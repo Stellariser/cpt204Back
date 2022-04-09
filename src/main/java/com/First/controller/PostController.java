@@ -2,6 +2,7 @@ package com.First.controller;
 
 import com.First.VO.PostQueryInfo;
 import com.First.pojo.Post;
+import com.First.pojo.User;
 import com.First.service.PostService;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
@@ -33,6 +34,9 @@ public class PostController {
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
     @Autowired
     private com.First.service.PostService postService;
+
+    @Autowired
+    private com.First.service.UserService userService;
 
     @RequestMapping(value = "/queryPost", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
@@ -78,6 +82,29 @@ public class PostController {
         return JSONObject.toJSONString(resultMap);
     }
 
+    @RequestMapping(value = "/getPostDetail", produces = "text/html;charset=utf-8", method =RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin
+    public String getUserbyId(Integer id){
+        Post post = postService.queryPostById(id);
+
+        User u = userService.queryUserById(post.getWriterId());
+        HashMap<String, Object> resultMap = new HashMap<>();
+        HashMap<String, Object> meta = new HashMap<>();
+        resultMap.put("data",post);
+        if(u==null){
+            resultMap.put("writer","用户已被删除");
+        }else {
+            resultMap.put("writer",u.getUsername());
+        }
+        resultMap.put("content",post.getContent());
+        resultMap.put("title",post.getTitle());
+        resultMap.put("meta",meta);
+        resultMap.put("status",200);
+        meta.put("msg","查询成功");
+        meta.put("status","200");
+        return JSONObject.toJSONString(resultMap);
+    }
         //Write a post
     //View Writing a post Page
 	@RequestMapping(value = "/writeView", method = RequestMethod.GET)
