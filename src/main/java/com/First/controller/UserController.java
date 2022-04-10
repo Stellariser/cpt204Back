@@ -64,12 +64,15 @@ public class UserController {
 //
 //    }
 
-    @PostMapping(value = "/register")
-    public String register(@RequestBody User newUser) {
-        String username = newUser.getUsername();
-        String password = newUser.getPassword();
-        Integer secretQuestion = newUser.getSecretQuestion();
-        String secretAnswer = newUser.getSecretAnswer();
+    @RequestMapping(value = "/register", produces = "text/html;charset=utf-8", method =RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public String register(User regForm) {
+        String username = regForm.getUsername();
+        String password = regForm.getPassword();
+        Integer secretQuestion = regForm.getSecret_question();
+        String secretAnswer = regForm.getSecret_answer();
+        String avator = regForm.getAvator();
 
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> registerMap = new HashMap<>();
@@ -80,8 +83,9 @@ public class UserController {
             User user = new User();
             user.setUsername(username);
             user.setPassword(password);
-            user.setSecretQuestion(secretQuestion);
-            user.setSecretAnswer(secretAnswer);
+            user.setSecret_question(secretQuestion);
+            user.setSecret_answer(secretAnswer);
+            user.setAvator(avator);
             userService.addUser(user);
             map.put("id", userService.queryUserByName(username).getId());
             registerMap.put("data", map);

@@ -6,8 +6,9 @@
         <id column="id" jdbcType="BIGINT" property="id" />
         <result column="username" jdbcType="VARCHAR" property="username" />
         <result column="password" jdbcType="VARCHAR" property="password" />
-        <result column="secret_question" jdbcType="BIGINT" property="secretQuestion" />
-        <result column="secret_answer" jdbcType="VARCHAR" property="secretAnswer" />
+        <result column="secret_question" jdbcType="BIGINT" property="secret_question" />
+        <result column="secret_answer" jdbcType="VARCHAR" property="secret_answer" />
+        <result column="avator" jdbcType="VARCHAR" property="avator" />
     </resultMap>
 
     <select id="listUser" resultType="com.First.pojo.User">
@@ -24,7 +25,7 @@
     </select>
 
     <insert id="addUser" parameterType="com.First.pojo.User">
-        insert into t_user(username,password,secretQuestion,secretAnswer) values(#{username},#{password},#{secretQuestion},#{secretAnswer})
+        insert into t_user(username,password,secret_question,secret_answer,avator) values(#{username},#{password},#{secret_question},#{secret_answer},#{avator})
     </insert>
 
 </mapper>

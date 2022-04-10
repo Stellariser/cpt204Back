@@ -65,9 +65,9 @@ class DemoApplicationTests {
         user.setId(10001);
         user.setUsername("test1");
         user.setPassword("123456");
-        user.setSecretQuestion(1);
-        user.setSecretAnswer("SuZhou");
-        user.setAvatar("/a/a");
+        user.setSecret_question(1);
+        user.setSecret_answer("SuZhou");
+        user.setAvator("/a/a");
 
         userService.addUser(user);
     }
@@ -110,7 +110,7 @@ class DemoApplicationTests {
         Post post = new Post();
 
         post.setWriterId(10002);
-        post.setTitle("Looking for someone to study with me.");
+        post.setTitle("AWD饿啊风格啊哥");
         post.setWrittenTime(timestamp);
         post.setContent("As the title said, XXXXXX");
         post.setAnonymous(0);
@@ -275,6 +275,32 @@ class DemoApplicationTests {
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         System.out.println(timestamp);
+
+    }
+
+    @Test
+    public void user(){
+        User user = new User();
+        user.setUsername("zpy");
+        user.setPassword("afasgasg");
+        user.setSecret_answer("afaf");
+        user.setSecret_question(1);
+        user.setAvator("afasfasfasffdasf");
+        userService.addUser(user);
+
+    }
+    @Test
+    public void querypostbyid(){
+       int id = 9;
+       Post p =postService.queryPostById(id);
+        System.out.println(p);
+
+    }
+    @Test
+    public void user2(){
+
+        User u = userService.queryUserByName("zpy");
+        System.out.println(u);
 
     }
 
