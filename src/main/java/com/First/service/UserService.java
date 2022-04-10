@@ -16,4 +16,6 @@ public interface UserService {
     User queryUserById(Integer id);
 
     boolean addUser(User user);
+
+    int updatePerosnalInfo(User user) throws Exception;
 }

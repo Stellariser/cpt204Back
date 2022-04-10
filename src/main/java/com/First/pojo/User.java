@@ -15,6 +15,11 @@ public class User {
     private int secret_question;
     private String secret_answer;
     private String avator;
+    private String gender;
+    private String grade;
+    private String major;
+    private String personal_info;
+
 
 
     public int getId() {
@@ -64,4 +69,37 @@ public class User {
     public void setAvator(String avator) {
         this.avator = avator;
     }
+
+    public String getGender(String gender){
+        return gender;
+    }
+
+    public void setGender(String gender){
+        this.gender = gender;
+    }
+
+    public String getGrade(String grade){
+        return grade;
+    }
+
+    public void setGrade(String grade){
+        this.grade = grade;
+    }
+
+    public String getMajor(String major){
+        return major;
+    }
+
+    public void setMajor(String major){
+        this.major = major;
+    }
+
+    public String getPersonal_info(String personal_info){
+        return personal_info;
+    }
+
+    public void setPersonal_info(String personal_info){
+        this.personal_info = personal_info;
+    }
+
 }

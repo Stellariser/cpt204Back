@@ -18,4 +18,6 @@ public interface UserMapper {
 
     boolean addUser(User user);
 
+    int updatePerosnalInfo(User user) throws Exception;
+
 }

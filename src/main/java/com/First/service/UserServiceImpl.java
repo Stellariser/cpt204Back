@@ -29,4 +29,8 @@ public class UserServiceImpl implements UserService {
     public boolean addUser(User user) {
         return userMapper.addUser(user);
     }
+
+    public int updatePerosnalInfo(User user) throws Exception{
+        return userMapper.updatePerosnalInfo(user);
+    }
 }

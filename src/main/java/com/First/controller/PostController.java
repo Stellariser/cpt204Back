@@ -2,11 +2,8 @@ package com.First.controller;
 
 import com.First.VO.PostQueryInfo;
 import com.First.pojo.Post;
-<<<<<<< HEAD
 import com.First.pojo.Comment;
-=======
 import com.First.pojo.User;
->>>>>>> 9ffa823fb90fffc825b8a9cc0e9b3da200e5a887
 import com.First.service.PostService;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;

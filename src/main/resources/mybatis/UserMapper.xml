@@ -9,6 +9,10 @@
         <result column="secret_question" jdbcType="BIGINT" property="secret_question" />
         <result column="secret_answer" jdbcType="VARCHAR" property="secret_answer" />
         <result column="avator" jdbcType="VARCHAR" property="avator" />
+        <result column="gender" jdbcType="VARCHAR" property="gender" />
+        <result column="grade" jdbcType="VARCHAR" property="grade" />
+        <result column="major" jdbcType="VARCHAR" property="major"/>
+        <result column="personal_info" jdbcType="VARCHAR" property="personal_info"/>
     </resultMap>
 
     <select id="listUser" resultType="com.First.pojo.User">
@@ -27,5 +31,9 @@
     <insert id="addUser" parameterType="com.First.pojo.User">
         insert into t_user(username,password,secret_question,secret_answer,avator) values(#{username},#{password},#{secret_question},#{secret_answer},#{avator})
     </insert>
+
+    <update id="updatePersonalInfo" parameterType="com.First.pojo.User">
+        update t_user set username=#{username},gender=#{gender},grade=#{grade},personal_info=#{personal_info} where id =#{id}
+    </update>
 
 </mapper>
