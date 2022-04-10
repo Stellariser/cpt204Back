@@ -8,14 +8,12 @@ import com.First.pojo.User;
 
 import java.sql.Timestamp;
 import java.util.Date;
-import com.First.service.CommentService;
+
 import com.First.service.CommentServiceImpl;
 import com.First.service.PostServiceImpl;
 import com.First.service.TypeServiceImpl;
-import com.First.service.UserService;
 import com.First.service.UserServiceImpl;
 
-import com.First.service.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,8 +63,8 @@ class DemoApplicationTests {
         user.setId(10001);
         user.setUsername("test1");
         user.setPassword("123456");
-        user.setSecret_question(1);
-        user.setSecret_answer("SuZhou");
+        user.setSecretQuestion(1);
+        user.setSecretAnswer("SuZhou");
         user.setAvator("/a/a");
 
         userService.addUser(user);
@@ -283,8 +281,8 @@ class DemoApplicationTests {
         User user = new User();
         user.setUsername("zpy");
         user.setPassword("afasgasg");
-        user.setSecret_answer("afaf");
-        user.setSecret_question(1);
+        user.setSecretAnswer("afaf");
+        user.setSecretQuestion(1);
         user.setAvator("afasfasfasffdasf");
         userService.addUser(user);
 

@@ -90,10 +90,17 @@ CREATE TABLE IF NOT EXISTS `t_comment`
 -- ALTER TABLE `t_comment`
 --     ADD FOREIGN KEY (`post_id`) REFERENCES `t_post` (`id`);
 
---For Personal Information page
+-- For Personal Information page
 ALTER TABLE t_user 
 	ADD gender VARCHAR(10),
     ADD grade VARCHAR(10),
     ADD major VARCHAR(50),
-    ADD personal_info VARCHAR(100);
+    ADD personal_info VARCHAR(100),
+    ADD avator VARCHAR(255);
+
+ALTER TABLE t_post
+    ADD is_deleted BOOLEAN DEFAULT FALSE;
+
+ALTER TABLE t_comment
+    ADD is_deleted BOOLEAN DEFAULT FALSE;
 

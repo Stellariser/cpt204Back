@@ -54,6 +54,12 @@ public class PostServiceImpl implements PostService {
         return postMapper.queryGlobalPost(postQueryInfo);
     }
 
+    @Override
+    public List<Post> queryPostByUserId(int userId) {
+        return postMapper.queryPostByUserId(userId);
+    }
+
+
     //see the list of posts
     //게시물 목록 조회
     @Override

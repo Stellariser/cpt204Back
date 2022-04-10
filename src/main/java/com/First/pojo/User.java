@@ -12,15 +12,17 @@ public class User {
     private int id;
     private String username;
     private String password;
-    private int secret_question;
-    private String secret_answer;
+    private int secretQuestion;
+    private String secretAnswer;
     private String avator;
     private String gender;
     private String grade;
     private String major;
-    private String personal_info;
+    private String personalInfo;
 
-
+    public String getGender() {
+        return gender;
+    }
 
     public int getId() {
         return id;
@@ -46,20 +48,20 @@ public class User {
         this.password = password;
     }
 
-    public int getSecret_question() {
-        return secret_question;
+    public int getSecretQuestion() {
+        return secretQuestion;
     }
 
-    public void setSecret_question(int secret_question) {
-        this.secret_question = secret_question;
+    public void setSecretQuestion(int secretQuestion) {
+        this.secretQuestion = secretQuestion;
     }
 
-    public String getSecret_answer() {
-        return secret_answer;
+    public String getSecretAnswer() {
+        return secretAnswer;
     }
 
-    public void setSecret_answer(String secret_answer) {
-        this.secret_answer = secret_answer;
+    public void setSecretAnswer(String secretAnswer) {
+        this.secretAnswer = secretAnswer;
     }
 
     public String getAvator() {
@@ -94,12 +96,12 @@ public class User {
         this.major = major;
     }
 
-    public String getPersonal_info(String personal_info){
+    public String getPersonalInfo(String personal_info){
         return personal_info;
     }
 
-    public void setPersonal_info(String personal_info){
-        this.personal_info = personal_info;
+    public void setPersonalInfo(String personalInfo){
+        this.personalInfo = personalInfo;
     }
 
 }

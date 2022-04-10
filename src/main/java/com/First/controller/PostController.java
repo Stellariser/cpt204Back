@@ -4,7 +4,6 @@ import com.First.VO.PostQueryInfo;
 import com.First.pojo.Post;
 import com.First.pojo.Comment;
 import com.First.pojo.User;
-import com.First.service.PostService;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -19,10 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import ch.qos.logback.classic.Logger;
-
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +27,9 @@ import java.util.Map;
 @RequestMapping("/post")
 public class PostController {
 
-    //String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    // String now =
+    // LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd
+    // HH:mm:ss"));
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
     @Autowired
     private com.First.service.PostService postService;
@@ -46,7 +44,7 @@ public class PostController {
         // 掉一个pagehelper调取分页数据
         PageHelper.startPage(pageNumber, pageSize);
         PostQueryInfo postQueryInfo = new PostQueryInfo();
-        if (query != null){
+        if (query != null) {
             postQueryInfo.setQuery(query);
         }
 
@@ -72,7 +70,7 @@ public class PostController {
         HashMap<String, Object> meta = new HashMap<>();
         resultMap.put("data", data);
         resultMap.put("meta", meta);
-        resultMap.put("status",200);
+        resultMap.put("status", 200);
         data.put("totalpage", pageInfo.getTotal());
         data.put("pagenum", pageInfo.getPageNum());
         data.put("postList", pageInfo.getList());
@@ -83,39 +81,40 @@ public class PostController {
         return JSONObject.toJSONString(resultMap);
     }
 
-    @RequestMapping(value = "/getPostDetail", produces = "text/html;charset=utf-8", method =RequestMethod.GET)
+    @RequestMapping(value = "/getPostDetail", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public String getUserbyId(Integer id){
+    public String getUserbyId(Integer id) {
         Post post = postService.queryPostById(id);
 
         User u = userService.queryUserById(post.getWriterId());
         HashMap<String, Object> resultMap = new HashMap<>();
         HashMap<String, Object> meta = new HashMap<>();
-        resultMap.put("data",post);
-        if(u==null){
-            resultMap.put("writer","用户已被删除");
-        }else {
-            resultMap.put("writer",u.getUsername());
+        resultMap.put("data", post);
+        if (u == null) {
+            resultMap.put("writer", "用户已被删除");
+        } else {
+            resultMap.put("writer", u.getUsername());
         }
-        resultMap.put("content",post.getContent());
-        resultMap.put("title",post.getTitle());
-        resultMap.put("meta",meta);
-        resultMap.put("status",200);
-        meta.put("msg","查询成功");
-        meta.put("status","200");
+        resultMap.put("content", post.getContent());
+        resultMap.put("title", post.getTitle());
+        resultMap.put("meta", meta);
+        resultMap.put("status", 200);
+        meta.put("msg", "查询成功");
+        meta.put("status", "200");
         return JSONObject.toJSONString(resultMap);
     }
-        //Write a post
-    //View Writing a post Page
-	@RequestMapping(value = "/writeView", method = RequestMethod.GET)
-	public void writeView() throws Exception{
 
-	}
+    // Write a post
+    // View Writing a post Page
+    @RequestMapping(value = "/writeView", method = RequestMethod.GET)
+    public void writeView() throws Exception {
 
-	//Write a post
-	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String write(@RequestBody Post newPost) throws Exception{
+    }
+
+    // Write a post
+    @RequestMapping(value = "/write", method = RequestMethod.POST)
+    public String write(@RequestBody Post newPost) throws Exception {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         String title = newPost.getTitle();
         int writerId = newPost.getWriterId();
@@ -125,8 +124,7 @@ public class PostController {
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> postMap = new HashMap<>();
 
-
-        //Duplicated titles?
+        // Duplicated titles?
         Post post = new Post();
         post.setTitle(title);
         post.setWriterId(writerId);
@@ -140,29 +138,29 @@ public class PostController {
         postMap.put("status", 200);
         postMap.put("msg", "Successfully Posted.");
 
-		return JSONObject.toJSONString(postMap);
-        //return "write";
-	}
+        return JSONObject.toJSONString(postMap);
+        // return "write";
+    }
 
-    //display list of post
-    @RequestMapping(value = "/list", method = RequestMethod.GET, produces="application/json")
+    // display list of post
+    @RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public PageInfo<Post> list(@RequestParam(value="pageNo", required=false, defaultValue="1")int pageNum,
-                               @RequestParam(value="pageSize",required=false, defaultValue="10")int pageSize){
-            //PageHelper.startPage(pageNum, pageSize);
-            //Check if pageSize is properly gotten from the URL
-            System.out.println("Page size is this " + pageSize);
+    public PageInfo<Post> list(@RequestParam(value = "pageNo", required = false, defaultValue = "1") int pageNum,
+            @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
+        // PageHelper.startPage(pageNum, pageSize);
+        // Check if pageSize is properly gotten from the URL
+        System.out.println("Page size is this " + pageSize);
 
-            PageInfo<Post> page = postService.getPostForPage(pageNum,pageSize);
-            return  page;
+        PageInfo<Post> page = postService.getPostForPage(pageNum, pageSize);
+        return page;
     }
 
     @Autowired
     private com.First.service.CommentService commentService;
 
-    //Add comment
+    // Add comment
     @RequestMapping(value = "/replyWrite", method = RequestMethod.POST)
-	public String replyWrite(@RequestBody Comment newComment) throws Exception{
+    public String replyWrite(@RequestBody Comment newComment) throws Exception {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         int writerId = newComment.getWriterId();
         int postId = newComment.getPostId();
@@ -183,7 +181,40 @@ public class PostController {
         commentMap.put("status", 200);
         commentMap.put("msg", "Comment successfully posted.");
 
-		return JSONObject.toJSONString(commentMap);
+        return JSONObject.toJSONString(commentMap);
+    }
+
+    // All posts of a user
+    @RequestMapping(value = "/getPostDetail", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin
+    public String queryPostsByUserId(@RequestBody Map<String, Object> postInfoMap) {
+        int userId = (int) postInfoMap.get("userId");
+        int pageNumber = (int) postInfoMap.get("pageNumber");
+        int pageSize = (int) postInfoMap.get("pageSize");
+
+        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> userPostMap = new HashMap<>();
+
+        User user = userService.queryUserById(userId);
+        if (user == null) {
+            userPostMap.put("status", 0);
+            userPostMap.put("msg", "User does not exist.");
+        }
+        PageHelper.startPage(pageNumber, pageSize);
+        List<Post> postList = postService.queryPostByUserId(userId);
+        if (postList == null) {
+            userPostMap.put("status", 1);
+            userPostMap.put("msg", "User has no posts.");
+        } else {
+            PageInfo<Post> postInfo = new PageInfo<>(postList);
+            map.put("postInfo", postInfo);
+            userPostMap.put("data", map);
+            userPostMap.put("status", 200);
+            userPostMap.put("msg", "Successfully get user posts.");
+        }
+
+        return JSONObject.toJSONString(userPostMap);
     }
 
 }

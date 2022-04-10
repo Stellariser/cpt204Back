@@ -13,18 +13,19 @@
         <result column="kudos" jdbcType="BIGINT" property="kudos" />
         <result column="criticism" jdbcType="BIGINT" property="criticism" />
         <result column="views" jdbcType="BIGINT" property="views" />
+        <result column="is_deleted" jdbcType="BIT" property="isDeleted" />
     </resultMap>
 
     <insert id="addPost" parameterType="com.First.pojo.Post">
         insert into t_post (title,writer_id,written_time,content,anonymous) values (#{title},#{writerId},#{writtenTime},#{content},#{anonymous})
     </insert>
 
-    <delete id="deletePostById" parameterType="int">
-        delete from t_post where id = #{id};
-    </delete>
+    <update id="deletePostById" parameterType="int">
+        update t_post set is_deleted=1 where id = #{id};
+    </update>
 
     <update id="updatePost" parameterType="com.First.pojo.Post">
-        update t_post set title=#{title},update_time=#{updateTime},content=#{content},anonymous=#{anonymous} where id =#{id}
+        update t_post set title=#{title},update_time=#{updateTime},content=#{content},anonymous=#{anonymous} where id =#{id} and is_deleted=0;
     </update>
 
     <update id="updatePostViews" parameterType="com.First.pojo.Post">
@@ -40,19 +41,18 @@
     </update>
 
     <select id="queryPostById" resultMap="PostResultMap" parameterType="int">
-        select * from t_post where id = #{id}
+        select * from t_post where id = #{id} and is_deleted=0
     </select>
 
     <select id="queryAllPost" resultMap="PostResultMap">
-        select * from t_post
+        select * from t_post where is_deleted=0
     </select>
 
     <select id="queryPostByTitle" resultMap="PostResultMap">
-        select * from t_post where title=#{title}
+        select * from t_post where title=#{title} and is_deleted=0
     </select>
 
     <select id="queryGlobalPost" resultMap="PostResultMap" parameterType="com.First.VO.PostQueryInfo">
-
         select 		p.id,
         p.title,
         p.writer_id,
@@ -71,8 +71,7 @@
         LEFT JOIN t_type ty on ty.id=tp.type_id
 
         WHERE 1=1
-
-        <if test ="typeList!=null">
+        <if test="typeList!=null">
             and ty.id in
             <foreach collection="typeList" index="index" item="item" open="(" separator="," close=")">
                 ${item}
@@ -80,9 +79,11 @@
         </if>
 
         <if test="query != null"> and title like '%${query}%'</if>
-
-
         GROUP BY p.id
+    </select>
+
+    <select id="queryPostByUserId" resultMap="PostResultMap">
+        select * from t_post where writer_id = #{userId} and is_deleted=0
     </select>
 
     <!--- getting list of post -->
@@ -92,7 +93,7 @@
             title,
             writer_id,
             written_time
-        from t_post
+        from t_post where is_deleted=0
     </select>
 
 

@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.github.pagehelper.Page;
 
-public class PageInfo<T> implements Serializable{
+public class PageInfo<T> implements Serializable {
     private static final long serialVersionUID = 1L;
     private int pageNum;
     private int pageSize;
@@ -16,11 +16,12 @@ public class PageInfo<T> implements Serializable{
     private boolean isFirstPage = false;
     private boolean isLastPage = false;
 
-    public PageInfo(){
+    public PageInfo() {
 
     }
+
     public PageInfo(List<T> list) {
-        if(list instanceof Page){
+        if (list instanceof Page) {
             Page page = (Page) list;
             this.pageNum = page.getPageNum();
             this.pageSize = page.getPageSize();
@@ -28,7 +29,7 @@ public class PageInfo<T> implements Serializable{
             this.pages = page.getPages();
             this.list = page;
             this.total = page.getTotal();
-        } else if (list instanceof Collection){
+        } else if (list instanceof Collection) {
             this.pageNum = 1;
             this.pageSize = list.size();
 
@@ -42,19 +43,19 @@ public class PageInfo<T> implements Serializable{
     }
 
     private void judgePageBoundary() {
-        isFirstPage = pageNum ==1;
+        isFirstPage = pageNum == 1;
         isLastPage = pageNum == pages;
     }
 
-    public int getPageNum(){
+    public int getPageNum() {
         return pageNum;
     }
 
-    public void setPageNum(int pageNum){
+    public void setPageNum(int pageNum) {
         this.pageNum = pageNum;
     }
 
-    public int getPageSize(){
+    public int getPageSize() {
         return pageSize;
     }
 
@@ -63,11 +64,11 @@ public class PageInfo<T> implements Serializable{
     }
 
     public long getTotal() {
-        System.out.println("Total posts are "+total);
+        System.out.println("Total posts are " + total);
         return total;
     }
 
-    public void setTotal(long totla){
+    public void setTotal(long totla) {
         this.total = total;
     }
 
@@ -75,11 +76,11 @@ public class PageInfo<T> implements Serializable{
         return pages;
     }
 
-    public void setPages(int pages){
+    public void setPages(int pages) {
         this.pages = pages;
     }
 
-    public List<T> getList(){
+    public List<T> getList() {
         return list;
     }
 
@@ -95,12 +96,12 @@ public class PageInfo<T> implements Serializable{
         return isLastPage;
     }
 
-    public void setIsLastPage(boolean isLastPage){
+    public void setIsLastPage(boolean isLastPage) {
         this.isLastPage = isLastPage;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         final StringBuffer sb = new StringBuffer("PageInfo{");
         sb.append("pageNum=").append(pageNum);
         sb.append(", pageSize=").append(pageSize);
@@ -113,7 +114,4 @@ public class PageInfo<T> implements Serializable{
         return sb.toString();
     }
 
-
-
-    
 }

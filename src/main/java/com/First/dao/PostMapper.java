@@ -20,6 +20,8 @@ public interface PostMapper {
 
     List<Post> queryAllPost();
 
+    List<Post> queryPostByUserId(Integer userId);
+
     Post queryPostByTitle(String title);
 
     List<Post> queryGlobalPost(PostQueryInfo postQueryInfo);

@@ -26,6 +26,8 @@ public interface PostService {
 
     List<Post> queryGlobalPost(PostQueryInfo postQueryInfo);
 
+    List<Post> queryPostByUserId(int userId);
+
     //see the list of posts
     List<Post> getAllPostPresent();
 

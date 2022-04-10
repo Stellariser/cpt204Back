@@ -2,6 +2,7 @@ package com.First.service;
 
 import com.First.pojo.User;
 
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +16,11 @@ public interface UserService {
 
     User queryUserById(Integer id);
 
-    boolean addUser(User user);
+    int addUser(User user);
 
-    int updatePerosnalInfo(User user) throws Exception;
+    int updateInfo(User user) throws DuplicateKeyException;
+
+    int updateAvator(User user);
+
+    int updatePassword(User user);
 }

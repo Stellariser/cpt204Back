@@ -17,9 +17,10 @@ public class Post {
     private Date updateTime;
     private String content;
     private int anonymous;
-    private int kudos; // likes?
-    private int criticism; // dislikes?
+    private int kudos; // likes
+    private int criticism; // dislikes
     private int views;
+    private boolean isDeleted;
 
     public int getId() {
         return id;
@@ -101,4 +102,11 @@ public class Post {
         this.views = views;
     }
 
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
 }

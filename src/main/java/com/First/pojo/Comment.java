@@ -20,6 +20,7 @@ public class Comment {
     private int kudos; // likes?
     private int criticism; // dislikes?
     private int commentAmount;
+    private boolean isDeletes;
 
     public int getCommentAmount() {
         return commentAmount;
@@ -91,5 +92,13 @@ public class Comment {
 
     public void setCriticism(int criticism) {
         this.criticism = criticism;
+    }
+
+    public boolean getIsDeletes() {
+        return isDeletes;
+    }
+
+    public void setIsDeletes(boolean isDeletes) {
+        this.isDeletes = isDeletes;
     }
 }

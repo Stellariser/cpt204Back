@@ -11,6 +11,7 @@
         <result column="content" jdbcType="VARCHAR" property="content" />
         <result column="kudos" jdbcType="BIGINT" property="kudos" />
         <result column="criticism" jdbcType="BIGINT" property="criticism" />
+        <result column="is_deleted" jdbcType="BIT" property="isDeleted" />
     </resultMap>
 
     <insert id="addComment" parameterType="com.First.pojo.Comment">
@@ -18,12 +19,12 @@
         values(#{writerId}, #{postId}, #{writtenTime}, #{content})
     </insert>
 
-    <delete id="deleteCommentById" parameterType="int">
-        delete from t_comment where id = #{id};
-    </delete>
+    <update id="deleteCommentById" parameterType="int">
+        update t_comment set is_deleted = 1 where id = #{id}
+    </update>
 
     <update id="updateComment" parameterType="com.First.pojo.Comment">
-        update t_comment set update_time=#{updateTime}, content=#{content} where id =#{id}
+        update t_comment set update_time=#{updateTime}, content=#{content} where id =#{id} and is_deleted = 0
     </update>
 
     <update id="updateCommentKudos" parameterType="com.First.pojo.Comment">
@@ -34,20 +35,16 @@
         update t_comment set criticism=#{criticism} where id =#{id}
     </update>
 
-    <update id="updatePostCriticism" parameterType="com.First.pojo.Post">
-        update t_post set criticism=#{criticism} where id =#{id}
-    </update>
-
     <select id="queryCommentById" resultMap="CommentResultMap">
-        select * from t_comment where id = #{id}
+        select * from t_comment where id = #{id} and is_deleted = 0
     </select>
 
     <select id="queryCommentByPostId" resultMap="CommentResultMap">
-        select * from t_comment where post_id = #{postId}
+        select * from t_comment where post_id = #{postId} and is_deleted = 0
     </select>
 
     <select id="queryCommentByWriterId" resultMap="CommentResultMap">
-        select * from t_comment where writer_id = #{writerId}
+        select * from t_comment where writer_id = #{writerId} and is_deleted = 0
     </select>
 
 </mapper>
