@@ -2,6 +2,7 @@ package com.First.controller;
 
 import com.First.VO.PostQueryInfo;
 import com.First.pojo.Post;
+import com.First.pojo.Comment;
 import com.First.service.PostService;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
@@ -93,7 +94,8 @@ public class PostController {
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> postMap = new HashMap<>();
 
-        //Are we allowed to have the same title?
+
+        //Duplicated titles?
         Post post = new Post();
         post.setTitle(title);
         post.setWriterId(writerId);
@@ -122,6 +124,35 @@ public class PostController {
 
             PageInfo<Post> page = postService.getPostForPage(pageNum,pageSize);
             return  page;
+    }
+
+    @Autowired
+    private com.First.service.CommentService commentService;
+
+    //Add comment
+    @RequestMapping(value = "/replyWrite", method = RequestMethod.POST)
+	public String replyWrite(@RequestBody Comment newComment) throws Exception{
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        int writerId = newComment.getWriterId();
+        int postId = newComment.getPostId();
+        String content = newComment.getContent();
+
+        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> commentMap = new HashMap<>();
+
+        Comment comment = new Comment();
+        comment.setWriterId(writerId);
+        comment.setPostId(postId);
+        comment.setWrittenTime(timestamp);
+        comment.setContent(content);
+        commentService.addComment(comment);
+
+        map.put("id", commentService.queryCommentById(comment.getId()));
+        commentMap.put("data", map);
+        commentMap.put("status", 200);
+        commentMap.put("msg", "Comment successfully posted.");
+
+		return JSONObject.toJSONString(commentMap);
     }
 
 }

@@ -27,7 +27,6 @@ public interface PostService {
     List<Post> queryGlobalPost(PostQueryInfo postQueryInfo);
 
     //see the list of posts
-    //게시물 목록 조회
     List<Post> getAllPostPresent();
 
     PageInfo<Post> getPostForPage(int pageNum, int pageSize);
