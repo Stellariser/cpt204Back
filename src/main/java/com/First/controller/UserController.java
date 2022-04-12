@@ -122,7 +122,6 @@ public class UserController {
         return JSONObject.toJSONString(loginMap);
     }
 
-
     // Update user avator
     @RequestMapping(value = "/updateAvator", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
@@ -150,7 +149,6 @@ public class UserController {
 
         return JSONObject.toJSONString(updateAvatorMap);
     }
-
 
     // Update user information
     @RequestMapping(value = "/updateInfo", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
@@ -196,13 +194,13 @@ public class UserController {
         return JSONObject.toJSONString(updateInfoMap);
     }
 
-
     // Update or reset user password
     @RequestMapping(value = "/updatePassword", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
     public String updatePassword(@RequestBody Map<String, Object> updatePwdFormMap) {
         Integer id = (Integer) updatePwdFormMap.get("id");
+        String ori_password = (String) updatePwdFormMap.get("ori_password");
         String password = (String) updatePwdFormMap.get("password");
 
         User user = userService.queryUserById(id);
@@ -211,6 +209,9 @@ public class UserController {
         if (user == null) {
             updatePwdMap.put("status", 0);
             updatePwdMap.put("msg", "User does not exist.");
+        } else if (!ori_password.equals(user.getPassword())) {
+            updatePwdMap.put("status", 1);
+            updatePwdMap.put("msg", "Original password is incorrect.");
         } else {
             user.setPassword(password);
             userService.updatePassword(user);
