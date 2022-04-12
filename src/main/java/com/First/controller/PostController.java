@@ -185,7 +185,7 @@ public class PostController {
     }
 
     // All posts of a user
-    @RequestMapping(value = "/getPostDetail", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
+    @RequestMapping(value = "/getUserPost", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
     public String queryPostsByUserId(@RequestBody Map<String, Object> postInfoMap) {
