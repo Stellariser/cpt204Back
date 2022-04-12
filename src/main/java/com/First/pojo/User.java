@@ -80,7 +80,7 @@ public class User {
         this.gender = gender;
     }
 
-    public String getGrade(String grade){
+    public String getGrade(){
         return grade;
     }
 
@@ -88,7 +88,7 @@ public class User {
         this.grade = grade;
     }
 
-    public String getMajor(String major){
+    public String getMajor(){
         return major;
     }
 
@@ -96,8 +96,8 @@ public class User {
         this.major = major;
     }
 
-    public String getPersonalInfo(String personal_info){
-        return personal_info;
+    public String getPersonalInfo(){
+        return personalInfo;
     }
 
     public void setPersonalInfo(String personalInfo){

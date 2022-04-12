@@ -90,7 +90,6 @@ class DemoApplicationTests {
     @Test
     public void getPosttext23() {
         PostQueryInfo postQueryInfo = new PostQueryInfo();
-        int[] a = {};
 
         postQueryInfo.setTypeList(null);
 
