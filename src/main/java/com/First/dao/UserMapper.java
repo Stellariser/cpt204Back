@@ -31,15 +31,15 @@ public interface UserMapper {
 
     String updateGender(String gender);
 
-    int addGrade(String grade);
+    String addGrade(String grade);
 
-    int deleteGrade(String grade);
+    String deleteGrade(String grade);
 
-    int updateGrade(String gender);
+    String updateGrade(String gender);
 
-    int addMajor(String major);
+    String addMajor(String major);
 
-    int deleteMajor (String major);
+    String deleteMajor (String major);
 
-    int updateMajor(String major);
+    String updateMajor(String major);
 }
