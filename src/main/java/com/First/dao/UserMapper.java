@@ -25,21 +25,9 @@ public interface UserMapper {
 
     int updatePassword(User user);
 
-    String addGender(String gender);
+    int updateGender(String gender);
 
-    String deleteGender(String gender);
+    int  updateGrade(String gender);
 
-    String updateGender(String gender);
-
-    String addGrade(String grade);
-
-    String deleteGrade(String grade);
-
-    String updateGrade(String gender);
-
-    String addMajor(String major);
-
-    String deleteMajor (String major);
-
-    String updateMajor(String major);
+    int updateMajor(String major);
 }

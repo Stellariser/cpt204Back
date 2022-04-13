@@ -24,9 +24,9 @@ public interface UserService {
 
     int updatePassword(User user);
 
-    String updateGender(String gender);
+    int updateGender(String gender);
 
-    String updateGrade(String gender);
+    int updateGrade(String gender);
 
-    String updateMajor(String major);
+    int updateMajor(String major);
 }

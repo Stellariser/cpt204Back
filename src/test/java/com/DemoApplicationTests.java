@@ -182,12 +182,12 @@ class DemoApplicationTests {
 
     @Test
     public void deleteTypeTest(){
-    //报错
+
         Assertions.assertEquals(1, typeService.deleteTypeById(2));
 
     }
     @Test
-    public void updateTypeTest(){//只有id和name，没有update_time
+    public void updateTypeTest(){
 
         Type type = new Type();
         type.setId(2);
@@ -240,7 +240,7 @@ class DemoApplicationTests {
     }
 
 
-    public void updateCommentTest(){//这种测试方法对不对？
+    public void updateCommentTest(){
 
         Comment comment = new Comment();
         comment.setId(4);
@@ -302,4 +302,4 @@ class DemoApplicationTests {
     }
 
 
-}
+    }
