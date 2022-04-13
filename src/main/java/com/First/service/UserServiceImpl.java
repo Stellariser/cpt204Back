@@ -49,4 +49,16 @@ public class UserServiceImpl implements UserService {
     public int updatePassword(User user) {
         return userMapper.updatePassword(user);
     };
+
+
+    @Override
+    public String updateGender(String gender) {return userMapper.updateGender(gender);};
+
+    @Override
+    public String updateGrade(String grade) {return userMapper.updateGrade(grade);};
+
+
+    @Override
+    public String updateMajor(String major) {return userMapper.updateGrade(major);};
+
 }
