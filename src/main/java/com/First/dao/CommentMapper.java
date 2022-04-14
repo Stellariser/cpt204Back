@@ -19,6 +19,6 @@ public interface CommentMapper {
 
     List<Comment> queryCommentByPostId(int postId);
 
-    List<Comment> queryCommentByWriterId(int WriterId);
+    List<Comment> queryCommentByWriterId(int writerId);
     
 }
