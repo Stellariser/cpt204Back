@@ -11,12 +11,12 @@
         <result column="content" jdbcType="VARCHAR" property="content" />
         <result column="kudos" jdbcType="BIGINT" property="kudos" />
         <result column="criticism" jdbcType="BIGINT" property="criticism" />
-        <result column="is_deleted" jdbcType="BIT" property="isDeleted" />
+        <result column="is_deleted" jdbcType="BIGINT" property="isDeleted" />
     </resultMap>
 
     <insert id="addComment" parameterType="com.First.pojo.Comment">
-        insert into t_comment(writer_id, post_id, written_time, content)
-        values(#{writerId}, #{postId}, #{writtenTime}, #{content})
+        insert into t_comment(writer_id, post_id, written_time, content,is_deleted,update_time,kudos,criticism)
+        values(#{writerId}, #{postId}, #{writtenTime}, #{content},#{isDeleted},#{updateTime},#{kudos},#{criticism})
     </insert>
 
     <update id="deleteCommentById" parameterType="int">

@@ -9,6 +9,7 @@ import com.First.pojo.Comment;
 import com.First.pojo.Post;
 import com.First.service.CommentServiceImpl;
 import com.First.service.PostServiceImpl;
+import com.First.service.UserServiceImpl;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 
@@ -29,14 +30,14 @@ public class CommentController {
     @Autowired
     private PostServiceImpl postService;
 
+    @Autowired
+    private UserServiceImpl userService;
+
     // Get all comments of a post.
     @RequestMapping(value = "/getPostComment", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public String getComment(@RequestBody Map<String, Object> postInfoMap) {
-        int postId = (int) postInfoMap.get("postId");
-        int pageNumber = (int) postInfoMap.get("pageNumber");
-        int pageSize = (int) postInfoMap.get("pageSize");
+    public String getComment(int postId,int pageNumber,int pageSize) {
 
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> commentMap = new HashMap<>();
@@ -51,13 +52,17 @@ public class CommentController {
 
         PageHelper.startPage(pageNumber, pageSize);
         List<Comment> commentList = commentService.queryCommentByPostId(postId);
-
+        for (Comment c:commentList){
+            String a = userService.queryUserById(c.getWriterId()).getUsername();
+            c.setWritername(a);
+        }
         if (commentList == null) {
             commentMap.put("status", "1");
             commentMap.put("msg", "The post does not have comment.");
         } else {
             PageInfo<Comment> commentInfo = new PageInfo<>(commentList);
             map.put("commentInfo", commentInfo);
+            map.put("totalpage",commentInfo.getTotal());
 
             commentMap.put("data", map);
             commentMap.put("status", 200);

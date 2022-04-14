@@ -300,6 +300,30 @@ class DemoApplicationTests {
         System.out.println(u);
 
     }
+    @Test
+    public void setCommentService(){
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        Comment c = new Comment();
+        c.setIsDeleted(0);
+        c.setContent("sfasfsafasfasfsafasfasfasfasfasfasfas");
+        c.setPostId(1);
+        c.setWriterId(1);
+        c.setKudos(0);
+        c.setCriticism(0);
+        c.setWrittenTime(timestamp);
+        c.setUpdateTime(timestamp);
+        commentService.addComment(c);
 
+    }
+    @Test
+    public void asfsafasf(){
+
+//        Comment c =commentService.queryCommentById(1);
+//        System.out.println(c);
+
+        List<Comment> cl = commentService.queryCommentByPostId(3);
+        System.out.println(cl);
+
+    }
 
     }

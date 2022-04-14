@@ -15,12 +15,13 @@ public class Comment {
     private int writerId;
     private int postId;
     private Date writtenTime;
+    private String writername;
     private Date updateTime;
     private String content;
     private int kudos; // likes?
     private int criticism; // dislikes?
     private int commentAmount;
-    private boolean isDeletesd;
+    private int isDeleted;
 
     public int getCommentAmount() {
         return commentAmount;
@@ -94,11 +95,19 @@ public class Comment {
         this.criticism = criticism;
     }
 
-    public boolean getIsDeleted() {
-        return isDeletesd;
+    public int getIsDeleted() {
+        return isDeleted;
     }
 
-    public void setIsDeleted(boolean isDeleted) {
-        this.isDeletesd = isDeleted;
+    public void setIsDeleted(int isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
+    public String getWritername() {
+        return writername;
+    }
+
+    public void setWritername(String writername) {
+        this.writername = writername;
     }
 }

@@ -159,24 +159,28 @@ public class PostController {
     private com.First.service.CommentService commentService;
 
     // Add comment
-    @RequestMapping(value = "/replyWrite", method = RequestMethod.POST)
-    public String replyWrite(@RequestBody Comment newComment) throws Exception {
+    @RequestMapping(value = "/replyWrite",produces = "text/html;charset=utf-8" ,method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin
+    public String replyWrite(int posterId,int postId,String content) throws Exception {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        int writerId = newComment.getWriterId();
-        int postId = newComment.getPostId();
-        String content = newComment.getContent();
 
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> commentMap = new HashMap<>();
 
         Comment comment = new Comment();
-        comment.setWriterId(writerId);
+        comment.setWriterId(posterId);
         comment.setPostId(postId);
         comment.setWrittenTime(timestamp);
+        comment.setUpdateTime(timestamp);
         comment.setContent(content);
+        comment.setKudos(0);
+        comment.setCriticism(0);
+        comment.setIsDeleted(0);
         commentService.addComment(comment);
 
         map.put("id", commentService.queryCommentById(comment.getId()));
+        map.put("status",200);
         commentMap.put("data", map);
         commentMap.put("status", 200);
         commentMap.put("msg", "Comment successfully posted.");
