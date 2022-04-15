@@ -1,9 +1,15 @@
 package com.First.controller;
 
+import com.First.VO.PostQueryInfo;
+import com.First.pojo.Comment;
+import com.First.pojo.Post;
 import com.First.pojo.User;
+import com.First.service.PostService;
 import com.First.service.UserService;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
@@ -18,6 +24,9 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PostService postService;
 
     @RequestMapping(value = "/allUser", produces = "text/html;charset=utf-8")
     @ResponseBody
@@ -221,5 +230,65 @@ public class UserController {
             updatePwdMap.put("msg", "Update password successfully.");
         }
         return JSONObject.toJSONString(updatePwdMap);
+    }
+
+
+    @RequestMapping(value = "/getPersonalInfo", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public String getPersonalInfo(int id) {
+
+        User user = userService.queryUserById(id);
+        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> userInfo = new HashMap<>();
+        if (user == null) {
+            map.put("status", 0);
+            map.put("msg", "User does not exist.");
+        }
+        else {
+            userInfo.put("username",user.getUsername());
+            userInfo.put("gender",user.getGender());
+            userInfo.put("grade",user.getGrade());
+            userInfo.put("major",user.getMajor());
+            userInfo.put("personalInfo",user.getPersonalInfo());
+            map.put("id", user.getId());
+            map.put("data", userInfo);
+            map.put("status", 200);
+            map.put("msg", "Successful access to personal information");
+        }
+        return JSONObject.toJSONString(map);
+
+    }
+
+    @RequestMapping(value = "/getPersonalPost", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public String getPersonalPost(int id,int pageNumber,int pageSize) {
+        PageHelper.startPage(pageNumber, pageSize);
+        PostQueryInfo postQueryInfo = new PostQueryInfo();
+        postQueryInfo.setPageNumber(pageNumber);
+        postQueryInfo.setPageSize(pageSize);
+
+        List<Post> post = postService.queryPostByUserId(id);
+        for (Post c:post){
+            String a = userService.queryUserById(c.getWriterId()).getUsername();
+            c.setWriterName(a);
+        }
+        PageInfo<Post> pageInfo = new PageInfo<>(post);
+
+
+
+        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> userInfo = new HashMap<>();
+
+        userInfo.put("postList",pageInfo.getList());
+        userInfo.put("totalpage",pageInfo.getTotal());
+        userInfo.put("pagenum",pageInfo.getPageNum());
+        map.put("data", userInfo);
+        map.put("status", 200);
+        map.put("msg", "Successful access to personal information");
+
+        return JSONObject.toJSONString(map);
+
     }
 }

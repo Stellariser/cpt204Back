@@ -12,7 +12,7 @@
         <result column="gender" jdbcType="VARCHAR" property="gender"/>
         <result column="grade" jdbcType="VARCHAR" property="grade"/>
         <result column="major" jdbcType="VARCHAR" property="major"/>
-        <result column="personal_info" jdbcType="VARCHAR" property="personalInfo"/>
+        <result column="personalInfo" jdbcType="VARCHAR" property="personalInfo"/>
     </resultMap>
 
     <select id="listUser" resultType="com.First.pojo.User">

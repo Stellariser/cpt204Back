@@ -13,6 +13,7 @@ public class Post {
     private int id;
     private String title;
     private int writerId;
+    private String writerName;
     private Date writtenTime;
     private Date updateTime;
     private String content;
@@ -108,5 +109,13 @@ public class Post {
 
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
+    }
+
+    public String getWriterName() {
+        return writerName;
+    }
+
+    public void setWriterName(String writerName) {
+        this.writerName = writerName;
     }
 }
