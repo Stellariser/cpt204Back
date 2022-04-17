@@ -37,13 +37,13 @@
         values (#{username}, #{password}, #{secretQuestion}, #{secretAnswer}, #{avator})
     </insert>
 
-    <update id="updateInfo" parameterType="com.First.pojo.User">
+    <update id="updatePerosnalInfo" parameterType="com.First.pojo.User">
         update t_user
         set username=#{username},
             gender=#{gender},
             grade=#{grade},
             major=#{major},
-            personal_info=#{personalInfo}
+            personalInfo=#{personalInfo}
         where id = #{id}
     </update>
 

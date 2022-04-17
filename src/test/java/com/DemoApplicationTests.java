@@ -92,7 +92,7 @@ class DemoApplicationTests {
         PostQueryInfo postQueryInfo = new PostQueryInfo();
 
         postQueryInfo.setTypeList(null);
-
+        postQueryInfo.setQuery("zzz");
         postQueryInfo.setPageNumber(1);
         postQueryInfo.setPageSize(10);
         List<Post> postList = postService.queryGlobalPost(postQueryInfo);
@@ -324,6 +324,16 @@ class DemoApplicationTests {
         List<Comment> cl = commentService.queryCommentByPostId(3);
         System.out.println(cl);
 
+    }
+    @Test
+    public void updateUser(){
+        User u  = new User();
+        u.setId(1);
+        u.setUsername("admin");
+        u.setGrade("3");
+        u.setMajor("ics");
+        u.setPersonalInfo("这是一个可爱的女孩子");
+        userService.updatePerosnalInfo(u);
     }
 
 

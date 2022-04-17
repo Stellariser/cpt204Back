@@ -18,7 +18,7 @@ public interface UserService {
 
     int addUser(User user);
 
-    int updateInfo(User user) throws DuplicateKeyException;
+    int updatePerosnalInfo(User user) throws DuplicateKeyException;
 
     int updateAvator(User user);
 

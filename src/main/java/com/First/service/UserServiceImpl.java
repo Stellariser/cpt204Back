@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int updateInfo(User user) throws DuplicateKeyException {
+    public int updatePerosnalInfo(User user) throws DuplicateKeyException {
         return userMapper.updatePerosnalInfo(user);
     }
 

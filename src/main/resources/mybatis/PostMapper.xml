@@ -71,6 +71,7 @@
         LEFT JOIN t_type ty on ty.id=tp.type_id
 
         WHERE 1=1
+        <if test="query != null"> and p.title like '%${query}%'</if>
         <if test="typeList!=null">
             and ty.id in
             <foreach collection="typeList" index="index" item="item" open="(" separator="," close=")">

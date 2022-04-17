@@ -157,13 +157,9 @@ public class UserController {
     @RequestMapping(value = "/updateInfo", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public String updateInfo(@RequestBody Map<String, Object> updateInfoFormMap) {
-        Integer id = (Integer) updateInfoFormMap.get("id");
-        String username = (String) updateInfoFormMap.get("username");
-        String gender = (String) updateInfoFormMap.get("gender");
-        String grade = (String) updateInfoFormMap.get("grade");
-        String major = (String) updateInfoFormMap.get("major");
-        String personalInfo = (String) updateInfoFormMap.get("personalInfo");
+    public String updateInfo(int id,String nickName,String gender,String grade,String major,String PersonalizedInfo) {
+        String username = nickName;
+        String personalInfo = PersonalizedInfo;
 
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> updateInfoMap = new HashMap<>();
@@ -179,7 +175,7 @@ public class UserController {
             user.setMajor(major);
             user.setPersonalInfo(personalInfo);
             try {
-                userService.updateInfo(user);
+                userService.updatePerosnalInfo(user);
                 map.put("id", user.getId());
                 map.put("username", user.getUsername());
                 map.put("gender", user.getGender());
@@ -197,14 +193,26 @@ public class UserController {
         return JSONObject.toJSONString(updateInfoMap);
     }
 
+    @RequestMapping(value = "/answerCheck", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public String answercheck(int id,String username,String answer) {
+        User user = userService.queryUserById(id);
+        Map<String, Object> map = new HashMap<>();
+        if(user.getUsername()==username&&user.getSecretAnswer()==answer){
+            map.put("status",200);
+        }else {
+            map.put("status",0);
+        }
+          return JSONObject.toJSONString(map);
+    }
+
+
     // Update or reset user password
     @RequestMapping(value = "/updatePassword", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public String updatePassword(@RequestBody Map<String, Object> updatePwdFormMap) {
-        Integer id = (Integer) updatePwdFormMap.get("id");
-        String ori_password = (String) updatePwdFormMap.get("ori_password");
-        String password = (String) updatePwdFormMap.get("password");
+    public String updatePassword(int id,String password) {
 
         User user = userService.queryUserById(id);
         Map<String, Object> map = new HashMap<>();
@@ -212,9 +220,6 @@ public class UserController {
         if (user == null) {
             updatePwdMap.put("status", 0);
             updatePwdMap.put("msg", "User does not exist.");
-        } else if (!ori_password.equals(user.getPassword())) {
-            updatePwdMap.put("status", 1);
-            updatePwdMap.put("msg", "Original password is incorrect.");
         } else {
             user.setPassword(password);
             userService.updatePassword(user);
