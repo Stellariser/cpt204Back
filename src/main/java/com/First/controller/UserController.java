@@ -78,13 +78,7 @@ public class UserController {
     @RequestMapping(value = "/register", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public String register(@RequestBody Map<String, Object> regFormMap) {
-        String username = (String) regFormMap.get("username");
-        String password = (String) regFormMap.get("password");
-        Integer secretQuestion = (Integer) regFormMap.get("secretQuestion");
-        String secretAnswer = (String) regFormMap.get("secretAnswer");
-        String avator = regFormMap.get("avator") == null ? null : (String) regFormMap.get("avator");
-
+    public String register(String username,String password,String answer) {
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> registerMap = new HashMap<>();
         if (userService.queryUserByName(username) != null) {
@@ -94,9 +88,9 @@ public class UserController {
             User user = new User();
             user.setUsername(username);
             user.setPassword(password);
-            user.setSecretQuestion(secretQuestion);
-            user.setSecretAnswer(secretAnswer);
-            user.setAvator(avator);
+            user.setSecretQuestion(1);
+            user.setSecretAnswer(answer);
+            user.setAvator("/a");
             userService.addUser(user);
             map.put("id", userService.queryUserByName(username).getId());
             registerMap.put("data", map);

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.sql.Timestamp;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +48,6 @@ public class PostController {
         if (query != null) {
             postQueryInfo.setQuery(query);
         }
-
         postQueryInfo.setPageNumber(pageNumber);
         postQueryInfo.setPageSize(pageSize);
         if (!typeListString.equals("[]")) {
@@ -64,6 +64,7 @@ public class PostController {
             postQueryInfo.setTypeList(null);
 
         List<Post> Post = postService.queryGlobalPost(postQueryInfo);
+        //Collections.reverse(Post);
         PageInfo<Post> pageInfo = new PageInfo<>(Post);
         HashMap<String, Object> resultMap = new HashMap<>();
         HashMap<String, Object> data = new HashMap<>();
@@ -113,14 +114,13 @@ public class PostController {
     }
 
     // Write a post
-    @RequestMapping(value = "/write", method = RequestMethod.POST)
-    public String write(@RequestBody Post newPost) throws Exception {
+    @RequestMapping(value = "/write", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin
+    public String write(int id,String title,String content) throws Exception {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        String title = newPost.getTitle();
-        int writerId = newPost.getWriterId();
-        String content = newPost.getContent();
-        int anonymous = newPost.getAnonymous();
-
+        int writerId = id;
+        //int anonymous = newPost.getAnonymous();
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> postMap = new HashMap<>();
 
@@ -130,10 +130,11 @@ public class PostController {
         post.setWriterId(writerId);
         post.setWrittenTime(timestamp);
         post.setContent(content);
-        post.setAnonymous(anonymous);
+        post.setDeleted(0);
+        //post.setAnonymous(anonymous);
         postService.addPost(post);
 
-        map.put("id", postService.queryPostByTitle(title).getId());
+
         postMap.put("data", map);
         postMap.put("status", 200);
         postMap.put("msg", "Successfully Posted.");

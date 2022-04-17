@@ -13,11 +13,11 @@
         <result column="kudos" jdbcType="BIGINT" property="kudos" />
         <result column="criticism" jdbcType="BIGINT" property="criticism" />
         <result column="views" jdbcType="BIGINT" property="views" />
-        <result column="is_deleted" jdbcType="BIT" property="isDeleted" />
+        <result column="is_deleted" jdbcType="BIGINT" property="isDeleted" />
     </resultMap>
 
     <insert id="addPost" parameterType="com.First.pojo.Post">
-        insert into t_post (title,writer_id,written_time,content,anonymous) values (#{title},#{writerId},#{writtenTime},#{content},#{anonymous})
+        insert into t_post (title,writer_id,written_time,content,anonymous,is_deleted) values (#{title},#{writerId},#{writtenTime},#{content},#{anonymous},#{isDeleted})
     </insert>
 
     <update id="deletePostById" parameterType="int">
@@ -80,6 +80,8 @@
 
         <if test="query != null"> and title like '%${query}%'</if>
         GROUP BY p.id
+        order by p.id desc
+
     </select>
 
     <select id="queryPostByUserId" resultMap="PostResultMap">

@@ -21,7 +21,7 @@ public class Post {
     private int kudos; // likes
     private int criticism; // dislikes
     private int views;
-    private boolean isDeleted;
+    private int isDeleted;
 
     public int getId() {
         return id;
@@ -103,11 +103,11 @@ public class Post {
         this.views = views;
     }
 
-    public boolean isDeleted() {
+    public int isDeleted() {
         return isDeleted;
     }
 
-    public void setDeleted(boolean deleted) {
+    public void setDeleted(int deleted) {
         isDeleted = deleted;
     }
 
