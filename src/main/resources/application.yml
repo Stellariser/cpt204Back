@@ -15,6 +15,9 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
 
+resources:
+  static-locations: classpath:/static
+
 logging:
   file:
     name: log/log.log

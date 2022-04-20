@@ -163,7 +163,7 @@ public class PostController {
     @RequestMapping(value = "/replyWrite",produces = "text/html;charset=utf-8" ,method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public String replyWrite(int posterId,int postId,String content) throws Exception {
+    public String replyWrite(int posterId,int postId,String content){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
         Map<String, Object> map = new HashMap<>();

@@ -65,6 +65,7 @@ public class CommentController {
             map.put("totalpage",commentInfo.getTotal());
 
             commentMap.put("data", map);
+            commentMap.put("totalpage", commentInfo.getTotal());
             commentMap.put("status", 200);
             commentMap.put("msg", "Get comments successfully.");
         }
