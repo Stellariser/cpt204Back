@@ -7,14 +7,17 @@ import java.util.Map;
 import com.First.VerificationCode.VerificationCodeGenerator;
 import com.alibaba.fastjson.JSONObject;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
+@RequestMapping("/VerificationCode")
 public class VerificationCodeController {
 
-    @GetMapping(value = "getVerificationCode")
-    public String getVerificationCode() {
+    @RequestMapping(value = "/get", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public String getVerificationCode(int id) {
 
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> verificationCodeMap = new HashMap<>();
