@@ -199,7 +199,7 @@ public class UserController {
     public String answercheck(int id,String username,String answer) {
         User user = userService.queryUserById(id);
         Map<String, Object> map = new HashMap<>();
-        if(user.getUsername()==username&&user.getSecretAnswer()==answer){
+        if(user.getUsername().equals(username) && user.getSecretAnswer().equals(answer)){
             map.put("status",200);
         }else {
             map.put("status",0);
@@ -284,6 +284,7 @@ public class UserController {
         userInfo.put("totalpage",pageInfo.getTotal());
         userInfo.put("pagenum",pageInfo.getPageNum());
         map.put("data", userInfo);
+        map.put("totalpage",pageInfo.getTotal());
         map.put("status", 200);
         map.put("msg", "Successful access to personal information");
 

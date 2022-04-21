@@ -64,6 +64,10 @@ public class PostController {
             postQueryInfo.setTypeList(null);
 
         List<Post> Post = postService.queryGlobalPost(postQueryInfo);
+        for (Post c:Post){
+            String a = userService.queryUserById(c.getWriterId()).getUsername();
+            c.setWriterName(a);
+        }
         //Collections.reverse(Post);
         PageInfo<Post> pageInfo = new PageInfo<>(Post);
         HashMap<String, Object> resultMap = new HashMap<>();

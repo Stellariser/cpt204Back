@@ -16,6 +16,8 @@ import com.First.service.PostServiceImpl;
 import com.First.service.TypeServiceImpl;
 import com.First.service.UserServiceImpl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -344,6 +346,26 @@ class DemoApplicationTests {
         Map<String, Object> map = new HashMap<>();
         map = VerificationCodeGenerator.generateCode();
         System.out.println(map);
+    }
+
+    @Test
+    public void pag(){
+        int pageNumber = 1;
+        int pageSize = 5;
+        PageHelper.startPage(pageNumber, pageSize);
+        PostQueryInfo postQueryInfo = new PostQueryInfo();
+
+        postQueryInfo.setQuery(null);
+
+        postQueryInfo.setPageNumber(pageNumber);
+        postQueryInfo.setPageSize(pageSize);
+
+        postQueryInfo.setTypeList(null);
+
+        List<Post> Post = postService.queryGlobalPost(postQueryInfo);
+        PageInfo<Post> pageInfo = new PageInfo<>(Post);
+        System.out.println(pageInfo.getPages());
+
     }
 
 
