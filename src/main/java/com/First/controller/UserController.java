@@ -169,7 +169,7 @@ public class UserController {
             updateInfoMap.put("status", 0);
             updateInfoMap.put("msg", "User does not exist.");
         }
-        if(userService.queryUserByName(nickName)!=null){
+        if(userService.queryUserByName(nickName)!=null && userService.queryUserByName(nickName).getId()!=id){
             updateInfoMap.put("status", 1);
             updateInfoMap.put("msg", "User already exists, please use another one.");
         }
