@@ -168,7 +168,12 @@ public class UserController {
         if (user == null) {
             updateInfoMap.put("status", 0);
             updateInfoMap.put("msg", "User does not exist.");
-        } else {
+        }
+        if(userService.queryUserByName(nickName)!=null){
+            updateInfoMap.put("status", 1);
+            updateInfoMap.put("msg", "User already exists, please use another one.");
+        }
+        else {
             user.setUsername(username);
             user.setGender(gender);
             user.setGrade(grade);

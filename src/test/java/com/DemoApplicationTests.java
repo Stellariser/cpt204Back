@@ -347,6 +347,11 @@ class DemoApplicationTests {
         map = VerificationCodeGenerator.generateCode();
         System.out.println(map);
     }
+    @Test
+    public void type() {
+        List<Type> t= typeService.queryAllType();
+        System.out.println(t);
+    }
 
     @Test
     public void pag(){
