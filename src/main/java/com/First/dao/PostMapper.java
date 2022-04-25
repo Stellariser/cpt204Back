@@ -24,11 +24,13 @@ public interface PostMapper {
 
     Post queryPostByTitle(String title);
 
+    int getLastInsert();
+
     List<Post> queryGlobalPost(PostQueryInfo postQueryInfo);
 
     //see the list of posts
     //게시물 목록 조회
     List<Post> getAllPostPresent();
-  
+
 
 }

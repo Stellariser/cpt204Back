@@ -32,5 +32,8 @@ public interface PostService {
     List<Post> getAllPostPresent();
 
     PageInfo<Post> getPostForPage(int pageNum, int pageSize);
-  
+
+
+    int getLastInsert();
+
 }

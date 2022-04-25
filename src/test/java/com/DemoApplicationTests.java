@@ -2,19 +2,13 @@ package com;
 
 import com.First.VO.PostQueryInfo;
 import com.First.VerificationCode.VerificationCodeGenerator;
-import com.First.pojo.Comment;
-import com.First.pojo.Post;
-import com.First.pojo.Type;
-import com.First.pojo.User;
+import com.First.pojo.*;
 
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
 
-import com.First.service.CommentServiceImpl;
-import com.First.service.PostServiceImpl;
-import com.First.service.TypeServiceImpl;
-import com.First.service.UserServiceImpl;
+import com.First.service.*;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -37,6 +31,10 @@ class DemoApplicationTests {
     private TypeServiceImpl typeService;
     @Autowired
     private CommentServiceImpl commentService;
+    @Autowired
+    private TypeToPostServiceImpl typeToPostService;
+
+
 
     @Test
     void contextLoads() {
@@ -89,8 +87,18 @@ class DemoApplicationTests {
 
         List<Post> postList = postService.queryAllPost();
         for (Post post : postList) {
+            post.setDate(post.getWrittenTime().toString());
             System.out.println(post);
         }
+    }
+
+    @Test
+    public void getPostmax() {
+        System.out.println( postService.getLastInsert());
+        TypeToPost typeToPost = new TypeToPost();
+        typeToPost.setPostId(38);
+        typeToPost.setTypeId(1);
+        typeToPostService.addTypeToPost(typeToPost);
     }
 
     @Test

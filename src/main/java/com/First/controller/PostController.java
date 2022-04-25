@@ -1,9 +1,7 @@
 package com.First.controller;
 
 import com.First.VO.PostQueryInfo;
-import com.First.pojo.Post;
-import com.First.pojo.Comment;
-import com.First.pojo.User;
+import com.First.pojo.*;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -38,6 +36,12 @@ public class PostController {
     @Autowired
     private com.First.service.UserService userService;
 
+    @Autowired
+    private com.First.service.TypeService typeService;
+
+    @Autowired
+    private com.First.service.TypeToPostService typeToPostService;
+
     @RequestMapping(value = "/queryPost", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
@@ -67,6 +71,7 @@ public class PostController {
         for (Post c:Post){
             String a = userService.queryUserById(c.getWriterId()).getUsername();
             c.setWriterName(a);
+            c.setDate(c.getWrittenTime().toString().substring(0,19));
         }
         //Collections.reverse(Post);
         PageInfo<Post> pageInfo = new PageInfo<>(Post);
@@ -116,17 +121,57 @@ public class PostController {
     public void writeView() throws Exception {
 
     }
+    @RequestMapping(value = "/querytype", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin
+    public String type(){
+        //int anonymous = newPost.getAnonymous();
 
+        Map<String, Object> typemap = new HashMap<>();
+        List<Type> typelist = typeService.queryAllType();
+        typemap.put("data", typelist);
+        typemap.put("status", 200);
+        typemap.put("msg", "Successfully get type.");
+
+        return JSONObject.toJSONString(typemap);
+        // return "write";
+    }
     // Write a post
     @RequestMapping(value = "/write", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public String write(int id,String title,String content) throws Exception {
+    public String write(int id,String title,String content,String typeString) throws Exception {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         int writerId = id;
+        int tyl=0;
         //int anonymous = newPost.getAnonymous();
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> postMap = new HashMap<>();
+        if (!typeString.equals("")) {
+            typeString = typeString.replaceAll("\\[", "");
+            typeString = typeString.replaceAll("\\]", "");
+            String[] TL = typeString.split(",");
+
+            int[] TLI = new int[TL.length];
+            for (int i = 0; i < TL.length; i++) {
+                TLI[i] = Integer.parseInt(TL[i]);
+            }
+            tyl = TL.length;
+        }
+        int[] typeList = new int[tyl];
+        if (!typeString.equals("")) {
+            typeString = typeString.replaceAll("\\[", "");
+            typeString = typeString.replaceAll("\\]", "");
+            String[] TL = typeString.split(",");
+
+            int[] TLI = new int[TL.length];
+            for (int i = 0; i < TL.length; i++) {
+                TLI[i] = Integer.parseInt(TL[i]);
+            }
+            for (int i = 0;i<tyl;i++){
+                typeList[i] = TLI[i];
+            }
+        }
 
         // Duplicated titles?
         Post post = new Post();
@@ -137,8 +182,15 @@ public class PostController {
         post.setDeleted(0);
         //post.setAnonymous(anonymous);
         postService.addPost(post);
-
-
+        int newid = postService.getLastInsert();
+        TypeToPost typeToPost = new TypeToPost();
+        typeToPost.setPostId(newid);
+        if(typeList.length>0){
+            for (int i=0;i<typeList.length;i++){
+                typeToPost.setTypeId(typeList[i]);
+                typeToPostService.addTypeToPost(typeToPost);
+            }
+        }
         postMap.put("data", map);
         postMap.put("status", 200);
         postMap.put("msg", "Successfully Posted.");

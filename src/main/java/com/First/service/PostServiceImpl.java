@@ -71,7 +71,7 @@ public class PostServiceImpl implements PostService {
     public PageInfo<Post> getPostForPage(int pageNum, int pageSize) {
 
         PageHelper.startPage(pageNum,pageSize);
-        PageHelper.orderBy("id ASC"); 
+        PageHelper.orderBy("id ASC");
         try {
             List<Post> allPostList = postMapper.getAllPostPresent();
             PageInfo<Post> pageInfo = new PageInfo<>(allPostList);
@@ -79,7 +79,12 @@ public class PostServiceImpl implements PostService {
         } catch (Exception e){
             e.printStackTrace();
         }
-        return null;   
+        return null;
+    }
+
+    @Override
+    public int getLastInsert() {
+        return postMapper.getLastInsert();
     }
 
 }

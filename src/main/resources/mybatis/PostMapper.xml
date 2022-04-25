@@ -99,5 +99,9 @@
         from t_post where is_deleted=0
     </select>
 
+    <select id="getLastInsert" resultType="int">
+        select max(id) from t_post
+    </select>
+
 
 </mapper>
