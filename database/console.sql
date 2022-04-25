@@ -104,3 +104,8 @@ ALTER TABLE t_post
 ALTER TABLE t_comment
     ADD is_deleted BOOLEAN DEFAULT FALSE;
 
+CREATE TABLE IF NOT EXISTS `t_ collect_post`
+(
+    `user_id`        INT NOT NULL,
+    `post_id` INT PRIMARY KEY
+);
