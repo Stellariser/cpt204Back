@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.First.dao.PostCollectMapper">
+
+    <resultMap id="PostCollectResultMap" type="com.First.pojo.PostCollect">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="post_id" jdbcType="BIGINT" property="postId"/>
+        <result column="collected_by" jdbcType="BIGINT" property="collectedBy"/>
+        <result column="collected_time" jdbcType="TIMESTAMP" property="collectedTime"/>
+    </resultMap>
+
+    <insert id="collect" parameterType="com.First.pojo.PostCollect">
+        insert into t_post_collect (post_id, collected_by, collected_time)
+        VALUES (#{postId}, #{collectedBy}, #{collectedTime})
+    </insert>
+
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.First.dao.PostLikesMapper">
+
+    <resultMap id="PostLikesResultMap" type="com.First.pojo.PostLikes">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="post_id" jdbcType="BIGINT" property="postId"/>
+        <result column="liked_by" jdbcType="BIGINT" property="likedBy"/>
+        <result column="liked_time" jdbcType="TIMESTAMP" property="likedTime"/>
+        <result column="canceled" jdbcType="BOOLEAN" property="canceled"/>
+    </resultMap>
+
+    <insert id="like" parameterType="com.First.pojo.PostLikes">
+        insert into t_post_likes (post_id, liked_by, liked_time)
+        VALUES (#{postId}, #{likedBy}, #{likedTime})
+    </insert>
+
+</mapper>

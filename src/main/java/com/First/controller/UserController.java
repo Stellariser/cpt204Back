@@ -1,7 +1,6 @@
 package com.First.controller;
 
 import com.First.VO.PostQueryInfo;
-import com.First.pojo.Comment;
 import com.First.pojo.Post;
 import com.First.pojo.User;
 import com.First.service.PostService;

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.sql.Timestamp;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -179,7 +178,7 @@ public class PostController {
         post.setWriterId(writerId);
         post.setWrittenTime(timestamp);
         post.setContent(content);
-        post.setDeleted(0);
+        post.setIsDeleted(0);
         //post.setAnonymous(anonymous);
         postService.addPost(post);
         int newid = postService.getLastInsert();
@@ -276,6 +275,31 @@ public class PostController {
         }
 
         return JSONObject.toJSONString(userPostMap);
+    }
+
+    @RequestMapping(value = "/delete", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin
+    public String deletePost(@RequestBody Map<String, Object> deleteForm){
+        int postId = (int) deleteForm.get("postId");
+        Post post = postService.queryPostById(postId);
+        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> deleteMap = new HashMap<>();
+
+        // Doesn't exist or has been deleted before
+        if (post == null) {
+            deleteMap.put("status", 0);
+            deleteMap.put("msg", "Post does not exist or already deleted");
+        } else {
+            // set isDeleted to 1
+            postService.deletePostById(postId);
+            map.put("postId", postId);
+            deleteMap.put("data", map);
+            deleteMap.put("status", 200);
+            deleteMap.put("msg", "Delete successfully");
+        }
+        // postId if deleted, else error code + reason
+        return JSONObject.toJSONString(deleteMap);
     }
 
 }

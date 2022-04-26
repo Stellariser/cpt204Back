@@ -18,7 +18,9 @@ public class Post {
     private Date updateTime;
     private String content;
     private int anonymous;
-    private int kudos; // likes
+    private int totalLikes; // Once a user liked this post, increase by 1
+    private int newLikes; // Once a user liked this post, increase by 1;
+                          // if the post owner click the notification set this one to 0.
     private int criticism; // dislikes
     private int views;
     private int isDeleted;
@@ -88,12 +90,20 @@ public class Post {
         this.anonymous = anonymous;
     }
 
-    public int getKudos() {
-        return kudos;
+    public int getTotalLikes() {
+        return totalLikes;
     }
 
-    public void setKudos(int kudos) {
-        this.kudos = kudos;
+    public void setTotalLikes(int totalLikes) {
+        this.totalLikes = totalLikes;
+    }
+
+    public int getNewLikes() {
+        return newLikes;
+    }
+
+    public void setNewLikes(int newLikes) {
+        this.newLikes = newLikes;
     }
 
     public int getCriticism() {
@@ -112,19 +122,19 @@ public class Post {
         this.views = views;
     }
 
-    public int isDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(int deleted) {
-        isDeleted = deleted;
-    }
-
     public String getWriterName() {
         return writerName;
     }
 
     public void setWriterName(String writerName) {
         this.writerName = writerName;
+    }
+
+    public int getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(int isDeleted) {
+        this.isDeleted = isDeleted;
     }
 }
