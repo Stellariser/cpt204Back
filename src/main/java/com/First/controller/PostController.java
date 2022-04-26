@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,10 +69,12 @@ public class PostController {
             postQueryInfo.setTypeList(null);
 
         List<Post> Post = postService.queryGlobalPost(postQueryInfo);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
         for (Post c:Post){
             String a = userService.queryUserById(c.getWriterId()).getUsername();
             c.setWriterName(a);
             c.setDate(c.getWrittenTime().toString().substring(0,19));
+            c.setDate(sdf.format(c.getWrittenTime()));
         }
         //Collections.reverse(Post);
         PageInfo<Post> pageInfo = new PageInfo<>(Post);
@@ -275,31 +279,6 @@ public class PostController {
         }
 
         return JSONObject.toJSONString(userPostMap);
-    }
-
-    @RequestMapping(value = "/delete", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
-    @ResponseBody
-    @CrossOrigin
-    public String deletePost(@RequestBody Map<String, Object> deleteForm){
-        int postId = (int) deleteForm.get("postId");
-        Post post = postService.queryPostById(postId);
-        Map<String, Object> map = new HashMap<>();
-        Map<String, Object> deleteMap = new HashMap<>();
-
-        // Doesn't exist or has been deleted before
-        if (post == null) {
-            deleteMap.put("status", 0);
-            deleteMap.put("msg", "Post does not exist or already deleted");
-        } else {
-            // set isDeleted to 1
-            postService.deletePostById(postId);
-            map.put("postId", postId);
-            deleteMap.put("data", map);
-            deleteMap.put("status", 200);
-            deleteMap.put("msg", "Delete successfully");
-        }
-        // postId if deleted, else error code + reason
-        return JSONObject.toJSONString(deleteMap);
     }
 
 }
