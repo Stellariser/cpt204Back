@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,10 +75,12 @@ public class PostController {
             postQueryInfo.setTypeList(null);
 
         List<Post> Post = postService.queryGlobalPost(postQueryInfo);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
         for (Post c:Post){
             String a = userService.queryUserById(c.getWriterId()).getUsername();
             c.setWriterName(a);
             c.setDate(c.getWrittenTime().toString().substring(0,19));
+            c.setDate(sdf.format(c.getWrittenTime()));
         }
         //Collections.reverse(Post);
         PageInfo<Post> pageInfo = new PageInfo<>(Post);
@@ -283,6 +287,7 @@ public class PostController {
         return JSONObject.toJSONString(userPostMap);
     }
 
+<<<<<<< HEAD
     @RequestMapping(value = "/delete", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
@@ -371,4 +376,6 @@ public class PostController {
     }
 
 
+=======
+>>>>>>> 87b823296d42cb90505eb2c25f15d46c8efd578e
 }

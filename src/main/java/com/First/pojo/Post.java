@@ -1,5 +1,6 @@
 package com.First.pojo;
 
+import java.sql.Time;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -25,6 +26,17 @@ public class Post {
     private int views;
     private int isDeleted;
     private String date;
+    private Time ti;
+
+
+
+    public Time getTi() {
+        return ti;
+    }
+
+    public void setTi(Time ti) {
+        this.ti = ti;
+    }
 
     public String getDate() {
         return date;

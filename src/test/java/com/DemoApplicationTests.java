@@ -6,6 +6,7 @@ import com.First.pojo.*;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.First.service.*;
@@ -84,13 +85,26 @@ class DemoApplicationTests {
 //postTest
     @Test
     public void getPosttext2() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
 
         List<Post> postList = postService.queryAllPost();
+
         for (Post post : postList) {
-            post.setDate(post.getWrittenTime().toString());
-            System.out.println(post);
+            post.setDate(sdf.format(post.getWrittenTime()));
+
+            //System.out.println(post.getWrittenTime());
+            System.out.println(sdf.format(post.getWrittenTime().getTime()));
         }
     }
+    @Test
+    public void getPosttext22() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH点mm分钟ss秒");
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        System.out.println(sdf.format(timestamp.getTime()));
+
+    }
+
+
 
     @Test
     public void getPostmax() {
@@ -120,11 +134,12 @@ class DemoApplicationTests {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         Post post = new Post();
 
-        post.setWriterId(10002);
+        post.setWriterId(1);
         post.setTitle("AWD饿啊风格啊哥");
         post.setWrittenTime(timestamp);
         post.setContent("As the title said, XXXXXX");
         post.setAnonymous(0);
+        post.setDeleted(0);
 
         Assertions.assertEquals(1, postService.addPost(post));
 
