@@ -110,15 +110,15 @@ ADD
 
 -- Tables for like and collect
 CREATE TABLE `t_post_likes` (
-    id INT,
+    id INT AUTO_INCREMENT,
     post_id INT,
     liked_by INT,
     liked_time DATETIME,
-    canceled BOOLEAN DEFAULT FALSE
+    like_check INT DEFAULT 0
 );
 
 CREATE TABLE `t_post_collect` (
-    id INT,
+    id INT AUTO_INCREMENT,
     post_id INT,
     collected_by INT,
     collected_time DATETIME,

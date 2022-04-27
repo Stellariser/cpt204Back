@@ -5,7 +5,7 @@ import com.First.pojo.*;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-//import com.First.VO.PageInfo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -40,6 +40,12 @@ public class PostController {
 
     @Autowired
     private com.First.service.TypeToPostService typeToPostService;
+
+    @Autowired
+    private com.First.service.PostLikesService postLikesService;
+
+    @Autowired
+    private com.First.service.PostCollectService postCollectService;
 
     @RequestMapping(value = "/queryPost", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
@@ -301,5 +307,68 @@ public class PostController {
         // postId if deleted, else error code + reason
         return JSONObject.toJSONString(deleteMap);
     }
+
+    //Like Post
+    @RequestMapping(value = "/like", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin
+    public String likePost(Integer postId, Integer likedBy){
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> likeMap = new HashMap<>();
+        PostLikes postLikes = new PostLikes();
+
+        //check if it is liked or not
+        int likeCheck = postLikes.getCanceled();
+
+        if(likeCheck==0){
+            postLikes.setPostId(postId);
+            postLikes.setLikedBy(likedBy);
+            postLikes.setLikedTime(timestamp);
+    
+            postLikesService.like(postLikes);
+            postLikesService.updateLike(postId);
+            
+            map.put("like_id", postLikesService.queryLikesById(postLikes.getId()));
+            likeMap.put("data", map);
+            likeMap.put("status", 200);
+            likeMap.put("msg", "You've liked post");
+        }
+        else if(likeCheck==1){
+            postLikesService.cancelLike(postLikes);
+            postLikesService.updateLikeCancel(postId);
+
+            map.put("like_id", postLikesService.queryLikesById(postLikes.getId()));
+            likeMap.put("data", map);
+            likeMap.put("status", 200);
+            likeMap.put("msg", "You've canceled like");
+        }
+       
+        return JSONObject.toJSONString(likeMap);
+    }
+
+    //Collect Post
+    @RequestMapping(value = "/collect", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin
+    public String collectPost(int postId, int collectedBy){
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> collectMap = new HashMap<>();
+        PostCollect postCollect = new PostCollect();
+        postCollect.setPostId(postId);
+        postCollect.setCollectedBy(collectedBy);
+        postCollect.setCollectedTime(timestamp);
+
+        postCollectService.collect(postCollect);
+
+        map.put("id", postCollect);
+        collectMap.put("data", map);
+        collectMap.put("status", 200);
+        collectMap.put("msg", "The post saved");
+
+        return JSONObject.toJSONString(collectMap);
+    }
+
 
 }

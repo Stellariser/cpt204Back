@@ -3,6 +3,7 @@ package com.First.service;
 import com.First.VO.PostQueryInfo;
 import com.First.dao.PostMapper;
 import com.First.pojo.Post;
+
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 //import com.First.VO.PageInfo;
@@ -86,5 +87,6 @@ public class PostServiceImpl implements PostService {
     public int getLastInsert() {
         return postMapper.getLastInsert();
     }
+
 
 }

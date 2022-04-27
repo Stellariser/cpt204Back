@@ -2,6 +2,7 @@ package com.First.service;
 
 import com.First.VO.PostQueryInfo;
 import com.First.pojo.Post;
+
 import com.github.pagehelper.PageInfo;
 //import com.First.VO.PageInfo;
 
@@ -32,7 +33,6 @@ public interface PostService {
     List<Post> getAllPostPresent();
 
     PageInfo<Post> getPostForPage(int pageNum, int pageSize);
-
 
     int getLastInsert();
 

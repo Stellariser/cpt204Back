@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -13,7 +14,7 @@ public class PostCollect {
     private int id;
     private int postId;
     private int collectedBy;
-    private LocalDateTime collectedTime;
+    private Date collectedTime;
 
     private boolean canceled;
 
@@ -41,11 +42,11 @@ public class PostCollect {
         this.collectedBy = collectedBy;
     }
 
-    public LocalDateTime getCollectedTime() {
+    public Date getCollectedTime() {
         return collectedTime;
     }
 
-    public void setCollectedTime(LocalDateTime collectedTime) {
+    public void setCollectedTime(Date collectedTime) {
         this.collectedTime = collectedTime;
     }
 

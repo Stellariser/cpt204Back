@@ -7,12 +7,51 @@
         <result column="post_id" jdbcType="BIGINT" property="postId"/>
         <result column="liked_by" jdbcType="BIGINT" property="likedBy"/>
         <result column="liked_time" jdbcType="TIMESTAMP" property="likedTime"/>
-        <result column="canceled" jdbcType="BOOLEAN" property="canceled"/>
+        <result column="like_check" jdbcType="BIGINT" property="likeCheck"/>
     </resultMap>
 
+    <!-- like -->
     <insert id="like" parameterType="com.First.pojo.PostLikes">
         insert into t_post_likes (post_id, liked_by, liked_time)
         VALUES (#{postId}, #{likedBy}, #{likedTime})
     </insert>
+
+    <!-- like cancel -->
+    <!--<delete id="cancelLike">
+        delete from t_post_likes where post_id = #{postId} and liked_by = #{likedBy}
+    </delete>-->
+
+    <!-- like cancel -->
+    <update id="cancelLike" parameterType="int">
+        update t_post_likes set like_check = 1
+        where id = #{id}
+    </update>
+
+    <!-- check if the user already liked that post or not-->
+    <select id="likeCheck" resultType="int">
+        select canceled from t_post_likes where post_id = #{postId} and liked_by = #{likedBy} 
+    </select>
+  
+
+    <!-- Increasing like -->
+    <update id="updateLike" parameterType="int">
+        update t_post set total_likes = total_likes+1
+        where id = #{postId}
+    </update>
+
+    <!-- Decreasing like -->
+   <update id="updateLikeCancel" parameterType="int">
+        update t_post set 
+        total_likes = total_likes - 1
+        where id = #{postId}
+    </update>
+
+
+    <select id="queryLikesById" resultMap="PostLikesResultMap" parameterType="int">
+        select * from t_post_likes where id = #{id} and canceled=0
+    </select>
+
+
+
 
 </mapper>
