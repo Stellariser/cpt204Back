@@ -15,4 +15,22 @@
         VALUES (#{postId}, #{collectedBy}, #{collectedTime})
     </insert>
 
+    <update id="cancelCollect" parameterType="int">
+        update t_post_collect set collect_check = 1
+        where id = #{id}
+    </update>
+
+    <!-- check if the user already liked that post or not-->
+    <select id="collectCheck" resultType="int">
+        select collect_check from t_post_collect where id = #{id}
+    </select>
+
+    <select id="queryCollectByUserId" resultMap="PostCollectResultMap">
+        select * from t_post_collect where collected_by = #{collectedBy} and collect_check=0
+    </select>
+
+    <select id="queryCollectById" resultMap="PostCollectResultMap" parameterType="int">
+        select * from t_post_collect where id = #{id} and collect_check=0
+    </select>
+
 </mapper>

@@ -339,7 +339,7 @@ public class PostController {
             likeMap.put("msg", "You've liked post");
         }
         else if(likeCheck==1){
-            postLikesService.cancelLike(postLikes);
+            postLikesService.cancelLike(postLikes.getId());
             postLikesService.updateLikeCancel(postId);
 
             map.put("like_id", postLikesService.queryLikesById(postLikes.getId()));
@@ -360,16 +360,29 @@ public class PostController {
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> collectMap = new HashMap<>();
         PostCollect postCollect = new PostCollect();
-        postCollect.setPostId(postId);
-        postCollect.setCollectedBy(collectedBy);
-        postCollect.setCollectedTime(timestamp);
 
-        postCollectService.collect(postCollect);
+        int collectCheck = postCollect.getCollectCheck();
 
-        map.put("id", postCollect);
-        collectMap.put("data", map);
-        collectMap.put("status", 200);
-        collectMap.put("msg", "The post saved");
+        if(collectCheck==0){
+            postCollect.setPostId(postId);
+            postCollect.setCollectedBy(collectedBy);
+            postCollect.setCollectedTime(timestamp);
+    
+            postCollectService.collect(postCollect);
+            
+            map.put("like_id", postCollectService.queryCollectById(postCollect.getId()));
+            collectMap.put("data", map);
+            collectMap.put("status", 200);
+            collectMap.put("msg", "You've collected the post");
+        }
+        else if(collectCheck==1){
+            postCollectService.cancelCollect(postCollect.getId());
+
+            map.put("like_id", postLikesService.queryLikesById(postCollect.getId()));
+            collectMap.put("data", map);
+            collectMap.put("status", 200);
+            collectMap.put("msg", "You've canceled collecting");
+        }
 
         return JSONObject.toJSONString(collectMap);
     }

@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 public interface PostLikesService {
     int like(PostLikes postLikes);
 
-    int cancelLike(PostLikes postLikes);
+    int cancelLike(int id);
 
+    int likeCheck(int id);
+    
     int updateLike(int postId);
 
     int updateLikeCancel(int postId);

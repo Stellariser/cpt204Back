@@ -1,5 +1,7 @@
 package com.First.service;
 
+import java.util.List;
+
 import com.First.dao.PostCollectMapper;
 import com.First.pojo.PostCollect;
 
@@ -14,5 +16,24 @@ public class PostCollectServiceImpl implements PostCollectService{
     @Override
     public int collect(PostCollect postCollect){
         return postCollectMapper.collect(postCollect);
+    }
+
+    @Override
+    public int cancelCollect(int id){
+        return postCollectMapper.cancelCollect(id);
+    }
+    @Override
+    public int collectCheck(int id){
+        return postCollectMapper.collectCheck(id);
+    }
+
+    @Override
+    public List<PostCollect> getCollectListByUserId(int collectedBy){
+        return postCollectMapper.getCollectListByUserId(collectedBy);
+    }
+
+    @Override
+    public PostCollect queryCollectById(int id){
+        return postCollectMapper.queryCollectById(id);
     }
 }

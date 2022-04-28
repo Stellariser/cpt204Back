@@ -7,7 +7,9 @@ import org.springframework.stereotype.Component;
 public interface PostLikesMapper {
     int like(PostLikes postLikes);
 
-    int cancelLike(PostLikes postLikes);
+    int cancelLike(int id);
+    
+    int likeCheck(int id);
 
     int updateLike(int postId);
 
