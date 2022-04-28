@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -15,8 +14,7 @@ public class PostCollect {
     private int postId;
     private int collectedBy;
     private Date collectedTime;
-
-    private boolean canceled;
+    private int collectCheck;
 
     public int getId() {
         return id;
@@ -50,11 +48,11 @@ public class PostCollect {
         this.collectedTime = collectedTime;
     }
 
-    public boolean isCanceled() {
-        return canceled;
+    public int getCollectCheck() {
+        return collectCheck;
     }
 
-    public void setCanceled(boolean canceled) {
-        this.canceled = canceled;
+    public void setCollectCheck(int collectCheckc) {
+        this.collectCheck = collectCheck;
     }
 }
