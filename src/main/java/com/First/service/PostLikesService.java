@@ -18,5 +18,7 @@ public interface PostLikesService {
 
     PostLikes queryLikesById(int id);
 
+    PostLikes queryLikesByPosterUserId(int postId, int likedBy);
+
     
 }

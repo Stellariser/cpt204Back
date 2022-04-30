@@ -28,6 +28,16 @@ public class PostCollectServiceImpl implements PostCollectService{
     }
 
     @Override
+    public int updateCollect(int postId){
+        return postCollectMapper.updateCollect(postId);
+    }
+
+    @Override
+    public int updateCollectCancel(int postId){
+        return postCollectMapper.updateCollectCancel(postId);
+    }
+
+    @Override
     public List<PostCollect> getCollectListByUserId(int collectedBy){
         return postCollectMapper.getCollectListByUserId(collectedBy);
     }
@@ -35,5 +45,10 @@ public class PostCollectServiceImpl implements PostCollectService{
     @Override
     public PostCollect queryCollectById(int id){
         return postCollectMapper.queryCollectById(id);
+    }
+
+    @Override
+    public PostCollect queryCollectByPosterUserId(int postId, int collectedBy){
+        return postCollectMapper.queryCollectByPosterUserId(postId, collectedBy);
     }
 }

@@ -51,7 +51,9 @@
         select * from t_post_likes where id = #{id} and like_check=0
     </select>
 
-
+    <select id="queryLikesByPosterUserId" resultMap="PostLikesResultMap" parameterType="int">
+        select * from t_post_likes where liked_by = #{liedBy} and post_id = #{postId}
+    </select>
 
 
 </mapper>

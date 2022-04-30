@@ -110,7 +110,7 @@ ADD
 
 -- Tables for like and collect
 CREATE TABLE `t_post_likes` (
-    id INT AUTO_INCREMENT,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     post_id INT,
     liked_by INT,
     liked_time DATETIME,
@@ -118,9 +118,19 @@ CREATE TABLE `t_post_likes` (
 );
 
 CREATE TABLE `t_post_collect` (
-    id INT AUTO_INCREMENT,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     post_id INT,
     collected_by INT,
     collected_time DATETIME,
     collect_check INT DEFAULT 0
 );
+
+ALTER TABLE
+    t_post
+ADD
+    total_likes  INT;
+
+ALTER TABLE
+    t_post
+ADD
+    total_collects  INT;

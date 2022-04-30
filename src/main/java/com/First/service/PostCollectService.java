@@ -15,8 +15,13 @@ public interface PostCollectService {
 
     int collectCheck(int id);
 
+    int updateCollect(int postId);
+
+    int updateCollectCancel(int postId);
+
     List<PostCollect> getCollectListByUserId(int collectedBy);
 
     PostCollect queryCollectById(int id);
     
+    PostCollect queryCollectByPosterUserId(int postId, int collectedBy);
 }

@@ -13,8 +13,14 @@ public interface PostCollectMapper {
 
     int collectCheck(int id);
 
+    int updateCollect(int postId);
+
+    int updateCollectCancel(int postId);
+
     // Checking list of Collected Post
     List<PostCollect> getCollectListByUserId(int collectedBy);
 
     PostCollect queryCollectById(int id);
+
+    PostCollect queryCollectByPosterUserId(int postId, int collectedBy);
 }
