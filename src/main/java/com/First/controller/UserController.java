@@ -202,13 +202,19 @@ public class UserController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public String answercheck(int id,String username,String answer) {
-        User user = userService.queryUserByName(username);
         Map<String, Object> map = new HashMap<>();
-        if(user.getUsername().equals(username) && user.getSecretAnswer().equals(answer)){
-            map.put("status",200);
-        }else {
+        try {
+            User user = userService.queryUserByName(username);
+            if(user.getUsername().equals(username) && user.getSecretAnswer().equals(answer)){
+                map.put("status",200);
+            }else {
+                map.put("status",0);
+            }
+        }catch (NullPointerException e){
             map.put("status",0);
+            return JSONObject.toJSONString(map);
         }
+
           return JSONObject.toJSONString(map);
     }
 

@@ -88,13 +88,15 @@ class DemoApplicationTests {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
 
         List<Post> postList = postService.queryAllPost();
-
-        for (Post post : postList) {
-            post.setDate(sdf.format(post.getWrittenTime()));
-
-            //System.out.println(post.getWrittenTime());
-            System.out.println(sdf.format(post.getWrittenTime().getTime()));
+        for(Post p :postList){
+            System.out.println(p);
         }
+//        for (Post post : postList) {
+//            post.setDate(sdf.format(post.getWrittenTime()));
+//
+//            //System.out.println(post.getWrittenTime());
+//            System.out.println(sdf.format(post.getWrittenTime().getTime()));
+//        }
     }
     @Test
     public void getPosttext22() {
