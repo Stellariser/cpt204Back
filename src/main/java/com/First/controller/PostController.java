@@ -313,7 +313,7 @@ public class PostController {
     }
 
     //Like Post
-    @RequestMapping(value = "/like", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
+    @RequestMapping(value = "/like", produces = "text/html;charset=utf-8", method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
     public String likePost(Integer postId, Integer likedBy){
