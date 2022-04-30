@@ -91,7 +91,7 @@
     </select>
 
     <select id="queryPostByUserId" resultMap="PostResultMap">
-        select * from t_post where writer_id = #{userId} and is_deleted=0
+        select * from t_post where writer_id = #{userId} and is_deleted=0 order by t_post.id desc
     </select>
 
     <!--- getting list of post -->

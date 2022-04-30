@@ -27,8 +27,16 @@ public class Post {
     private int isDeleted;
     private String date;
     private Time ti;
+    private String typeContent;
 
 
+    public String getTypeContent() {
+        return typeContent;
+    }
+
+    public void setTypeContent(String typeContent) {
+        this.typeContent = typeContent;
+    }
 
     public Time getTi() {
         return ti;

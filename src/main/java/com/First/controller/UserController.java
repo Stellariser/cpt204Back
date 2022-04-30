@@ -14,6 +14,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -201,7 +202,7 @@ public class UserController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public String answercheck(int id,String username,String answer) {
-        User user = userService.queryUserById(id);
+        User user = userService.queryUserByName(username);
         Map<String, Object> map = new HashMap<>();
         if(user.getUsername().equals(username) && user.getSecretAnswer().equals(answer)){
             map.put("status",200);
@@ -216,9 +217,10 @@ public class UserController {
     @RequestMapping(value = "/updatePassword", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public String updatePassword(int id,String password) {
+    public String updatePassword(int id,String password,String username) {
 
-        User user = userService.queryUserById(id);
+        //User user = userService.queryUserById(id);
+        User user = userService.queryUserByName(username);
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> updatePwdMap = new HashMap<>();
         if (user == null) {
@@ -276,6 +278,11 @@ public class UserController {
         for (Post c:post){
             String a = userService.queryUserById(c.getWriterId()).getUsername();
             c.setWriterName(a);
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
+        for (Post c:post){
+            c.setDate(c.getWrittenTime().toString().substring(0,19));
+            c.setDate(sdf.format(c.getWrittenTime()));
         }
         PageInfo<Post> pageInfo = new PageInfo<>(post);
 

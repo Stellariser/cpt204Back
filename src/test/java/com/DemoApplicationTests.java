@@ -139,7 +139,7 @@ class DemoApplicationTests {
         post.setWrittenTime(timestamp);
         post.setContent("As the title said, XXXXXX");
         post.setAnonymous(0);
-        post.setDeleted(0);
+
 
         Assertions.assertEquals(1, postService.addPost(post));
 
@@ -319,6 +319,13 @@ class DemoApplicationTests {
     public void querypostbyid(){
        int id = 9;
        Post p =postService.queryPostById(id);
+        System.out.println(p);
+
+    }
+    @Test
+    public void querypostbyUserid(){
+        int id = 1;
+        List<Post> p =postService.queryPostByUserId(id);
         System.out.println(p);
 
     }
