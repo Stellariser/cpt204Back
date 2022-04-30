@@ -6,8 +6,13 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     username: root
+<<<<<<< HEAD
     password: jyp000318
     url: jdbc:mysql://localhost:3306/cpt202?autoReconnect=true&useSSL=true&useUnicode=true&characterEncoding=UTF-8
+=======
+    password: 20010623
+    url: jdbc:mysql://localhost:3306/firstdemo?autoReconnect=true&useSSL=true&useUnicode=true&characterEncoding=UTF-8
+>>>>>>> bd129c07d49fc01f64a8d3b1e16917fb9ecc2e6d
 
 
 mybatis:

@@ -76,6 +76,7 @@
         LEFT JOIN t_type ty on ty.id=tp.type_id
 
         WHERE 1=1
+          and p.is_deleted =0
         <if test="query != null"> and p.title like '%${query}%'</if>
         <if test="typeList!=null">
             and ty.id in
@@ -91,7 +92,7 @@
     </select>
 
     <select id="queryPostByUserId" resultMap="PostResultMap">
-        select * from t_post where writer_id = #{userId} and is_deleted=0
+        select * from t_post where writer_id = #{userId} and is_deleted=0 order by t_post.id desc
     </select>
 
     <!--- getting list of post -->

@@ -88,13 +88,15 @@ class DemoApplicationTests {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
 
         List<Post> postList = postService.queryAllPost();
-
-        for (Post post : postList) {
-            post.setDate(sdf.format(post.getWrittenTime()));
-
-            //System.out.println(post.getWrittenTime());
-            System.out.println(sdf.format(post.getWrittenTime().getTime()));
+        for(Post p :postList){
+            System.out.println(p);
         }
+//        for (Post post : postList) {
+//            post.setDate(sdf.format(post.getWrittenTime()));
+//
+//            //System.out.println(post.getWrittenTime());
+//            System.out.println(sdf.format(post.getWrittenTime().getTime()));
+//        }
     }
     @Test
     public void getPosttext22() {
@@ -139,7 +141,7 @@ class DemoApplicationTests {
         post.setWrittenTime(timestamp);
         post.setContent("As the title said, XXXXXX");
         post.setAnonymous(0);
-        post.setDeleted(0);
+
 
         Assertions.assertEquals(1, postService.addPost(post));
 
@@ -319,6 +321,13 @@ class DemoApplicationTests {
     public void querypostbyid(){
        int id = 9;
        Post p =postService.queryPostById(id);
+        System.out.println(p);
+
+    }
+    @Test
+    public void querypostbyUserid(){
+        int id = 1;
+        List<Post> p =postService.queryPostByUserId(id);
         System.out.println(p);
 
     }
