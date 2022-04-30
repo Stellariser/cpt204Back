@@ -23,20 +23,13 @@ public class Post {
     private int newLikes; // Once a user liked this post, increase by 1;
                           // if the post owner click the notification set this one to 0.
     private int criticism; // dislikes
+    private int totalCollects;
     private int views;
     private int isDeleted;
     private String date;
     private Time ti;
-    private String typeContent;
 
 
-    public String getTypeContent() {
-        return typeContent;
-    }
-
-    public void setTypeContent(String typeContent) {
-        this.typeContent = typeContent;
-    }
 
     public Time getTi() {
         return ti;
@@ -116,6 +109,14 @@ public class Post {
 
     public void setTotalLikes(int totalLikes) {
         this.totalLikes = totalLikes;
+    }
+
+    public int getTotalCollects() {
+        return totalCollects;
+    }
+
+    public void setTotalCollects(int totalCollects) {
+        this.totalCollects = totalCollects;
     }
 
     public int getNewLikes() {

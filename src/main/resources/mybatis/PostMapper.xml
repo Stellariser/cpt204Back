@@ -11,6 +11,7 @@
         <result column="content" jdbcType="VARCHAR" property="content" />
         <result column="anonymous" jdbcType="BIGINT" property="anonymous" />
         <result column="total_likes" jdbcType="BIGINT" property="totalLikes" />
+        <result column="total_collects" jdbcType="BIGINT" property="totalCollects" />
         <result column="new_likes" jdbcType="BIGINT" property="newLikes" />
         <result column="criticism" jdbcType="BIGINT" property="criticism" />
         <result column="views" jdbcType="BIGINT" property="views" />
@@ -76,7 +77,6 @@
         LEFT JOIN t_type ty on ty.id=tp.type_id
 
         WHERE 1=1
-          and p.is_deleted =0
         <if test="query != null"> and p.title like '%${query}%'</if>
         <if test="typeList!=null">
             and ty.id in
@@ -92,7 +92,7 @@
     </select>
 
     <select id="queryPostByUserId" resultMap="PostResultMap">
-        select * from t_post where writer_id = #{userId} and is_deleted=0 order by t_post.id desc
+        select * from t_post where writer_id = #{userId} and is_deleted=0
     </select>
 
     <!--- getting list of post -->
