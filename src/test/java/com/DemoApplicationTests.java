@@ -139,7 +139,7 @@ class DemoApplicationTests {
         post.setWrittenTime(timestamp);
         post.setContent("As the title said, XXXXXX");
         post.setAnonymous(0);
-        post.setDeleted(0);
+        post.setIsDeleted(0);
 
         Assertions.assertEquals(1, postService.addPost(post));
 

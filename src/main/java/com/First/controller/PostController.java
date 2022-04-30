@@ -287,7 +287,6 @@ public class PostController {
         return JSONObject.toJSONString(userPostMap);
     }
 
-<<<<<<< HEAD
     @RequestMapping(value = "/delete", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
@@ -376,6 +375,4 @@ public class PostController {
     }
 
 
-=======
->>>>>>> 87b823296d42cb90505eb2c25f15d46c8efd578e
 }
