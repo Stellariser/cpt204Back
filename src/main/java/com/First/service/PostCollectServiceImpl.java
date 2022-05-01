@@ -5,6 +5,7 @@ import java.util.List;
 import com.First.dao.PostCollectMapper;
 import com.First.pojo.PostCollect;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,8 +54,8 @@ public class PostCollectServiceImpl implements PostCollectService{
     }
 
     @Override
-    public int queryCollectCheckByPosterUserId(int postId, int collectedBy){
-        return postCollectMapper.queryCollectCheckByPosterUserId(postId, collectedBy);
+    public int queryCollectCheckByPostUserId(@Param("postId") int postId, @Param("collectedBy") int collectedBy){
+        return postCollectMapper.queryCollectCheckByPostUserId(postId, collectedBy);
     }
 
     @Override
