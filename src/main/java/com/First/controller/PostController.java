@@ -321,10 +321,18 @@ public class PostController {
     @ResponseBody
     @CrossOrigin
     public String likeCollectPostCheck(int userId, int postId){
+        
+        //How can we initialize these like and collect objects?
+        //Because we still need to know the right userId and the postId in order to get the status of liked and collected
+        //So I thought first find likes and collect done by the user and then find the matching postId with the userId
+        //This should be list then? So I can find the one with the matching one?
+        PostCollect postCollect = postCollectService.queryCollectByUserId(userId);
+        PostLikes postLikes = postLikesService.queryLikesByUserId(userId);
 
-        PostCollect postCollect = new PostCollect();
-        int likeCheck  = postLikesService.queryLikesCheckByPostUserId(postId, userId);
-        int collectCheck = postCollectService.queryCollectCheckByPostUserId(postCollect);
+        postCollectService.queryCollectByIdandpost(postCollect);
+        postLikesService.queryLikesByIdandpost(postLikes);
+        int likeCheck  = postLikes.getLikeCheck();
+        int collectCheck = postCollect.getCollectCheck();
 
         User u = userService.queryUserById(userId);
         HashMap<String, Object> resultLikeCollectMap = new HashMap<>();

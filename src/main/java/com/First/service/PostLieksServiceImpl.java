@@ -38,6 +38,11 @@ public class PostLieksServiceImpl implements PostLikesService {
     }
 
     @Override
+    public  PostLikes queryLikesByUserId(int likedBy){
+        return postLikeMapper.queryLikesByUserId(likedBy);
+    }
+
+    @Override
     public PostLikes queryLikesById(int id){
         return postLikeMapper.queryLikesById(id);
     }
@@ -46,9 +51,13 @@ public class PostLieksServiceImpl implements PostLikesService {
         return postLikeMapper.queryLikesByPosterUserId(postId, likedBy);
     }
 
+    // @Override
+    // public int queryLikesCheckByPostUserId(@Param("postId") int postId, @Param("likedBy") int likedBy){
+    //     return postLikeMapper.queryLikesCheckByPostUserId(postId, likedBy);
+    // }
     @Override
-    public int queryLikesCheckByPostUserId(@Param("postId") int postId, @Param("likedBy") int likedBy){
-        return postLikeMapper.queryLikesCheckByPostUserId(postId, likedBy);
+    public PostLikes queryLikesByIdandpost(PostLikes postLikes){
+        return postLikeMapper.queryLikesByIdandpost(postLikes);
     }
     
 }

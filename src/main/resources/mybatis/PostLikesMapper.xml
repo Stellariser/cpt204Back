@@ -29,9 +29,9 @@
 
     <!-- check if the user already liked that post or not-->
     <select id="likeCheck" resultType="int">
-        select like_check from t_post_likes where id = #{id} 
+        select like_check from t_post_likes where id = #{id}
     </select>
-  
+
 
     <!-- Increasing like -->
     <update id="updateLike" parameterType="int">
@@ -41,10 +41,14 @@
 
     <!-- Decreasing like -->
    <update id="updateLikeCancel" parameterType="int">
-        update t_post set 
+        update t_post set
         total_likes = total_likes - 1
         where id = #{postId}
     </update>
+
+    <select id="queryLikesByUserId" resultMap="PostLikesResultMap">
+        select * from t_post_like where liked_by = #{likedBy}
+    </select>
 
 
     <select id="queryLikesById" resultMap="PostLikesResultMap" parameterType="int">
@@ -52,11 +56,15 @@
     </select>
 
     <select id="queryLikesByPosterUserId" resultMap="PostLikesResultMap" parameterType="int">
-        select * from t_post_likes where liked_by = #{likedBy} and post_id = #{postId}
+        select * from t_post_likes where liked_by = #{liedBy} and post_id = #{postId}
     </select>
 
-    <select id="queryLikesCheckByPostUserId" resultMap="PostLikesResultMap">
-        select like_check from t_post_likes where post_id = #{postId} and liked_by = #{likedBy}
+    <!-- <select id="queryLikesCheckByPostUserId" resultMap="PostLikesResultMap" parameterType="int">
+        select like_check from t_post_likes where collected_by = #{collectId} and post_id = #{postId}
+    </select>-->
+
+    <select id="queryLikesByIdandpost" resultMap="PostLikesResultMap" parameterType="com.First.pojo.PostLike">
+        select * from t_post_likes where liked_by = #{likedBy} and post_id = #{postId}
     </select>
 
 

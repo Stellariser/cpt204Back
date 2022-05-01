@@ -36,9 +36,6 @@ class DemoApplicationTests {
     private TypeToPostServiceImpl typeToPostService;
     @Autowired
     private PostCollectServiceImpl postCollectService;
-    @Autowired
-    private PostLieksServiceImpl postLikeService;
-
 
 
     @Test
@@ -408,32 +405,36 @@ class DemoApplicationTests {
         System.out.println(pageInfo.getPages());
 
     }
-
     @Test
-    public void checkTest(){
-        // int postId = 1;
-        // int userid = 10001;
+    public void collectcheck() {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         PostCollect postCollect = new PostCollect();
-        System.out.print(postCollectService.queryCollectCheckByPostUserId(postCollect));
-        //System.out.println(c);
-
+        postCollect.setCollectedBy(1);
+        postCollect.setCollectedTime(timestamp);
+        postCollect.setPostId(2);
+        postCollect.setCollectCheck(0);
+        postCollectService.collect(postCollect);
     }
-
+    // @Test
+    // public void check() {
+    //     int c = postCollectService.queryCollectCheckByPosterUserId(1,1);
+    //     System.out.println(c);
+    // }
     @Test
-    public void collectCheck(){
-        int id = 1;
-        int r = postCollectService.collectCheck(id);
-        System.out.println(r);
+    public void check2() {
+        PostCollect postCollect = new PostCollect();
+        postCollect.setPostId(1);
+        postCollect.setCollectedBy(1);
+        PostCollect res= postCollectService.queryCollectByIdandpost(postCollect);
+        System.out.println(res);
     }
-
     @Test
-    public void checkLikeTest(){
-        int postId = 1;
-        int userid = 10001;
-        int c = postLikeService.queryLikesCheckByPostUserId(1,10001);
-        System.out.println(c);
-
+    public void check3() {
+        PostCollect postCollect = new PostCollect();
+        postCollect.setPostId(1);
+        postCollect.setCollectedBy(1);
+        PostCollect res= postCollectService.queryCollectById(1);
+        System.out.println(res);
     }
-
 
     }

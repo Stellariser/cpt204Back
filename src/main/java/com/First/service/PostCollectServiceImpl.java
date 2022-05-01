@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class PostCollectServiceImpl implements PostCollectService{
     @Autowired
     private PostCollectMapper postCollectMapper;
-    
+
     @Override
     public int collect(PostCollect postCollect){
         return postCollectMapper.collect(postCollect);
@@ -39,6 +39,11 @@ public class PostCollectServiceImpl implements PostCollectService{
     }
 
     @Override
+    public PostCollect queryCollectByUserId(int collectedBy){
+        return postCollectMapper.queryCollectByUserId(collectedBy);
+    }
+
+    @Override
     public List<PostCollect> getCollectListByUserId(int collectedBy){
         return postCollectMapper.getCollectListByUserId(collectedBy);
     }
@@ -48,10 +53,10 @@ public class PostCollectServiceImpl implements PostCollectService{
         return postCollectMapper.queryCollectById(id);
     }
 
-    @Override
-    public PostCollect queryCollectByPosterUserId(int postId, int collectedBy){
-        return postCollectMapper.queryCollectByPosterUserId(postId, collectedBy);
-    }
+    // @Override
+    // public PostCollect queryCollectByPosterUserId(int postId, int collectedBy){
+    //     return postCollectMapper.queryCollectByPosterUserId(postId, collectedBy);
+    // }
 
     // @Override
     // public int queryCollectCheckByPostUserId(@Param("postId") int postId, @Param("collectedBy") int collectedBy){
@@ -59,7 +64,7 @@ public class PostCollectServiceImpl implements PostCollectService{
     // }
 
     @Override
-    public int queryCollectCheckByPostUserId(PostCollect postCollect){
-        return postCollectMapper.queryCollectCheckByPostUserId(postCollect);
+    public PostCollect queryCollectByIdandpost(PostCollect postCollect) {
+        return postCollectMapper.queryCollectByIdandpost(postCollect);
     }
 }

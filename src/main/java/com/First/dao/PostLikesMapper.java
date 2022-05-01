@@ -17,13 +17,15 @@ public interface PostLikesMapper {
 
     int updateLikeCancel(int postId);
 
+    PostLikes queryLikesByUserId(int likedBy);
+
     PostLikes queryLikesById(int id);
 
     PostLikes queryLikesByPosterUserId(int postId, int likedBy);
 
-    int queryLikesCheckByPostUserId(@Param("postId") int postId, @Param("likedBy") int likedBy);
+    //int queryLikesCheckByPostUserId(@Param("postId") int postId, @Param("likedBy") int likedBy);
     
-
+    PostLikes queryLikesByIdandpost(PostLikes postLikes);
 
 
 }
