@@ -52,11 +52,11 @@
     </select>
 
     <select id="queryLikesByPosterUserId" resultMap="PostLikesResultMap" parameterType="int">
-        select * from t_post_likes where liked_by = #{liedBy} and post_id = #{postId}
+        select * from t_post_likes where liked_by = #{likedBy} and post_id = #{postId}
     </select>
 
-    <select id="queryLikesCheckByPostUserId" resultMap="PostLikesResultMap" parameterType="int">
-        select like_check from t_post_likes where liked_by = #{likeId} and post_id = #{postId}
+    <select id="queryLikesCheckByPostUserId" resultMap="PostLikesResultMap">
+        select like_check from t_post_likes where post_id = #{postId} and liked_by = #{likedBy}
     </select>
 
 

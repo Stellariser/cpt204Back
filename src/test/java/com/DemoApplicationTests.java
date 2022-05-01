@@ -36,6 +36,8 @@ class DemoApplicationTests {
     private TypeToPostServiceImpl typeToPostService;
     @Autowired
     private PostCollectServiceImpl postCollectService;
+    @Autowired
+    private PostLieksServiceImpl postLikeService;
 
 
 
@@ -411,7 +413,16 @@ class DemoApplicationTests {
     public void checkTest(){
         int postId = 1;
         int userid = 10001;
-        int c = postCollectService.queryCollectCheckByPosterUserId(1,10001);
+        int c = postCollectService.queryCollectCheckByPostUserId(1,10001);
+        System.out.println(c);
+
+    }
+
+    @Test
+    public void checkLikeTest(){
+        int postId = 1;
+        int userid = 10001;
+        int c = postLikeService.queryLikesCheckByPostUserId(1,10001);
         System.out.println(c);
 
     }

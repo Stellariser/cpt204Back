@@ -54,7 +54,7 @@ public class PostCollectServiceImpl implements PostCollectService{
     }
 
     @Override
-    public int queryCollectCheckByPosterUserId(@Param("postId") int postId, @Param("collectedBy") int collectedBy){
-        return postCollectMapper.queryCollectCheckByPosterUserId(postId, collectedBy);
+    public int queryCollectCheckByPostUserId(@Param("postId") int postId, @Param("collectedBy") int collectedBy){
+        return postCollectMapper.queryCollectCheckByPostUserId(postId, collectedBy);
     }
 }

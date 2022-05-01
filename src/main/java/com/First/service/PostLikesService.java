@@ -2,6 +2,7 @@ package com.First.service;
 
 import com.First.pojo.PostLikes;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,6 +21,6 @@ public interface PostLikesService {
 
     PostLikes queryLikesByPosterUserId(int postId, int likedBy);
 
-    int queryLikesCheckByPosterUserId(int postId, int likedBy);
+    int queryLikesCheckByPostUserId(@Param("postId") int postId, @Param("likedBy") int likedBy);
     
 }

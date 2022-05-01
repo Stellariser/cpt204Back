@@ -322,8 +322,8 @@ public class PostController {
     @CrossOrigin
     public String likeCollectPostCheck(int userId, int postId){
 
-        int likeCheck  = postLikesService.queryLikesCheckByPosterUserId(postId, userId);
-        int collectCheck = postCollectService.queryCollectCheckByPosterUserId(postId, userId);
+        int likeCheck  = postLikesService.queryLikesCheckByPostUserId(postId, userId);
+        int collectCheck = postCollectService.queryCollectCheckByPostUserId(postId, userId);
 
         User u = userService.queryUserById(userId);
         HashMap<String, Object> resultLikeCollectMap = new HashMap<>();
@@ -346,7 +346,7 @@ public class PostController {
     @RequestMapping(value = "/likePost", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public String likePost(Integer postId, Integer likedBy, int opt){
+    public String likePost(int postId, int likedBy, int opt){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> likeMap = new HashMap<>();

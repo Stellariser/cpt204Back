@@ -3,6 +3,7 @@ package com.First.service;
 import com.First.dao.PostLikesMapper;
 import com.First.pojo.PostLikes;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,8 +47,8 @@ public class PostLieksServiceImpl implements PostLikesService {
     }
 
     @Override
-    public int queryLikesCheckByPosterUserId(int postId, int likedBy){
-        return postLikeMapper.queryLikesCheckByPosterUserId(postId, likedBy);
+    public int queryLikesCheckByPostUserId(@Param("postId") int postId, @Param("likedBy") int likedBy){
+        return postLikeMapper.queryLikesCheckByPostUserId(postId, likedBy);
     }
     
 }

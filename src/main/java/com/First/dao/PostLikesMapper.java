@@ -1,6 +1,8 @@
 package com.First.dao;
 
 import com.First.pojo.PostLikes;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,7 +21,7 @@ public interface PostLikesMapper {
 
     PostLikes queryLikesByPosterUserId(int postId, int likedBy);
 
-    int queryLikesCheckByPosterUserId(int postId, int likedBy);
+    int queryLikesCheckByPostUserId(@Param("postId") int postId, @Param("likedBy") int likedBy);
 
 
 
