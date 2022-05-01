@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.First.pojo.PostCollect;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,5 +26,5 @@ public interface PostCollectService {
     
     PostCollect queryCollectByPosterUserId(int postId, int collectedBy);
 
-    int queryCollectCheckByPosterUserId(int postId, int collectedBy);
+    int queryCollectCheckByPosterUserId(@Param("postId") int postId, @Param("collectedBy") int collectedBy);
 }

@@ -1,6 +1,8 @@
 package com.First.dao;
 
 import com.First.pojo.PostCollect;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -24,5 +26,5 @@ public interface PostCollectMapper {
 
     PostCollect queryCollectByPosterUserId(int postId, int collectedBy);
 
-    int queryCollectCheckByPosterUserId(int postId, int collectedBy);
+    int queryCollectCheckByPosterUserId(@Param("postId") int postId, @Param("collectedBy") int collectedBy);
 }

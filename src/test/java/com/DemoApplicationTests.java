@@ -34,6 +34,8 @@ class DemoApplicationTests {
     private CommentServiceImpl commentService;
     @Autowired
     private TypeToPostServiceImpl typeToPostService;
+    @Autowired
+    private PostCollectServiceImpl postCollectService;
 
 
 
@@ -402,6 +404,15 @@ class DemoApplicationTests {
         List<Post> Post = postService.queryGlobalPost(postQueryInfo);
         PageInfo<Post> pageInfo = new PageInfo<>(Post);
         System.out.println(pageInfo.getPages());
+
+    }
+
+    @Test
+    public void checkTest(){
+        int postId = 1;
+        int userid = 10001;
+        int c = postCollectService.queryCollectCheckByPosterUserId(1,10001);
+        System.out.println(c);
 
     }
 
