@@ -34,7 +34,8 @@ class DemoApplicationTests {
     private CommentServiceImpl commentService;
     @Autowired
     private TypeToPostServiceImpl typeToPostService;
-
+    @Autowired
+    private PostCollectServiceImpl postCollectService;
 
 
     @Test
@@ -404,6 +405,37 @@ class DemoApplicationTests {
         System.out.println(pageInfo.getPages());
 
     }
+    @Test
+    public void collectcheck() {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        PostCollect postCollect = new PostCollect();
+        postCollect.setCollectedBy(1);
+        postCollect.setCollectedTime(timestamp);
+        postCollect.setPostId(2);
+        postCollect.setCollectCheck(0);
+        postCollectService.collect(postCollect);
+    }
+    @Test
+    public void check() {
 
+        int c = postCollectService.queryCollectCheckByPosterUserId(1,1);
+        System.out.println(c);
+    }
+    @Test
+    public void check2() {
+        PostCollect postCollect = new PostCollect();
+        postCollect.setPostId(1);
+        postCollect.setCollectedBy(1);
+        PostCollect res= postCollectService.queryCollectByIdandpost(postCollect);
+        System.out.println(res);
+    }
+    @Test
+    public void check3() {
+        PostCollect postCollect = new PostCollect();
+        postCollect.setPostId(1);
+        postCollect.setCollectedBy(1);
+        PostCollect res= postCollectService.queryCollectById(1);
+        System.out.println(res);
+    }
 
     }

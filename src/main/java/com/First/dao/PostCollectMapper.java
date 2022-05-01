@@ -25,4 +25,6 @@ public interface PostCollectMapper {
     PostCollect queryCollectByPosterUserId(int postId, int collectedBy);
 
     int queryCollectCheckByPosterUserId(int postId, int collectedBy);
+
+    PostCollect queryCollectByIdandpost(PostCollect postCollect);
 }

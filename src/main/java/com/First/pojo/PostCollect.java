@@ -52,7 +52,7 @@ public class PostCollect {
         return collectCheck;
     }
 
-    public void setCollectCheck(int collectCheckc) {
+    public void setCollectCheck(int collectCheck) {
         this.collectCheck = collectCheck;
     }
 }

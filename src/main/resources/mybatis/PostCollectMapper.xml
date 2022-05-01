@@ -11,8 +11,8 @@
     </resultMap>
 
     <insert id="collect" parameterType="com.First.pojo.PostCollect">
-        insert into t_post_collect (post_id, collected_by, collected_time)
-        VALUES (#{postId}, #{collectedBy}, #{collectedTime})
+        insert into t_post_collect (post_id, collected_by, collected_time,collect_check)
+        VALUES (#{postId}, #{collectedBy}, #{collectedTime},#{collectCheck})
     </insert>
 
     <update id="cancelCollect" parameterType="int">
@@ -41,17 +41,20 @@
 
     <!-- Decreasing collect -->
    <update id="updateCollectCancel" parameterType="int">
-        update t_post set 
+        update t_post set
         total_collects = total_collects - 1
         where id = #{postId}
     </update>
 
-    <select id="queryCollectByPostUserId" resultMap="PostCollectResultMap" parameterType="int">
+    <!--<select id="queryCollectByPostUserId" resultMap="PostCollectResultMap" parameterType="int">
         select * from t_post_collect where collected_by = #{collectId} and post_id = #{postId}
+    </select>-->
+
+    <select id="queryCollectByIdandpost" resultMap="PostCollectResultMap" parameterType="com.First.pojo.PostCollect">
+        select * from t_post_collect where collected_by = #{collectedBy} and post_id = #{postId}
+
     </select>
 
-    <select id="queryCollectCheckByPostUserId" resultMap="PostCollectResultMap" parameterType="int">
-        select collect_check from t_post_collect where collected_by = #{collectId} and post_id = #{postId}
-    </select>
-   
+
+
 </mapper>

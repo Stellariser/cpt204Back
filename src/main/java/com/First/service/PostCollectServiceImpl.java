@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class PostCollectServiceImpl implements PostCollectService{
     @Autowired
     private PostCollectMapper postCollectMapper;
-    
+
     @Override
     public int collect(PostCollect postCollect){
         return postCollectMapper.collect(postCollect);
@@ -55,5 +55,10 @@ public class PostCollectServiceImpl implements PostCollectService{
     @Override
     public int queryCollectCheckByPosterUserId(int postId, int collectedBy){
         return postCollectMapper.queryCollectCheckByPosterUserId(postId, collectedBy);
+    }
+
+    @Override
+    public PostCollect queryCollectByIdandpost(PostCollect postCollect) {
+        return postCollectMapper.queryCollectByIdandpost(postCollect);
     }
 }

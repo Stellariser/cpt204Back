@@ -29,9 +29,9 @@
 
     <!-- check if the user already liked that post or not-->
     <select id="likeCheck" resultType="int">
-        select like_check from t_post_likes where id = #{id} 
+        select like_check from t_post_likes where id = #{id}
     </select>
-  
+
 
     <!-- Increasing like -->
     <update id="updateLike" parameterType="int">
@@ -41,7 +41,7 @@
 
     <!-- Decreasing like -->
    <update id="updateLikeCancel" parameterType="int">
-        update t_post set 
+        update t_post set
         total_likes = total_likes - 1
         where id = #{postId}
     </update>
@@ -55,7 +55,7 @@
         select * from t_post_likes where liked_by = #{liedBy} and post_id = #{postId}
     </select>
 
-    <select id="queryLikesCheckByPostUserId" resultMap="PostCollectResultMap" parameterType="int">
+    <select id="queryLikesCheckByPostUserId" resultMap="PostLikesResultMap" parameterType="int">
         select like_check from t_post_likes where collected_by = #{collectId} and post_id = #{postId}
     </select>
 
