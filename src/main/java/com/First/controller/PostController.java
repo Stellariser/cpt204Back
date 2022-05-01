@@ -322,8 +322,9 @@ public class PostController {
     @CrossOrigin
     public String likeCollectPostCheck(int userId, int postId){
 
+        PostCollect postCollect = new PostCollect();
         int likeCheck  = postLikesService.queryLikesCheckByPostUserId(postId, userId);
-        int collectCheck = postCollectService.queryCollectCheckByPostUserId(postId, userId);
+        int collectCheck = postCollectService.queryCollectCheckByPostUserId(postCollect);
 
         User u = userService.queryUserById(userId);
         HashMap<String, Object> resultLikeCollectMap = new HashMap<>();

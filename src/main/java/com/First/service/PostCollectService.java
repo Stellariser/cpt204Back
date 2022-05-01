@@ -26,5 +26,6 @@ public interface PostCollectService {
     
     PostCollect queryCollectByPosterUserId(int postId, int collectedBy);
 
-    int queryCollectCheckByPostUserId(@Param("postId") int postId, @Param("collectedBy") int collectedBy);
+    //int queryCollectCheckByPostUserId(@Param("postId") int postId, @Param("collectedBy") int collectedBy);
+    int queryCollectCheckByPostUserId(PostCollect postCollect);
 }

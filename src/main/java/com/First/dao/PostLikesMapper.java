@@ -22,6 +22,7 @@ public interface PostLikesMapper {
     PostLikes queryLikesByPosterUserId(int postId, int likedBy);
 
     int queryLikesCheckByPostUserId(@Param("postId") int postId, @Param("likedBy") int likedBy);
+    
 
 
 

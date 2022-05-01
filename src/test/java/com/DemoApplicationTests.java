@@ -411,11 +411,19 @@ class DemoApplicationTests {
 
     @Test
     public void checkTest(){
-        int postId = 1;
-        int userid = 10001;
-        int c = postCollectService.queryCollectCheckByPostUserId(1,10001);
-        System.out.println(c);
+        // int postId = 1;
+        // int userid = 10001;
+        PostCollect postCollect = new PostCollect();
+        System.out.print(postCollectService.queryCollectCheckByPostUserId(postCollect));
+        //System.out.println(c);
 
+    }
+
+    @Test
+    public void collectCheck(){
+        int id = 1;
+        int r = postCollectService.collectCheck(id);
+        System.out.println(r);
     }
 
     @Test
