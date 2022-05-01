@@ -66,6 +66,7 @@
         p.content,
         p.anonymous,
         p.total_likes,
+        total_collects,
         p.criticism,
         p.views,
         ty.type_name,

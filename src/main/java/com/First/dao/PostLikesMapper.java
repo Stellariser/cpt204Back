@@ -19,6 +19,8 @@ public interface PostLikesMapper {
 
     PostLikes queryLikesByPosterUserId(int postId, int likedBy);
 
+    int queryLikesCheckByPosterUserId(int postId, int likedBy);
+
 
 
 }

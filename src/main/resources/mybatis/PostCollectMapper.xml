@@ -35,7 +35,7 @@
 
     <!-- Increasing collect -->
     <update id="updateCollect" parameterType="int">
-        update t_post set total_likes = total_likes+1
+        update t_post set total_collects = total_collects+1
         where id = #{postId}
     </update>
 
@@ -48,6 +48,10 @@
 
     <select id="queryCollectByPostUserId" resultMap="PostCollectResultMap" parameterType="int">
         select * from t_post_collect where collected_by = #{collectId} and post_id = #{postId}
+    </select>
+
+    <select id="queryCollectCheckByPostUserId" resultMap="PostCollectResultMap" parameterType="int">
+        select collect_check from t_post_collect where collected_by = #{collectId} and post_id = #{postId}
     </select>
    
 </mapper>

@@ -322,20 +322,20 @@ public class PostController {
     @CrossOrigin
     public String likeCollectPostCheck(int userId, int postId){
 
-        
-        PostLikes postLikes  = postLikesService.queryLikesByPosterUserId(postId, userId);
-        PostCollect postCollect = postCollectService.queryCollectByPosterUserId(postId, userId);
+        int likeCheck  = postLikesService.queryLikesCheckByPosterUserId(postId, userId);
+        int collectCheck = postCollectService.queryCollectCheckByPosterUserId(postId, userId);
 
         User u = userService.queryUserById(userId);
         HashMap<String, Object> resultLikeCollectMap = new HashMap<>();
         HashMap<String, Object> meta = new HashMap<>();
+
         resultLikeCollectMap.put("data", u);
-        resultLikeCollectMap.put("likeCheck", postLikes.getLikeCheck());
-        resultLikeCollectMap.put("likeCheck", postCollect.getCollectCheck());
+        resultLikeCollectMap.put("likeCheck", likeCheck);
+        resultLikeCollectMap.put("collectCheck", collectCheck);
         
         resultLikeCollectMap.put("meta", meta);
         resultLikeCollectMap.put("status", 200);
-        meta.put("msg", "查询成功");
+        meta.put("msg", "Status read successfully");
         meta.put("status", "200");
         return JSONObject.toJSONString(resultLikeCollectMap);
 
@@ -346,16 +346,16 @@ public class PostController {
     @RequestMapping(value = "/likePost", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public String likePost(Integer postId, Integer likedBy){
+    public String likePost(Integer postId, Integer likedBy, int opt){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> likeMap = new HashMap<>();
         PostLikes postLikes = new PostLikes();
 
         //check if it is liked or not
-        int likeCheck = postLikes.getLikeCheck();
+        //int likeCheck = postLikes.getLikeCheck();
 
-        if(likeCheck==0){
+        if(opt==0){
             postLikes.setPostId(postId);
             postLikes.setLikedBy(likedBy);
             postLikes.setLikedTime(timestamp);
@@ -368,7 +368,7 @@ public class PostController {
             likeMap.put("status", 200);
             likeMap.put("msg", "You've liked post");
         }
-        else if(likeCheck==1){
+        else if(opt==1){
             postLikesService.cancelLike(postLikes.getId());
             postLikesService.updateLikeCancel(postId);
 
@@ -385,7 +385,7 @@ public class PostController {
     @RequestMapping(value = "/collectPost", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public String collectPost(int postId, int collectedBy){
+    public String collectPost(int postId, int collectedBy, int opt){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> collectMap = new HashMap<>();
@@ -393,7 +393,7 @@ public class PostController {
 
         int collectCheck = postCollect.getCollectCheck();
 
-        if(collectCheck==0){
+        if(opt==0){
             postCollect.setPostId(postId);
             postCollect.setCollectedBy(collectedBy);
             postCollect.setCollectedTime(timestamp);
@@ -406,7 +406,7 @@ public class PostController {
             collectMap.put("status", 200);
             collectMap.put("msg", "You've collected the post");
         }
-        else if(collectCheck==1){
+        else if(opt==1){
             postCollectService.cancelCollect(postCollect.getId());
             postCollectService.updateCollectCancel(postId);
 

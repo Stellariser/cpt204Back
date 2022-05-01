@@ -44,5 +44,10 @@ public class PostLieksServiceImpl implements PostLikesService {
     public PostLikes queryLikesByPosterUserId(int postId, int likedBy){
         return postLikeMapper.queryLikesByPosterUserId(postId, likedBy);
     }
+
+    @Override
+    public int queryLikesCheckByPosterUserId(int postId, int likedBy){
+        return postLikeMapper.queryLikesCheckByPosterUserId(postId, likedBy);
+    }
     
 }
