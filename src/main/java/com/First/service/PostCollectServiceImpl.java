@@ -39,6 +39,11 @@ public class PostCollectServiceImpl implements PostCollectService{
     }
 
     @Override
+    public PostCollect queryCollectByUserId(int collectedBy) {
+        return postCollectMapper.queryCollectByUserId(collectedBy);
+    }
+
+    @Override
     public List<PostCollect> getCollectListByUserId(int collectedBy){
         return postCollectMapper.getCollectListByUserId(collectedBy);
     }
@@ -48,15 +53,15 @@ public class PostCollectServiceImpl implements PostCollectService{
         return postCollectMapper.queryCollectById(id);
     }
 
-    @Override
-    public PostCollect queryCollectByPosterUserId(int postId, int collectedBy){
-        return postCollectMapper.queryCollectByPosterUserId(postId, collectedBy);
-    }
+//    @Override
+//    public PostCollect queryCollectByPosterUserId(int postId, int collectedBy){
+//        return postCollectMapper.queryCollectByPosterUserId(postId, collectedBy);
+//    }
 
-    @Override
-    public int queryCollectCheckByPosterUserId(int postId, int collectedBy) {
-        return postCollectMapper.queryCollectCheckByPosterUserId(postId,collectedBy);
-    }
+//    @Override
+//    public int queryCollectCheckByPosterUserId(int postId, int collectedBy) {
+//        return postCollectMapper.queryCollectCheckByPosterUserId(postId,collectedBy);
+//    }
 
 //    @Override
 //    public int queryCollectCheckByPostUserId(@Param("postId") int postId, @Param("collectedBy") int collectedBy){

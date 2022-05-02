@@ -32,4 +32,6 @@ public interface PostCollectService {
     PostCollect queryCollectByIdandpost(PostCollect postCollect);
 
     int resumeCollect(PostCollect postCollect);
+
+
 }

@@ -60,6 +60,11 @@
         where post_id = #{postId} and collected_by=#{collectedBy}
     </update>
 
+    <select id="getCollectListByUserId" resultMap="PostCollectResultMap">
+        select * from t_post_collect where collected_by = #{collectedBy} and collect_check = 0
+    </select>
+
+
 
 
 

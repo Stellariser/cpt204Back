@@ -7,7 +7,7 @@ import com.First.pojo.*;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 
 import com.First.service.*;
 
@@ -17,10 +17,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @SpringBootTest
 class DemoApplicationTests {
@@ -453,6 +449,37 @@ class DemoApplicationTests {
         postCollect.setCollectedBy(1);
         int a = postCollectService.cancelCollect(postCollect);
         System.out.println(a);
+    }
+
+    @Test
+    public void querycol() {
+
+        List<PostCollect> pl = postCollectService.getCollectListByUserId(1);
+        System.out.println(pl);
+    }
+    @Test
+    public void queasdsadl() {
+        int id = 1;
+        List<Post> post = new ArrayList<>();
+        List<PostCollect> pcl = postCollectService.getCollectListByUserId(id);
+        int index = 0;
+        for(PostCollect pc:pcl){
+            Post p = new Post();
+            p=postService.queryPostById(pc.getPostId());
+            post.add(index,p);
+            index++;
+        }
+        for (int i = 0;i<pcl.size();i++){
+            String a = userService.queryUserById(post.get(i).getWriterId()).getUsername();
+            post.get(i).setWriterName(a);
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
+        for (int i = 0;i<pcl.size();i++){
+            post.get(i).setDate(post.get(i).getWrittenTime().toString().substring(0,19));
+            post.get(i).setDate(sdf.format(post.get(i).getWrittenTime()));
+        }
+        System.out.println(post);
+
     }
 
     }
