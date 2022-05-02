@@ -134,3 +134,21 @@ ALTER TABLE
     t_post
 ADD
     total_collects  INT;
+
+CREATE TABLE `t_like_notification` (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    post_id INT,
+    liked_by INT,
+    liked_time DATETIME,
+    like_check INT DEFAULT 0
+    like_number INT DEFAULT 0 //获得点赞的数量(The number of likes received)
+);
+
+CREATE TABLE `t_comment_notification` (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    post_id INT,
+    commented_by INT,
+    comment_time DATETIME,
+    comment_check INT DEFAULT 0
+    comment_number INT DEFAULT 0  //获得评论的数量(The number of comments received)
+);
