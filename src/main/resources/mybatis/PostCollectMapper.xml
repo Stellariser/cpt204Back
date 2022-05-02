@@ -26,7 +26,7 @@
     </select>
 
     <select id="queryCollectByUserId" resultMap="PostCollectResultMap">
-        select * from t_post_collect where collected_by = #{collectedBy} and collect_check=0
+        select * from t_post_collect where collected_by = #{collectedBy}
     </select>
 
     <select id="queryCollectById" resultMap="PostCollectResultMap" parameterType="int">

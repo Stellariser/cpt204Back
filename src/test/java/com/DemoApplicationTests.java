@@ -416,12 +416,11 @@ class DemoApplicationTests {
         postCollect.setCollectCheck(0);
         postCollectService.collect(postCollect);
     }
-    @Test
-    public void check() {
-
-        int c = postCollectService.queryCollectCheckByPosterUserId(1,1);
-        System.out.println(c);
-    }
+    // @Test
+    // public void check() {
+    //     int c = postCollectService.queryCollectCheckByPosterUserId(1,1);
+    //     System.out.println(c);
+    // }
     @Test
     public void check2() {
         PostCollect postCollect = new PostCollect();
