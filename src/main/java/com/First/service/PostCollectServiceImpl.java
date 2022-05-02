@@ -20,8 +20,8 @@ public class PostCollectServiceImpl implements PostCollectService{
     }
 
     @Override
-    public int cancelCollect(int id){
-        return postCollectMapper.cancelCollect(id);
+    public int cancelCollect(PostCollect postCollect){
+        return postCollectMapper.cancelCollect(postCollect);
     }
     @Override
     public int collectCheck(int id){
@@ -54,12 +54,22 @@ public class PostCollectServiceImpl implements PostCollectService{
     }
 
     @Override
-    public int queryCollectCheckByPostUserId(@Param("postId") int postId, @Param("collectedBy") int collectedBy){
-        return postCollectMapper.queryCollectCheckByPostUserId(postId, collectedBy);
+    public int queryCollectCheckByPosterUserId(int postId, int collectedBy) {
+        return postCollectMapper.queryCollectCheckByPosterUserId(postId,collectedBy);
     }
+
+//    @Override
+//    public int queryCollectCheckByPostUserId(@Param("postId") int postId, @Param("collectedBy") int collectedBy){
+//        return postCollectMapper.queryCollectCheckByPostUserId(postId, collectedBy);
+//    }
 
     @Override
     public PostCollect queryCollectByIdandpost(PostCollect postCollect) {
         return postCollectMapper.queryCollectByIdandpost(postCollect);
+    }
+
+    @Override
+    public int resumeCollect(PostCollect postCollect) {
+        return postCollectMapper.resumeCollect(postCollect);
     }
 }

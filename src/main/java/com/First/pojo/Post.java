@@ -26,10 +26,18 @@ public class Post {
     private int totalCollects;
     private int views;
     private int isDeleted;
+    private String typeContent;
     private String date;
     private Time ti;
 
 
+    public String getTypeContent() {
+        return typeContent;
+    }
+
+    public void setTypeContent(String typeContent) {
+        this.typeContent = typeContent;
+    }
 
     public Time getTi() {
         return ti;

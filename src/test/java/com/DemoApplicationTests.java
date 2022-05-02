@@ -36,7 +36,8 @@ class DemoApplicationTests {
     private TypeToPostServiceImpl typeToPostService;
     @Autowired
     private PostCollectServiceImpl postCollectService;
-
+    @Autowired
+    private PostLieksServiceImpl postLieksService;
 
     @Test
     void contextLoads() {
@@ -436,6 +437,23 @@ class DemoApplicationTests {
         postCollect.setCollectedBy(1);
         PostCollect res= postCollectService.queryCollectById(1);
         System.out.println(res);
+    }
+    @Test
+    public void check4() {
+        PostLikes pl =new PostLikes();
+        pl.setLikedBy(1);
+        pl.setPostId(1);
+
+        PostLikes a = postLieksService.queryLikesByIdandpost(pl);
+        System.out.println(a);
+    }
+    @Test
+    public void cancelcollect() {
+        PostCollect postCollect = new PostCollect();
+        postCollect.setPostId(1);
+        postCollect.setCollectedBy(1);
+        int a = postCollectService.cancelCollect(postCollect);
+        System.out.println(a);
     }
 
     }

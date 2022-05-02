@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 public interface PostLikesService {
     int like(PostLikes postLikes);
 
-    int cancelLike(int id);
+    int cancelLike(PostLikes postLikes);
 
     int likeCheck(int id);
-    
+
     int updateLike(int postId);
 
     int updateLikeCancel(int postId);
@@ -22,5 +22,6 @@ public interface PostLikesService {
     PostLikes queryLikesByPosterUserId(int postId, int likedBy);
 
     int queryLikesCheckByPostUserId(@Param("postId") int postId, @Param("likedBy") int likedBy);
-    
+    PostLikes queryLikesByIdandpost(PostLikes postLikes);
+    int resumeLike(PostLikes postLikes);
 }

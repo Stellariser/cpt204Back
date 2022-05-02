@@ -15,9 +15,9 @@
         VALUES (#{postId}, #{collectedBy}, #{collectedTime},#{collectCheck})
     </insert>
 
-    <update id="cancelCollect" parameterType="int">
+    <update id="cancelCollect" parameterType="com.First.pojo.PostCollect">
         update t_post_collect set collect_check = 1
-        where id = #{id}
+        where post_id = #{postId} and collected_by=#{collectedBy}
     </update>
 
     <!-- check if the user already liked that post or not-->
@@ -54,6 +54,12 @@
         select * from t_post_collect where collected_by = #{collectedBy} and post_id = #{postId}
 
     </select>
+
+    <update id="resumeCollect" parameterType="com.First.pojo.PostCollect">
+        update t_post_collect set collect_check = 0
+        where post_id = #{postId} and collected_by=#{collectedBy}
+    </update>
+
 
 
 

@@ -2,6 +2,7 @@ package com.First.controller;
 
 import com.First.VO.PostQueryInfo;
 import com.First.pojo.*;
+import com.First.service.PostLikesService;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -320,19 +321,45 @@ public class PostController {
     @RequestMapping(value = "/checkLikeCollect", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public String likeCollectPostCheck(int userId, int postId){
+    public String likeCollectPostCheck(int viewerId, int postId){
+        PostCollect pc = new PostCollect();
+        PostLikes pl = new PostLikes();
+        pc.setPostId(postId);
+        pc.setCollectedBy(viewerId);
+        pl.setPostId(postId);
+        pl.setLikedBy(viewerId);
 
-        int likeCheck  = postLikesService.queryLikesCheckByPostUserId(postId, userId);
-        int collectCheck = postCollectService.queryCollectCheckByPostUserId(postId, userId);
+        PostCollect postCollectres = new PostCollect();
+        PostLikes postLikesres = new PostLikes();
+        postLikesres.setLikeCheck(1);
+        postCollectres.setCollectCheck(1);
+        try {
+            postLikesres  = postLikesService.queryLikesByIdandpost(pl);
+        }catch (Exception e){
+            postLikesres.setLikeCheck(1);
+        }
+        try {
+            postCollectres = postCollectService.queryCollectByIdandpost(pc);
+        }catch (Exception e){
+            postCollectres.setCollectCheck(1);
+        }
 
-        User u = userService.queryUserById(userId);
+        User u = userService.queryUserById(viewerId);
         HashMap<String, Object> resultLikeCollectMap = new HashMap<>();
         HashMap<String, Object> meta = new HashMap<>();
 
-        resultLikeCollectMap.put("data", u);
-        resultLikeCollectMap.put("likeCheck", likeCheck);
-        resultLikeCollectMap.put("collectCheck", collectCheck);
-        
+        //resultLikeCollectMap.put("data", u);
+
+        try {
+            resultLikeCollectMap.put("likeCheck", postLikesres.getLikeCheck());
+        }catch (NullPointerException e){
+            resultLikeCollectMap.put("likeCheck", 1);
+        }
+        try {
+            resultLikeCollectMap.put("collectCheck", postCollectres.getCollectCheck());
+        }catch (NullPointerException e){
+            resultLikeCollectMap.put("collectCheck", 1);
+        }
         resultLikeCollectMap.put("meta", meta);
         resultLikeCollectMap.put("status", 200);
         meta.put("msg", "Status read successfully");
@@ -346,38 +373,50 @@ public class PostController {
     @RequestMapping(value = "/likePost", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public String likePost(int postId, int likedBy, int opt){
+    public String likePost(int postId, int viewerId, int likeopt){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> likeMap = new HashMap<>();
         PostLikes postLikes = new PostLikes();
+        int likecheck = postLikes.getLikeCheck();
 
-        //check if it is liked or not
-        //int likeCheck = postLikes.getLikeCheck();
+        if(likeopt==0){
+            PostLikes pl = new PostLikes();
+            pl.setPostId(postId);
+            pl.setLikedBy(viewerId);
+            PostLikes res = postLikesService.queryLikesByIdandpost(pl);
+            try {
+                res.getLikeCheck();
+            }catch (NullPointerException e){
+                postLikes.setPostId(postId);
+                postLikes.setLikedBy(viewerId);
+                postLikes.setLikedTime(timestamp);
 
-        if(opt==0){
+                postLikesService.like(postLikes);
+                postLikesService.updateLike(postId);
+                likeMap.put("status", 200);
+                likeMap.put("msg", "You've like the post");
+                likeMap.put("opt", 0);
+                return JSONObject.toJSONString(likeMap);
+            }
             postLikes.setPostId(postId);
-            postLikes.setLikedBy(likedBy);
-            postLikes.setLikedTime(timestamp);
-    
-            postLikesService.like(postLikes);
-            postLikesService.updateLike(postId);
-            
-            map.put("like_id", postLikesService.queryLikesById(postLikes.getId()));
-            likeMap.put("data", map);
+            postLikes.setLikedBy(viewerId);
+            postLikesService.resumeLike(postLikes);
             likeMap.put("status", 200);
-            likeMap.put("msg", "You've liked post");
+            likeMap.put("msg", "You've like the post");
+            likeMap.put("opt", 0);
         }
-        else if(opt==1){
-            postLikesService.cancelLike(postLikes.getId());
+        else if(likeopt==1){
+            PostLikes pp = new PostLikes();
+            pp.setPostId(postId);
+            pp.setLikedBy(viewerId);
+            postLikesService.cancelLike(pp);
             postLikesService.updateLikeCancel(postId);
-
-            map.put("like_id", postLikesService.queryLikesById(postLikes.getId()));
-            likeMap.put("data", map);
             likeMap.put("status", 200);
             likeMap.put("msg", "You've canceled like");
+            likeMap.put("opt", 1);
         }
-       
+
         return JSONObject.toJSONString(likeMap);
     }
 
@@ -385,7 +424,7 @@ public class PostController {
     @RequestMapping(value = "/collectPost", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public String collectPost(int postId, int collectedBy, int opt){
+    public String collectPost(int postId, int viewerId, int collectopt){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> collectMap = new HashMap<>();
@@ -393,26 +432,42 @@ public class PostController {
 
         int collectCheck = postCollect.getCollectCheck();
 
-        if(opt==0){
+        if(collectopt==0){
+            PostCollect ps = new PostCollect();
+            ps.setPostId(postId);
+            ps.setCollectedBy(viewerId);
+            PostCollect res = postCollectService.queryCollectByIdandpost(ps);
+            try {
+                res.getCollectCheck();
+            }catch (NullPointerException e){
+                postCollect.setPostId(postId);
+                postCollect.setCollectedBy(viewerId);
+                postCollect.setCollectedTime(timestamp);
+
+                postCollectService.collect(postCollect);
+                postCollectService.updateCollect(postId);
+                collectMap.put("status", 200);
+                collectMap.put("msg", "You've collected the post");
+                collectMap.put("opt", 0);
+                return JSONObject.toJSONString(collectMap);
+            }
             postCollect.setPostId(postId);
-            postCollect.setCollectedBy(collectedBy);
-            postCollect.setCollectedTime(timestamp);
-    
-            postCollectService.collect(postCollect);
-            postCollectService.updateCollect(postId);
-            
-            map.put("like_id", postCollectService.queryCollectById(postCollect.getId()));
-            collectMap.put("data", map);
+            postCollect.setCollectedBy(viewerId);
+            postCollectService.resumeCollect(postCollect);
             collectMap.put("status", 200);
+            collectMap.put("opt", 0);
             collectMap.put("msg", "You've collected the post");
+
         }
-        else if(opt==1){
-            postCollectService.cancelCollect(postCollect.getId());
+        else if(collectopt==1){
+            PostCollect p = new PostCollect();
+            p.setPostId(postId);
+            p.setCollectedBy(viewerId);
+            postCollectService.cancelCollect(p);
             postCollectService.updateCollectCancel(postId);
 
-            map.put("like_id", postLikesService.queryLikesById(postCollect.getId()));
-            collectMap.put("data", map);
             collectMap.put("status", 200);
+            collectMap.put("opt", 1);
             collectMap.put("msg", "You've canceled collecting");
         }
 

@@ -9,7 +9,7 @@ import java.util.List;
 public interface PostCollectMapper {
     int collect(PostCollect postCollect);
 
-	int cancelCollect(int id);
+	int cancelCollect(PostCollect postCollect);
 
     int collectCheck(int id);
 
@@ -27,4 +27,6 @@ public interface PostCollectMapper {
     int queryCollectCheckByPosterUserId(int postId, int collectedBy);
 
     PostCollect queryCollectByIdandpost(PostCollect postCollect);
+
+    int resumeCollect(PostCollect postCollect);
 }
