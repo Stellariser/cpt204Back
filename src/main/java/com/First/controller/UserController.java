@@ -278,9 +278,6 @@ public class UserController {
     @CrossOrigin(origins = "*")
     public String getPersonalPost(int id,int pageNumber,int pageSize) {
         PageHelper.startPage(pageNumber, pageSize);
-        PostQueryInfo postQueryInfo = new PostQueryInfo();
-        postQueryInfo.setPageNumber(pageNumber);
-        postQueryInfo.setPageSize(pageSize);
 
         List<Post> post = postService.queryPostByUserId(id);
         for (Post c:post){
@@ -314,13 +311,14 @@ public class UserController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public String getCollection(int id,int pageNumber,int pageSize) {
+        List<PostCollect> pcli = postCollectService.getCollectListByUserId(id);
         PageHelper.startPage(pageNumber, pageSize);
         PostQueryInfo postQueryInfo = new PostQueryInfo();
         postQueryInfo.setPageNumber(pageNumber);
         postQueryInfo.setPageSize(pageSize);
         List<Post> post = new ArrayList<>();
         List<PostCollect> pcl = postCollectService.getCollectListByUserId(id);
-
+        System.out.println(pcli.size());
         int index = 0;
         for(PostCollect pc:pcl){
             Post p = new Post();
@@ -337,15 +335,16 @@ public class UserController {
             post.get(i).setDate(post.get(i).getWrittenTime().toString().substring(0,19));
             post.get(i).setDate(sdf.format(post.get(i).getWrittenTime()));
         }
+
         PageInfo<Post> pageInfo = new PageInfo<>(post);
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> userInfo = new HashMap<>();
 
         userInfo.put("postList",pageInfo.getList());
-        userInfo.put("totalpage",pageInfo.getTotal());
+        userInfo.put("totalpage",pcli.size());
         userInfo.put("pagenum",pageInfo.getPageNum());
         map.put("data", userInfo);
-        map.put("totalpage",pageInfo.getTotal());
+        map.put("totalpage",pcli.size());
         map.put("status", 200);
         map.put("msg", "Successful access to personal information");
 

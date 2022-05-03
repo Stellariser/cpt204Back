@@ -462,6 +462,7 @@ class DemoApplicationTests {
         int id = 1;
         List<Post> post = new ArrayList<>();
         List<PostCollect> pcl = postCollectService.getCollectListByUserId(id);
+
         int index = 0;
         for(PostCollect pc:pcl){
             Post p = new Post();
@@ -478,6 +479,8 @@ class DemoApplicationTests {
             post.get(i).setDate(post.get(i).getWrittenTime().toString().substring(0,19));
             post.get(i).setDate(sdf.format(post.get(i).getWrittenTime()));
         }
+        System.out.println(post);
+        Collections.reverse(post);
         System.out.println(post);
 
     }
