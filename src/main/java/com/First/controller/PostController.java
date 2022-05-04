@@ -295,8 +295,8 @@ public class PostController {
     @RequestMapping(value = "/delete", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public String deletePost(@RequestBody Map<String, Object> deleteForm){
-        int postId = (int) deleteForm.get("postId");
+    public String deletePost(int id){
+        int postId = id;
         Post post = postService.queryPostById(postId);
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> deleteMap = new HashMap<>();
