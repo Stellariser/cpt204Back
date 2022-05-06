@@ -11,13 +11,13 @@
     </resultMap>
 
     <insert id="collect" parameterType="com.First.pojo.PostCollect">
-        insert into t_post_collect (post_id, collected_by, collected_time)
-        VALUES (#{postId}, #{collectedBy}, #{collectedTime})
+        insert into t_post_collect (post_id, collected_by, collected_time,collect_check)
+        VALUES (#{postId}, #{collectedBy}, #{collectedTime},#{collectCheck})
     </insert>
 
-    <update id="cancelCollect" parameterType="int">
+    <update id="cancelCollect" parameterType="com.First.pojo.PostCollect">
         update t_post_collect set collect_check = 1
-        where id = #{id}
+        where post_id = #{postId} and collected_by=#{collectedBy}
     </update>
 
     <!-- check if the user already liked that post or not-->
@@ -26,11 +26,47 @@
     </select>
 
     <select id="queryCollectByUserId" resultMap="PostCollectResultMap">
-        select * from t_post_collect where collected_by = #{collectedBy} and collect_check=0
+        select * from t_post_collect where collected_by = #{collectedBy}
     </select>
 
     <select id="queryCollectById" resultMap="PostCollectResultMap" parameterType="int">
         select * from t_post_collect where id = #{id} and collect_check=0
     </select>
+
+    <!-- Increasing collect -->
+    <update id="updateCollect" parameterType="int">
+        update t_post set total_collects = total_collects+1
+        where id = #{postId}
+    </update>
+
+    <!-- Decreasing collect -->
+   <update id="updateCollectCancel" parameterType="int">
+        update t_post set
+        total_collects = total_collects - 1
+        where id = #{postId}
+    </update>
+
+    <!--<select id="queryCollectByPostUserId" resultMap="PostCollectResultMap" parameterType="int">
+        select * from t_post_collect where collected_by = #{collectId} and post_id = #{postId}
+    </select>-->
+
+    <select id="queryCollectByIdandpost" resultMap="PostCollectResultMap" parameterType="com.First.pojo.PostCollect">
+        select * from t_post_collect where collected_by = #{collectedBy} and post_id = #{postId}
+
+    </select>
+
+    <update id="resumeCollect" parameterType="com.First.pojo.PostCollect">
+        update t_post_collect set collect_check = 0
+        where post_id = #{postId} and collected_by=#{collectedBy}
+    </update>
+
+    <select id="getCollectListByUserId" resultMap="PostCollectResultMap">
+        select * from t_post_collect p where collected_by = #{collectedBy} and collect_check = 0 GROUP BY p.id
+        order by p.id desc
+    </select>
+
+
+
+
 
 </mapper>

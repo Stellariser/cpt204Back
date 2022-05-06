@@ -2,7 +2,9 @@ package com.First.controller;
 
 import com.First.VO.PostQueryInfo;
 import com.First.pojo.Post;
+import com.First.pojo.PostCollect;
 import com.First.pojo.User;
+import com.First.service.PostCollectService;
 import com.First.service.PostService;
 import com.First.service.UserService;
 import com.alibaba.fastjson.JSONObject;
@@ -15,9 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/user")
@@ -27,6 +27,8 @@ public class UserController {
 
     @Autowired
     private PostService postService;
+    @Autowired
+    private PostCollectService postCollectService;
 
     @RequestMapping(value = "/allUser", produces = "text/html;charset=utf-8")
     @ResponseBody
@@ -202,13 +204,19 @@ public class UserController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public String answercheck(int id,String username,String answer) {
-        User user = userService.queryUserByName(username);
         Map<String, Object> map = new HashMap<>();
-        if(user.getUsername().equals(username) && user.getSecretAnswer().equals(answer)){
-            map.put("status",200);
-        }else {
+        try {
+            User user = userService.queryUserByName(username);
+            if(user.getUsername().equals(username) && user.getSecretAnswer().equals(answer)){
+                map.put("status",200);
+            }else {
+                map.put("status",0);
+            }
+        }catch (NullPointerException e){
             map.put("status",0);
+            return JSONObject.toJSONString(map);
         }
+
           return JSONObject.toJSONString(map);
     }
 
@@ -270,9 +278,6 @@ public class UserController {
     @CrossOrigin(origins = "*")
     public String getPersonalPost(int id,int pageNumber,int pageSize) {
         PageHelper.startPage(pageNumber, pageSize);
-        PostQueryInfo postQueryInfo = new PostQueryInfo();
-        postQueryInfo.setPageNumber(pageNumber);
-        postQueryInfo.setPageSize(pageSize);
 
         List<Post> post = postService.queryPostByUserId(id);
         for (Post c:post){
@@ -302,4 +307,81 @@ public class UserController {
         return JSONObject.toJSONString(map);
 
     }
+    @RequestMapping(value = "/getCollection", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public String getCollection(int id,int pageNumber,int pageSize) {
+        List<PostCollect> pcli = postCollectService.getCollectListByUserId(id);
+        PageHelper.startPage(pageNumber, pageSize);
+        PostQueryInfo postQueryInfo = new PostQueryInfo();
+        postQueryInfo.setPageNumber(pageNumber);
+        postQueryInfo.setPageSize(pageSize);
+        List<Post> post = new ArrayList<>();
+        List<PostCollect> pcl = postCollectService.getCollectListByUserId(id);
+        System.out.println(pcli.size());
+        int index = 0;
+        for(PostCollect pc:pcl){
+            Post p = new Post();
+            p=postService.queryPostById(pc.getPostId());
+            post.add(index,p);
+            index++;
+        }
+        for (int i = 0;i<pcl.size();i++){
+            String a = userService.queryUserById(post.get(i).getWriterId()).getUsername();
+            post.get(i).setWriterName(a);
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
+        for (int i = 0;i<pcl.size();i++){
+            post.get(i).setDate(post.get(i).getWrittenTime().toString().substring(0,19));
+            post.get(i).setDate(sdf.format(post.get(i).getWrittenTime()));
+        }
+
+        PageInfo<Post> pageInfo = new PageInfo<>(post);
+        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> userInfo = new HashMap<>();
+
+        userInfo.put("postList",pageInfo.getList());
+        userInfo.put("totalpage",pcli.size());
+        userInfo.put("pagenum",pageInfo.getPageNum());
+        map.put("data", userInfo);
+        map.put("totalpage",pcli.size());
+        map.put("status", 200);
+        map.put("msg", "Successful access to personal information");
+
+        return JSONObject.toJSONString(map);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

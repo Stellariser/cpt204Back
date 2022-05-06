@@ -10,6 +10,7 @@ spring:
     url: jdbc:mysql://localhost:3306/cpt202?autoReconnect=true&useSSL=true&useUnicode=true&characterEncoding=UTF-8
 
 
+
 mybatis:
   type-aliases-package: First.pojo
   mapper-locations: classpath:/mybatis/*.xml

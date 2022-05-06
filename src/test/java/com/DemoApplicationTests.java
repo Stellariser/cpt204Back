@@ -7,7 +7,7 @@ import com.First.pojo.*;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 
 import com.First.service.*;
 
@@ -17,10 +17,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @SpringBootTest
 class DemoApplicationTests {
@@ -34,8 +30,10 @@ class DemoApplicationTests {
     private CommentServiceImpl commentService;
     @Autowired
     private TypeToPostServiceImpl typeToPostService;
-
-
+    @Autowired
+    private PostCollectServiceImpl postCollectService;
+    @Autowired
+    private PostLieksServiceImpl postLieksService;
 
     @Test
     void contextLoads() {
@@ -88,13 +86,15 @@ class DemoApplicationTests {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
 
         List<Post> postList = postService.queryAllPost();
-
-        for (Post post : postList) {
-            post.setDate(sdf.format(post.getWrittenTime()));
-
-            //System.out.println(post.getWrittenTime());
-            System.out.println(sdf.format(post.getWrittenTime().getTime()));
+        for(Post p :postList){
+            System.out.println(p);
         }
+//        for (Post post : postList) {
+//            post.setDate(sdf.format(post.getWrittenTime()));
+//
+//            //System.out.println(post.getWrittenTime());
+//            System.out.println(sdf.format(post.getWrittenTime().getTime()));
+//        }
     }
     @Test
     public void getPosttext22() {
@@ -402,6 +402,87 @@ class DemoApplicationTests {
         System.out.println(pageInfo.getPages());
 
     }
+    @Test
+    public void collectcheck() {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        PostCollect postCollect = new PostCollect();
+        postCollect.setCollectedBy(1);
+        postCollect.setCollectedTime(timestamp);
+        postCollect.setPostId(2);
+        postCollect.setCollectCheck(0);
+        postCollectService.collect(postCollect);
+    }
+    // @Test
+    // public void check() {
+    //     int c = postCollectService.queryCollectCheckByPosterUserId(1,1);
+    //     System.out.println(c);
+    // }
+    @Test
+    public void check2() {
+        PostCollect postCollect = new PostCollect();
+        postCollect.setPostId(1);
+        postCollect.setCollectedBy(1);
+        PostCollect res= postCollectService.queryCollectByIdandpost(postCollect);
+        System.out.println(res);
+    }
+    @Test
+    public void check3() {
+        PostCollect postCollect = new PostCollect();
+        postCollect.setPostId(1);
+        postCollect.setCollectedBy(1);
+        PostCollect res= postCollectService.queryCollectById(1);
+        System.out.println(res);
+    }
+    @Test
+    public void check4() {
+        PostLikes pl =new PostLikes();
+        pl.setLikedBy(1);
+        pl.setPostId(1);
 
+        PostLikes a = postLieksService.queryLikesByIdandpost(pl);
+        System.out.println(a);
+    }
+    @Test
+    public void cancelcollect() {
+        PostCollect postCollect = new PostCollect();
+        postCollect.setPostId(1);
+        postCollect.setCollectedBy(1);
+        int a = postCollectService.cancelCollect(postCollect);
+        System.out.println(a);
+    }
+
+    @Test
+    public void querycol() {
+
+        List<PostCollect> pl = postCollectService.getCollectListByUserId(1);
+        System.out.println(pl);
+    }
+    @Test
+    public void queasdsadl() {
+        int id = 1;
+        List<Post> post = new ArrayList<>();
+        List<PostCollect> pcl = postCollectService.getCollectListByUserId(id);
+
+        int index = 0;
+        for(PostCollect pc:pcl){
+            Post p = new Post();
+            p=postService.queryPostById(pc.getPostId());
+            post.add(index,p);
+            index++;
+        }
+        for (int i = 0;i<pcl.size();i++){
+            String a = userService.queryUserById(post.get(i).getWriterId()).getUsername();
+            post.get(i).setWriterName(a);
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
+        for (int i = 0;i<pcl.size();i++){
+            post.get(i).setDate(post.get(i).getWrittenTime().toString().substring(0,19));
+            post.get(i).setDate(sdf.format(post.get(i).getWrittenTime()));
+        }
+        System.out.println(post);
+        Collections.reverse(post);
+        System.out.println(post);
+
+    }
 
     }

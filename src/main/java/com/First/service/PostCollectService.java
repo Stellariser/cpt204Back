@@ -11,12 +11,27 @@ public interface PostCollectService {
 
     int collect(PostCollect postCollect);
 
-    int cancelCollect(int id);
+    int cancelCollect(PostCollect postCollect);
 
     int collectCheck(int id);
+
+    int updateCollect(int postId);
+
+    int updateCollectCancel(int postId);
+
+    PostCollect queryCollectByUserId(int collectedBy);
 
     List<PostCollect> getCollectListByUserId(int collectedBy);
 
     PostCollect queryCollectById(int id);
-    
+
+    //PostCollect queryCollectByPosterUserId(int postId, int collectedBy);
+
+    //int queryCollectCheckByPosterUserId(int postId, int collectedBy);
+
+    PostCollect queryCollectByIdandpost(PostCollect postCollect);
+
+    int resumeCollect(PostCollect postCollect);
+
+
 }

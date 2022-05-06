@@ -3,6 +3,7 @@ package com.First.service;
 import com.First.dao.PostLikesMapper;
 import com.First.pojo.PostLikes;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,15 +11,15 @@ import org.springframework.stereotype.Service;
 public class PostLieksServiceImpl implements PostLikesService {
     @Autowired
     private PostLikesMapper postLikeMapper;
-    
+
     @Override
     public int like(PostLikes postLikes){
         return postLikeMapper.like(postLikes);
     }
 
     @Override
-    public int cancelLike(int id){
-        return postLikeMapper.cancelLike(id);
+    public int cancelLike(PostLikes postLikes){
+        return postLikeMapper.cancelLike(postLikes);
     }
 
     @Override
@@ -40,5 +41,30 @@ public class PostLieksServiceImpl implements PostLikesService {
     public PostLikes queryLikesById(int id){
         return postLikeMapper.queryLikesById(id);
     }
-    
+    @Override
+    public PostLikes queryLikesByPosterUserId(int postId, int likedBy){
+        return postLikeMapper.queryLikesByPosterUserId(postId, likedBy);
+    }
+
+    @Override
+    public int queryLikesCheckByPostUserId(@Param("postId") int postId, @Param("likedBy") int likedBy){
+        return postLikeMapper.queryLikesCheckByPostUserId(postId, likedBy);
+    }
+
+    @Override
+    public PostLikes queryLikesByIdandpost(PostLikes postLikes) {
+        return postLikeMapper.queryLikesByIdandpost(postLikes);
+    }
+
+    //@Override
+   // public PostLikes queryLikesByIdandpost(PostLikes postLikes) {
+   //     return postLikeMapper.queryLikesByIdandpost(postLikes);
+   // }
+
+    @Override
+    public int resumeLike(PostLikes postLikes) {
+        return postLikeMapper.resumeLike(postLikes);
+    }
+
+
 }
