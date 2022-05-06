@@ -323,6 +323,13 @@ class DemoApplicationTests {
 
     }
     @Test
+    public void querypostbyUserid(){
+        int id = 1;
+        List<Post> p =postService.queryPostByUserId(id);
+        System.out.println(p);
+
+    }
+    @Test
     public void user2(){
 
         User u = userService.queryUserByName("zpy");

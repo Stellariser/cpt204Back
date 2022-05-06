@@ -7,11 +7,30 @@
         <result column="post_id" jdbcType="BIGINT" property="postId"/>
         <result column="collected_by" jdbcType="BIGINT" property="collectedBy"/>
         <result column="collected_time" jdbcType="TIMESTAMP" property="collectedTime"/>
+        <result column="collect_check" jdbcType="BIGINT" property="collectCheck"/>
     </resultMap>
 
     <insert id="collect" parameterType="com.First.pojo.PostCollect">
         insert into t_post_collect (post_id, collected_by, collected_time)
         VALUES (#{postId}, #{collectedBy}, #{collectedTime})
     </insert>
+
+    <update id="cancelCollect" parameterType="int">
+        update t_post_collect set collect_check = 1
+        where id = #{id}
+    </update>
+
+    <!-- check if the user already liked that post or not-->
+    <select id="collectCheck" resultType="int">
+        select collect_check from t_post_collect where id = #{id}
+    </select>
+
+    <select id="queryCollectByUserId" resultMap="PostCollectResultMap">
+        select * from t_post_collect where collected_by = #{collectedBy} and collect_check=0
+    </select>
+
+    <select id="queryCollectById" resultMap="PostCollectResultMap" parameterType="int">
+        select * from t_post_collect where id = #{id} and collect_check=0
+    </select>
 
 </mapper>

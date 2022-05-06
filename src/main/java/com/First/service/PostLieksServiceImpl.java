@@ -17,8 +17,13 @@ public class PostLieksServiceImpl implements PostLikesService {
     }
 
     @Override
-    public int cancelLike(PostLikes postLikes){
-        return postLikeMapper.cancelLike(postLikes);
+    public int cancelLike(int id){
+        return postLikeMapper.cancelLike(id);
+    }
+
+    @Override
+    public int likeCheck(int id){
+        return postLikeMapper.likeCheck(id);
     }
 
     @Override

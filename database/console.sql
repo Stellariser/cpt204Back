@@ -122,5 +122,5 @@ CREATE TABLE `t_post_collect` (
     post_id INT,
     collected_by INT,
     collected_time DATETIME,
-    canceled BOOLEAN DEFAULT FALSE
+    collect_check INT DEFAULT 0
 );

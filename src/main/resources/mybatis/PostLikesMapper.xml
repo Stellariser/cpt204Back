@@ -29,7 +29,7 @@
 
     <!-- check if the user already liked that post or not-->
     <select id="likeCheck" resultType="int">
-        select canceled from t_post_likes where post_id = #{postId} and liked_by = #{likedBy} 
+        select like_check from t_post_likes where id = #{id} 
     </select>
   
 
@@ -48,7 +48,7 @@
 
 
     <select id="queryLikesById" resultMap="PostLikesResultMap" parameterType="int">
-        select * from t_post_likes where id = #{id} and canceled=0
+        select * from t_post_likes where id = #{id} and like_check=0
     </select>
 
 

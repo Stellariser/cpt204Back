@@ -15,7 +15,7 @@ public class PostLikes {
     private int postId;
     private int likedBy;  // User ID
     private Date likedTime;
-    private int canceled;
+    private int likeCheck;
 
     public int getId() {
         return id;
@@ -49,11 +49,11 @@ public class PostLikes {
         this.likedTime = likedTime;
     }
 
-    public int isCanceled() {
-        return canceled;
+    public int getLikeCheck() {
+        return likeCheck;
     }
 
-    public void setCanceled(int canceled) {
-        this.canceled = canceled;
+    public void setLikeCheck(int likeCheck) {
+        this.likeCheck=likeCheck;
     }
 }
