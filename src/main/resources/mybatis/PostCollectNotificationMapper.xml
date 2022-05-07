@@ -12,7 +12,7 @@
     </resultMap>
 
     <insert id="addCollectNotification" parameterType="com.First.pojo.PostCollectNotification">
-        insert into t_post_like_notification (post_id, user_id, collect_time)
+        insert into t_post_collect_notification (post_id, user_id, collect_time)
         VALUES (#{postId}, #{userId}, #{collectedTime})
     </insert>
 
