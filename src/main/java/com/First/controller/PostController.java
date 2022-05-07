@@ -365,8 +365,6 @@ public class PostController {
         meta.put("msg", "Status read successfully");
         meta.put("status", "200");
         return JSONObject.toJSONString(resultLikeCollectMap);
-
-
     }
 
     //Like Post
@@ -378,8 +376,8 @@ public class PostController {
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> likeMap = new HashMap<>();
         PostLikes postLikes = new PostLikes();
-        int likecheck = postLikes.getLikeCheck();
-
+        int likeCheck = postLikes.getLikeCheck();
+        
         if(likeopt==0){
             PostLikes pl = new PostLikes();
             pl.setPostId(postId);
