@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface PostCollectNotificationMapper {
-    
+
     int addCollectNotification(PostCollectNotification postCollectNotification);
-    
+
 }
