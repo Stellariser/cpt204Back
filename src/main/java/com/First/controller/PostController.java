@@ -474,5 +474,36 @@ public class PostController {
         return JSONObject.toJSONString(collectMap);
     }
 
+    @RequestMapping(value = "/admin/delete", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin
+    public String deletePostByAdmin(int id,String username){
+        int postId = id;
+        Post post = postService.queryPostById(postId);
+        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> deleteMap = new HashMap<>();
+        User user = userService.queryUserByName(username);
+        
+        if(user.getUsername().equals("admin")){
+            // Doesn't exist or has been deleted before
+            if (post == null) {
+                deleteMap.put("status", 0);
+                deleteMap.put("msg", "Post does not exist or already deleted");
+            } else {
+            // set isDeleted to 1
+                postService.deletePostById(postId);
+                map.put("postId", postId);
+                deleteMap.put("data", map);
+                deleteMap.put("status", 200);
+                deleteMap.put("msg", "Delete successfully");
+            }
+
+        }
+
+
+        // postId if deleted, else error code + reason
+        return JSONObject.toJSONString(deleteMap);
+    }
+
 
 }
