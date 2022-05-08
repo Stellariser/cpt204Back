@@ -1,5 +1,6 @@
 package com.First.service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -21,20 +22,28 @@ public class BlockWordsServiceImpl implements BlockWordsService {
     }
 
     @Override
-    public int addMany(String words) {
+    public String[] addMany(String words) {
         words = words.replace("；", ";");
         String[] wordsLst = words.split(";");
+        List<String> added = new ArrayList<>();
+        int j = 0;
+        for (int i = 0; i < wordsLst.length; i++) {
+            wordsLst[i] = wordsLst[i].strip();
+        }
         HashSet<BlockWords> existingBlockWords = listAll();
         HashSet<String> wordString = new HashSet<>();
-        int result = 0;
         for (BlockWords blockWords : existingBlockWords) {
             wordString.add(blockWords.getWord());
         }
         for (int i = 0; i < wordsLst.length; i++)
-            if (!wordString.contains(wordsLst[i]))
-                result += addOne(wordsLst[i]);
-
-        return result;
+            if (!wordString.contains(wordsLst[i])) {
+                addOne(wordsLst[i]);
+                added.add(wordsLst[i]);
+                j++;
+            }
+        String[] addedArr = new String[j];
+        added.toArray(addedArr);
+        return addedArr;
     }
 
     @Override

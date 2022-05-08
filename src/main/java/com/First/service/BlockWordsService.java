@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public interface BlockWordsService {
     int addOne(String word);
 
-    int addMany(String words);
+    String[] addMany(String words);
 
     int delOne(String word);
 

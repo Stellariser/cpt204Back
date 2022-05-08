@@ -132,10 +132,10 @@ public class UserController {
     }
 
     // Update user avatar
-    @RequestMapping(value = "/updateAvatar", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
+    @RequestMapping(value = "/manageAvatar", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public String updateAvatar(int userId, int avatarId) {
+    public String manageAvatar(int userId, int avatarId) {
 
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> updateAvatarMap = new HashMap<>();
@@ -371,25 +371,20 @@ public class UserController {
         return JSONObject.toJSONString(avatarLstMap);
     }
 
-    @RequestMapping(value = "/getAvatar", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
+    @RequestMapping(value = "/getUserAvatar", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public String getAvatar(int id) {
+    public String getUserAvatar(int id) {
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> avatarMap = new HashMap<>();
-        User user = userService.queryUserById(id);
+        User user = userService.queryUserById((Integer) id);
         if (user != null) {
             int avatarId = user.getAvatar();
-            Avatar avatar = avatarService.getById(avatarId);
-            if (avatar != null) {
-                map.put("avatar", avatar);
-                avatarMap.put("data", map);
-                avatarMap.put("status", 200);
-                avatarMap.put("msg", "Successfully get user avatar.");
-            } else {
-                avatarMap.put("status", 0);
-                avatarMap.put("msg", "Failed to get user avatar.");
-            }
+            map.put("id", avatarId);
+            avatarMap.put("data", map);
+            avatarMap.put("status", 200);
+            avatarMap.put("msg", "Successfully get user avatar.");
+
         } else {
             avatarMap.put("status", 1);
             avatarMap.put("msg", "User does not exist.");

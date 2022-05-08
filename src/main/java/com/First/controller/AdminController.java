@@ -1,5 +1,6 @@
 package com.First.controller;
 
+import com.First.pojo.BlockWords;
 import com.First.pojo.Post;
 import com.First.service.BlockWordsServiceImpl;
 import com.First.service.PostServiceImpl;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.HashMap;
+import java.util.HashSet;
 
 @Controller
 @RequestMapping("/admin")
@@ -27,17 +30,26 @@ public class AdminController {
     @RequestMapping(value = "/addBlockWords", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public String addBlockWords(String word) {
+    public String addBlockWords(String blockWords) {
+        Map<String, Object> map = new HashMap<>();
         Map<String, Object> resMap = new HashMap<>();
 
+        Set<BlockWords> bkwSet = new HashSet<>();
         try {
-            blockWordsServiceImpl.addMany(word);
+            String[] newBlockWordsArr = blockWordsServiceImpl.addMany(blockWords);
+            for (int index = 0; index < newBlockWordsArr.length; index++) {
+                BlockWords oneBKW = new BlockWords();
+                oneBKW.setWord(newBlockWordsArr[index]);
+                bkwSet.add(oneBKW);
+            }
+            map.put("newBlockWords", bkwSet);
+            resMap.put("data", map);
             resMap.put("status", 200);
-            resMap.put("msg", "Successfully added block word(s)");
+            resMap.put("msg", "Successfully added block word(s): " + bkwSet.toString());
 
         } catch (Exception e) {
             resMap.put("status", 0);
-            resMap.put("msg", "Failed to add block word(s)!");
+            resMap.put("msg", "Failed to add block word(s)! " + e);
         }
 
         return JSONObject.toJSONString(resMap);
@@ -46,11 +58,11 @@ public class AdminController {
     @RequestMapping(value = "/deleteBlockWords", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public String deleteBlockWords(String word) {
+    public String deleteBlockWords(String blockWords) {
         Map<String, Object> resMap = new HashMap<>();
 
         try {
-            blockWordsServiceImpl.delMany(word);
+            blockWordsServiceImpl.delMany(blockWords);
             resMap.put("status", 200);
             resMap.put("msg", "Successfully deleted block word(s)");
 
@@ -82,5 +94,26 @@ public class AdminController {
         }
         // postId if deleted, else error code + reason
         return JSONObject.toJSONString(deleteMap);
+    }
+
+    @RequestMapping(value = "/getAllBlockWords", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin
+    public String getAllBlockWords() {
+        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> blockWordsMap = new HashMap<>();
+
+        HashSet<BlockWords> blockWords = blockWordsServiceImpl.listAll();
+        if (blockWords != null) {
+            map.put("blockWords", blockWords);
+            blockWordsMap.put("data", map);
+            blockWordsMap.put("msg", "Successfully get block words.");
+            blockWordsMap.put("status", 200);
+        } else {
+            blockWordsMap.put("msg", "Failed to get block words.");
+            blockWordsMap.put("status", 0);
+        }
+
+        return JSONObject.toJSONString(blockWordsMap);
     }
 }

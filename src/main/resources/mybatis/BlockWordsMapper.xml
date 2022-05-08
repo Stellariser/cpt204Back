@@ -16,7 +16,7 @@
     </delete>
 
     <select id="listAll" resultType="com.First.pojo.BlockWords">
-        select word from t_block_words
+        select * from t_block_words
     </select>
 
 </mapper>
