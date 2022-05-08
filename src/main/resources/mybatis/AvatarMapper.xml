@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.First.dao.AvatarMapper">
+
+    <resultMap id="AvatarResultMap" type="com.First.pojo.Avatar">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="location" jdbcType="VARCHAR" property="location" />
+    </resultMap>
+
+    <select id="listAll" resultType="com.First.pojo.Avatar">
+        select * from t_avatar
+    </select>
+
+    <select id="getById" resultMap="AvatarResultMap" parameterType="java.lang.Integer">
+        select * from t_avatar where id = #{id}
+    </select>
+
+</mapper>

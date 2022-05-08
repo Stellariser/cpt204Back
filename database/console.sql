@@ -152,3 +152,6 @@ CREATE TABLE `t_post_comment_notification` (
     is_read INT DEFAULT 0
     comment_number INT DEFAULT 0  //获得评论的数量(The number of comments received)
 );
+
+ALTER TABLE `t_user`
+    CHANGE COLUMN `avator` `avatar` INT;

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.First.dao.BlockWordsMapper">
+
+    <resultMap id="BlockWordsResultMap" type="com.First.pojo.BlockWords">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="word" jdbcType="VARCHAR" property="word" />
+    </resultMap>
+
+    <insert id="addOne" parameterType="java.lang.String">
+        insert into t_block_words (word) values (#{word})
+    </insert>
+
+    <delete id="delOne" parameterType="java.lang.String">
+        delete from t_block_words where word = #{word}
+    </delete>
+
+    <select id="listAll" resultType="com.First.pojo.BlockWords">
+        select word from t_block_words
+    </select>
+
+</mapper>

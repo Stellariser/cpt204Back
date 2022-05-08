@@ -1,6 +1,5 @@
 package com.First.dao;
 
-import com.First.pojo.PostCollect;
 import com.First.pojo.PostLikes;
 
 import org.apache.ibatis.annotations.Param;

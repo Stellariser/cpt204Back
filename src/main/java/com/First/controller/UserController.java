@@ -1,12 +1,14 @@
 package com.First.controller;
 
 import com.First.VO.PostQueryInfo;
+import com.First.pojo.Avatar;
 import com.First.pojo.Post;
 import com.First.pojo.PostCollect;
 import com.First.pojo.User;
 import com.First.service.PostCollectService;
 import com.First.service.PostService;
 import com.First.service.UserService;
+import com.First.service.AvatarServiceImpl;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.pagehelper.PageHelper;
@@ -29,6 +31,8 @@ public class UserController {
     private PostService postService;
     @Autowired
     private PostCollectService postCollectService;
+    @Autowired
+    private AvatarServiceImpl avatarService;
 
     @RequestMapping(value = "/allUser", produces = "text/html;charset=utf-8")
     @ResponseBody
@@ -80,7 +84,7 @@ public class UserController {
     @RequestMapping(value = "/register", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public String register(String username,String password,String answer) {
+    public String register(String username, String password, String answer) {
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> registerMap = new HashMap<>();
         if (userService.queryUserByName(username) != null) {
@@ -92,7 +96,7 @@ public class UserController {
             user.setPassword(password);
             user.setSecretQuestion(1);
             user.setSecretAnswer(answer);
-            user.setAvator("/a");
+            user.setAvatar(1);
             userService.addUser(user);
             map.put("id", userService.queryUserByName(username).getId());
             registerMap.put("data", map);
@@ -127,39 +131,38 @@ public class UserController {
         return JSONObject.toJSONString(loginMap);
     }
 
-    // Update user avator
-    @RequestMapping(value = "/updateAvator", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
+    // Update user avatar
+    @RequestMapping(value = "/updateAvatar", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public String updateAvator(@RequestBody Map<String, Object> updateAvatorFormMap) {
-        Integer id = (Integer) updateAvatorFormMap.get("id");
-        String avator = (String) updateAvatorFormMap.get("avator");
+    public String updateAvatar(int userId, int avatarId) {
 
         Map<String, Object> map = new HashMap<>();
-        Map<String, Object> updateAvatorMap = new HashMap<>();
+        Map<String, Object> updateAvatarMap = new HashMap<>();
 
-        User user = userService.queryUserById(id);
+        User user = userService.queryUserById(userId);
         if (user == null) {
-            updateAvatorMap.put("status", 0);
-            updateAvatorMap.put("msg", "User does not exist.");
+            updateAvatarMap.put("status", 0);
+            updateAvatarMap.put("msg", "User does not exist.");
         } else {
-            user.setAvator(avator);
-            userService.updateAvator(user);
+            user.setAvatar(avatarId);
+            userService.updateAvatar(user);
             map.put("id", user.getId());
-            map.put("avator", user.getAvator());
-            updateAvatorMap.put("data", map);
-            updateAvatorMap.put("status", 200);
-            updateAvatorMap.put("msg", "Update avator successfully.");
+            map.put("avatar", user.getAvatar());
+            updateAvatarMap.put("data", map);
+            updateAvatarMap.put("status", 200);
+            updateAvatarMap.put("msg", "Update avatar successfully.");
         }
 
-        return JSONObject.toJSONString(updateAvatorMap);
+        return JSONObject.toJSONString(updateAvatarMap);
     }
 
     // Update user information
     @RequestMapping(value = "/updateInfo", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public String updateInfo(int id,String nickName,String gender,String grade,String major,String PersonalizedInfo) {
+    public String updateInfo(int id, String nickName, String gender, String grade, String major,
+            String PersonalizedInfo) {
         String username = nickName;
         String personalInfo = PersonalizedInfo;
 
@@ -171,11 +174,10 @@ public class UserController {
             updateInfoMap.put("status", 0);
             updateInfoMap.put("msg", "User does not exist.");
         }
-        if(userService.queryUserByName(nickName)!=null && userService.queryUserByName(nickName).getId()!=id){
+        if (userService.queryUserByName(nickName) != null && userService.queryUserByName(nickName).getId() != id) {
             updateInfoMap.put("status", 1);
             updateInfoMap.put("msg", "User already exists, please use another one.");
-        }
-        else {
+        } else {
             user.setUsername(username);
             user.setGender(gender);
             user.setGrade(grade);
@@ -203,31 +205,30 @@ public class UserController {
     @RequestMapping(value = "/answerCheck", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public String answercheck(int id,String username,String answer) {
+    public String answercheck(int id, String username, String answer) {
         Map<String, Object> map = new HashMap<>();
         try {
             User user = userService.queryUserByName(username);
-            if(user.getUsername().equals(username) && user.getSecretAnswer().equals(answer)){
-                map.put("status",200);
-            }else {
-                map.put("status",0);
+            if (user.getUsername().equals(username) && user.getSecretAnswer().equals(answer)) {
+                map.put("status", 200);
+            } else {
+                map.put("status", 0);
             }
-        }catch (NullPointerException e){
-            map.put("status",0);
+        } catch (NullPointerException e) {
+            map.put("status", 0);
             return JSONObject.toJSONString(map);
         }
 
-          return JSONObject.toJSONString(map);
+        return JSONObject.toJSONString(map);
     }
-
 
     // Update or reset user password
     @RequestMapping(value = "/updatePassword", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public String updatePassword(int id,String password,String username) {
+    public String updatePassword(int id, String password, String username) {
 
-        //User user = userService.queryUserById(id);
+        // User user = userService.queryUserById(id);
         User user = userService.queryUserByName(username);
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> updatePwdMap = new HashMap<>();
@@ -245,7 +246,6 @@ public class UserController {
         return JSONObject.toJSONString(updatePwdMap);
     }
 
-
     @RequestMapping(value = "/getPersonalInfo", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
@@ -257,13 +257,12 @@ public class UserController {
         if (user == null) {
             map.put("status", 0);
             map.put("msg", "User does not exist.");
-        }
-        else {
-            userInfo.put("username",user.getUsername());
-            userInfo.put("gender",user.getGender());
-            userInfo.put("grade",user.getGrade());
-            userInfo.put("major",user.getMajor());
-            userInfo.put("personalInfo",user.getPersonalInfo());
+        } else {
+            userInfo.put("username", user.getUsername());
+            userInfo.put("gender", user.getGender());
+            userInfo.put("grade", user.getGrade());
+            userInfo.put("major", user.getMajor());
+            userInfo.put("personalInfo", user.getPersonalInfo());
             map.put("id", user.getId());
             map.put("data", userInfo);
             map.put("status", 200);
@@ -276,41 +275,40 @@ public class UserController {
     @RequestMapping(value = "/getPersonalPost", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public String getPersonalPost(int id,int pageNumber,int pageSize) {
+    public String getPersonalPost(int id, int pageNumber, int pageSize) {
         PageHelper.startPage(pageNumber, pageSize);
 
         List<Post> post = postService.queryPostByUserId(id);
-        for (Post c:post){
+        for (Post c : post) {
             String a = userService.queryUserById(c.getWriterId()).getUsername();
             c.setWriterName(a);
         }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
-        for (Post c:post){
-            c.setDate(c.getWrittenTime().toString().substring(0,19));
+        for (Post c : post) {
+            c.setDate(c.getWrittenTime().toString().substring(0, 19));
             c.setDate(sdf.format(c.getWrittenTime()));
         }
         PageInfo<Post> pageInfo = new PageInfo<>(post);
 
-
-
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> userInfo = new HashMap<>();
 
-        userInfo.put("postList",pageInfo.getList());
-        userInfo.put("totalpage",pageInfo.getTotal());
-        userInfo.put("pagenum",pageInfo.getPageNum());
+        userInfo.put("postList", pageInfo.getList());
+        userInfo.put("totalpage", pageInfo.getTotal());
+        userInfo.put("pagenum", pageInfo.getPageNum());
         map.put("data", userInfo);
-        map.put("totalpage",pageInfo.getTotal());
+        map.put("totalpage", pageInfo.getTotal());
         map.put("status", 200);
         map.put("msg", "Successful access to personal information");
 
         return JSONObject.toJSONString(map);
 
     }
+
     @RequestMapping(value = "/getCollection", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public String getCollection(int id,int pageNumber,int pageSize) {
+    public String getCollection(int id, int pageNumber, int pageSize) {
         List<PostCollect> pcli = postCollectService.getCollectListByUserId(id);
         PageHelper.startPage(pageNumber, pageSize);
         PostQueryInfo postQueryInfo = new PostQueryInfo();
@@ -320,19 +318,19 @@ public class UserController {
         List<PostCollect> pcl = postCollectService.getCollectListByUserId(id);
         System.out.println(pcli.size());
         int index = 0;
-        for(PostCollect pc:pcl){
+        for (PostCollect pc : pcl) {
             Post p = new Post();
-            p=postService.queryPostById(pc.getPostId());
-            post.add(index,p);
+            p = postService.queryPostById(pc.getPostId());
+            post.add(index, p);
             index++;
         }
-        for (int i = 0;i<pcl.size();i++){
+        for (int i = 0; i < pcl.size(); i++) {
             String a = userService.queryUserById(post.get(i).getWriterId()).getUsername();
             post.get(i).setWriterName(a);
         }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
-        for (int i = 0;i<pcl.size();i++){
-            post.get(i).setDate(post.get(i).getWrittenTime().toString().substring(0,19));
+        for (int i = 0; i < pcl.size(); i++) {
+            post.get(i).setDate(post.get(i).getWrittenTime().toString().substring(0, 19));
             post.get(i).setDate(sdf.format(post.get(i).getWrittenTime()));
         }
 
@@ -340,48 +338,63 @@ public class UserController {
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> userInfo = new HashMap<>();
 
-        userInfo.put("postList",pageInfo.getList());
-        userInfo.put("totalpage",pcli.size());
-        userInfo.put("pagenum",pageInfo.getPageNum());
+        userInfo.put("postList", pageInfo.getList());
+        userInfo.put("totalpage", pcli.size());
+        userInfo.put("pagenum", pageInfo.getPageNum());
         map.put("data", userInfo);
-        map.put("totalpage",pcli.size());
+        map.put("totalpage", pcli.size());
         map.put("status", 200);
         map.put("msg", "Successful access to personal information");
 
         return JSONObject.toJSONString(map);
-
     }
 
+    @RequestMapping(value = "/getAvatarList", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public String getAvatarList() {
+        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> avatarLstMap = new HashMap<>();
 
+        List<Avatar> avatars = avatarService.liatAll();
 
+        if (avatars != null) {
+            map.put("avatars", avatars);
+            avatarLstMap.put("msg", "Successfuly get avatars.");
+            avatarLstMap.put("status", 200);
+            avatarLstMap.put("data", map);
+        } else {
+            avatarLstMap.put("msg", "Failed to get avatars!");
+            avatarLstMap.put("status", 0);
+        }
 
+        return JSONObject.toJSONString(avatarLstMap);
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @RequestMapping(value = "/getAvatar", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public String getAvatar(int id) {
+        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> avatarMap = new HashMap<>();
+        User user = userService.queryUserById(id);
+        if (user != null) {
+            int avatarId = user.getAvatar();
+            Avatar avatar = avatarService.getById(avatarId);
+            if (avatar != null) {
+                map.put("avatar", avatar);
+                avatarMap.put("data", map);
+                avatarMap.put("status", 200);
+                avatarMap.put("msg", "Successfully get user avatar.");
+            } else {
+                avatarMap.put("status", 0);
+                avatarMap.put("msg", "Failed to get user avatar.");
+            }
+        } else {
+            avatarMap.put("status", 1);
+            avatarMap.put("msg", "User does not exist.");
+        }
+        return JSONObject.toJSONString(avatarMap);
+    }
 
 }

@@ -13,7 +13,7 @@ public class User {
     private String password;
     private int secretQuestion;
     private String secretAnswer;
-    private String avator;
+    private int avatar;
     private String gender;
     private String grade;
     private String major;
@@ -63,12 +63,12 @@ public class User {
         this.secretAnswer = secretAnswer;
     }
 
-    public String getAvator() {
-        return avator;
+    public int getAvatar() {
+        return avatar;
     }
 
-    public void setAvator(String avator) {
-        this.avator = avator;
+    public void setAvatar(int avatar) {
+        this.avatar = avatar;
     }
 
     public String getGender(String gender) {
@@ -103,8 +103,8 @@ public class User {
         this.personalInfo = personalInfo;
     }
 
-    public void getDefaultAvator() {
-        this.avator = "http://localhost:8080/images/default_avator.jpg";
+    public void getDefaultAvatar() {
+        this.avatar = 1;
     }
 
 }

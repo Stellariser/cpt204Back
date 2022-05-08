@@ -8,7 +8,7 @@
         <result column="password" jdbcType="VARCHAR" property="password"/>
         <result column="secret_question" jdbcType="BIGINT" property="secretQuestion"/>
         <result column="secret_answer" jdbcType="VARCHAR" property="secretAnswer"/>
-        <result column="avator" jdbcType="VARCHAR" property="avator"/>
+        <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
         <result column="gender" jdbcType="VARCHAR" property="gender"/>
         <result column="grade" jdbcType="VARCHAR" property="grade"/>
         <result column="major" jdbcType="VARCHAR" property="major"/>
@@ -33,8 +33,8 @@
     </select>
 
     <insert id="addUser" parameterType="com.First.pojo.User">
-        insert into t_user(username, password, secret_question, secret_answer, avator)
-        values (#{username}, #{password}, #{secretQuestion}, #{secretAnswer}, #{avator})
+        insert into t_user(username, password, secret_question, secret_answer, avatar)
+        values (#{username}, #{password}, #{secretQuestion}, #{secretAnswer}, #{avatar})
     </insert>
 
     <update id="updatePerosnalInfo" parameterType="com.First.pojo.User">
@@ -47,9 +47,9 @@
         where id = #{id}
     </update>
 
-    <update id="updateAvator" parameterType="com.First.pojo.User">
+    <update id="updateAvatar" parameterType="com.First.pojo.User">
         update t_user
-        set avator=#{avator}
+        set avatar=#{avatar}
         where id = #{id}
     </update>
 

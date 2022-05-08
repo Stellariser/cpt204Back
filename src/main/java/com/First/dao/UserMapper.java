@@ -21,7 +21,7 @@ public interface UserMapper {
 
     int updatePerosnalInfo(User user) throws DuplicateKeyException;
 
-    int updateAvator(User user);
+    int updateAvatar(User user);
 
     int updatePassword(User user);
 

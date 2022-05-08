@@ -68,7 +68,7 @@ class DemoApplicationTests {
         user.setPassword("123456");
         user.setSecretQuestion(1);
         user.setSecretAnswer("SuZhou");
-        user.setAvator("/a/a");
+        user.setAvatar(1);
 
         userService.addUser(user);
     }
@@ -311,7 +311,7 @@ class DemoApplicationTests {
         user.setPassword("afasgasg");
         user.setSecretAnswer("afaf");
         user.setSecretQuestion(1);
-        user.setAvator("afasfasfasffdasf");
+        user.setAvatar(1);
         userService.addUser(user);
 
     }

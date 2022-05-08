@@ -41,8 +41,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int updateAvator(User user) {
-        return userMapper.updateAvator(user);
+    public int updateAvatar(User user) {
+        return userMapper.updateAvatar(user);
     };
 
     @Override
