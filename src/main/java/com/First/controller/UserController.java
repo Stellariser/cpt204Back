@@ -263,6 +263,7 @@ public class UserController {
             userInfo.put("grade", user.getGrade());
             userInfo.put("major", user.getMajor());
             userInfo.put("personalInfo", user.getPersonalInfo());
+            userInfo.put("avatar",user.getAvatar());
             map.put("id", user.getId());
             map.put("data", userInfo);
             map.put("status", 200);
@@ -282,6 +283,7 @@ public class UserController {
         for (Post c : post) {
             String a = userService.queryUserById(c.getWriterId()).getUsername();
             c.setWriterName(a);
+            c.setAvatar( userService.queryUserById(c.getWriterId()).getAvatar());
         }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
         for (Post c : post) {
@@ -327,6 +329,7 @@ public class UserController {
         for (int i = 0; i < pcl.size(); i++) {
             String a = userService.queryUserById(post.get(i).getWriterId()).getUsername();
             post.get(i).setWriterName(a);
+            post.get(i).setAvatar(userService.queryUserById(post.get(i).getWriterId()).getAvatar());
         }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
         for (int i = 0; i < pcl.size(); i++) {

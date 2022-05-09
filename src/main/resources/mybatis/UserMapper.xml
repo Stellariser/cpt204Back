@@ -8,7 +8,7 @@
         <result column="password" jdbcType="VARCHAR" property="password"/>
         <result column="secret_question" jdbcType="BIGINT" property="secretQuestion"/>
         <result column="secret_answer" jdbcType="VARCHAR" property="secretAnswer"/>
-        <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+        <result column="avatar" jdbcType="BIGINT" property="avatar"/>
         <result column="gender" jdbcType="VARCHAR" property="gender"/>
         <result column="grade" jdbcType="VARCHAR" property="grade"/>
         <result column="major" jdbcType="VARCHAR" property="major"/>

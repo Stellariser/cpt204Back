@@ -69,6 +69,7 @@
         p.total_collects,
         p.criticism,
         p.views,
+        tu.avatar,
         ty.type_name,
         GROUP_CONCAT(DISTINCT ty.id) typelist,
         GROUP_CONCAT(DISTINCT ty.type_name) typeContent
@@ -76,6 +77,8 @@
 
         LEFT JOIN t_type_to_post tp on tp.post_id = p.id
         LEFT JOIN t_type ty on ty.id=tp.type_id
+        LEFT JOIN t_user tu on p.writer_id = tu.id
+
 
         WHERE 1=1
           and p.is_deleted =0

@@ -29,7 +29,15 @@ public class Post {
     private String typeContent;
     private String date;
     private Time ti;
+    private int avatar;
 
+    public int getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(int avatar) {
+        this.avatar = avatar;
+    }
 
     public String getTypeContent() {
         return typeContent;

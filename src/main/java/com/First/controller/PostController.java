@@ -116,6 +116,8 @@ public class PostController {
         }
         resultMap.put("content", post.getContent());
         resultMap.put("title", post.getTitle());
+        assert u != null;
+        resultMap.put("avatar",u.getAvatar());
         //like
         resultMap.put("likeTotal", post.getTotalLikes());
         //collect!!
@@ -375,7 +377,7 @@ public class PostController {
         Map<String, Object> likeMap = new HashMap<>();
         PostLikes postLikes = new PostLikes();
         int likeCheck = postLikes.getLikeCheck();
-        
+
         if(likeopt==0){
             PostLikes pl = new PostLikes();
             pl.setPostId(postId);
