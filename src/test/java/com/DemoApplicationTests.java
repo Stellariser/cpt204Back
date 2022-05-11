@@ -542,4 +542,11 @@ class DemoApplicationTests {
         Assertions.assertEquals(1, blockWordsService.delOne("diss"));
 
     }
+
+    @Test
+    public void deleteOnePostByAdmin() {
+
+        Assertions.assertEquals(1, postService.deletePostById(2));
+
+    }
 }
