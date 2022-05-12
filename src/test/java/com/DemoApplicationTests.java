@@ -38,10 +38,6 @@ class DemoApplicationTests {
     private AvatarServiceImpl avatarService;
     @Autowired
     private BlockWordsServiceImpl blockWordsService;
-    @Autowired
-    private PostCollectNotificationServiceImpl postCollectNotificationService;
-    @Autowired
-    private PostLikeNotificationServiceImpl postLikeNotificationService;
 
     @Test
     void contextLoads() {
