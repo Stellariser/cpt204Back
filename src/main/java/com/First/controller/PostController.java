@@ -48,7 +48,6 @@ public class PostController {
     @Autowired
     private com.First.service.PostCollectService postCollectService;
 
-    @Autowired
     private com.First.BlockWordsChecher.BlockWordsHandler blockWordsHandler;
 
     @RequestMapping(value = "/queryPost", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
