@@ -48,6 +48,9 @@ public class PostController {
     @Autowired
     private com.First.service.PostCollectService postCollectService;
 
+    @Autowired
+    private com.First.BlockWordsChecher.BlockWordsHandler blockWordsHandler;
+
     @RequestMapping(value = "/queryPost", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
@@ -192,7 +195,7 @@ public class PostController {
         post.setTitle(title);
         post.setWriterId(writerId);
         post.setWrittenTime(timestamp);
-        post.setContent(content);
+        post.setContent(blockWordsHandler.replace(content));
         post.setIsDeleted(0);
         //post.setAnonymous(anonymous);
         postService.addPost(post);
@@ -244,7 +247,7 @@ public class PostController {
         comment.setPostId(postId);
         comment.setWrittenTime(timestamp);
         comment.setUpdateTime(timestamp);
-        comment.setContent(content);
+        comment.setContent(blockWordsHandler.replace(content));
         comment.setKudos(0);
         comment.setCriticism(0);
         comment.setIsDeleted(0);
