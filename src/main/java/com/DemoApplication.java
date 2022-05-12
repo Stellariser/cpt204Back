@@ -8,6 +8,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 
 @SpringBootApplication
 @MapperScan("com.First.dao")
+
 public class DemoApplication extends SpringBootServletInitializer {
 
     @Override

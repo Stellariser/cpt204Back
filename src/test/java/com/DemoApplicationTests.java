@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import com.First.BlockWordsChecher.BlockWordsHandler;
 
 @SpringBootTest
 class DemoApplicationTests {
@@ -38,6 +39,8 @@ class DemoApplicationTests {
     private AvatarServiceImpl avatarService;
     @Autowired
     private BlockWordsServiceImpl blockWordsService;
+
+    private com.First.BlockWordsChecher.BlockWordsHandler blockWordsHandler;
 
     @Test
     void contextLoads() {
@@ -543,6 +546,16 @@ class DemoApplicationTests {
     public void deleteOnePostByAdmin() {
 
         Assertions.assertEquals(1, postService.deletePostById(2));
+
+    }
+    @Test
+    public void block() {
+        System.out.println(blockWordsService.listAll());
+        String a = "丁真";
+        blockWordsHandler.replace(a);
+        System.out.println(a);
+
+
 
     }
 }
