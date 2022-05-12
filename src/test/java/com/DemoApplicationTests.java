@@ -34,6 +34,14 @@ class DemoApplicationTests {
     private PostCollectServiceImpl postCollectService;
     @Autowired
     private PostLieksServiceImpl postLieksService;
+    @Autowired
+    private AvatarServiceImpl avatarService;
+    @Autowired
+    private BlockWordsServiceImpl blockWordsService;
+    @Autowired
+    private PostCollectNotificationServiceImpl postCollectNotificationService;
+    @Autowired
+    private PostLikeNotificationServiceImpl postLikeNotificationService;
 
     @Test
     void contextLoads() {
@@ -72,21 +80,22 @@ class DemoApplicationTests {
 
         userService.addUser(user);
     }
-    @Test
-    public void queryuserbyidUserTest4(){
 
-       User u =  userService.queryUserById(2);
+    @Test
+    public void queryuserbyidUserTest4() {
+
+        User u = userService.queryUserById(2);
         System.out.println(u);
 
     }
 
-//postTest
+    //postTest
     @Test
     public void getPosttext2() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
 
         List<Post> postList = postService.queryAllPost();
-        for(Post p :postList){
+        for (Post p : postList) {
             System.out.println(p);
         }
 //        for (Post post : postList) {
@@ -96,6 +105,7 @@ class DemoApplicationTests {
 //            System.out.println(sdf.format(post.getWrittenTime().getTime()));
 //        }
     }
+
     @Test
     public void getPosttext22() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH点mm分钟ss秒");
@@ -105,10 +115,9 @@ class DemoApplicationTests {
     }
 
 
-
     @Test
     public void getPostmax() {
-        System.out.println( postService.getLastInsert());
+        System.out.println(postService.getLastInsert());
         TypeToPost typeToPost = new TypeToPost();
         typeToPost.setPostId(38);
         typeToPost.setTypeId(1);
@@ -130,7 +139,7 @@ class DemoApplicationTests {
     }
 
     @Test
-    public void addPostTest(){
+    public void addPostTest() {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         Post post = new Post();
 
@@ -146,14 +155,14 @@ class DemoApplicationTests {
     }
 
     @Test
-    public void deletPostTest(){
+    public void deletPostTest() {
         //发现问题，孙老师已经知道啦，可写在report中
 
         Assertions.assertEquals(1, postService.deletePostById(2));
     }
 
     @Test
-    public void queryPostTest1(){
+    public void queryPostTest1() {
 
         Post post = new Post();
         post.setId(22);
@@ -169,7 +178,7 @@ class DemoApplicationTests {
 
 
     @Test
-    public void queryPostTest2(){
+    public void queryPostTest2() {
 
         Post post = new Post();
         post.setId(1);
@@ -184,7 +193,7 @@ class DemoApplicationTests {
     }
 
     @Test
-    public void updatePostTest(){
+    public void updatePostTest() {
 
         Post post = new Post();
         post.setId(22);
@@ -199,9 +208,9 @@ class DemoApplicationTests {
 
     }
 
-//TypeTest
+    //TypeTest
     @Test
-    public void addTypeTest(){
+    public void addTypeTest() {
         Type type = new Type();
         type.setId(10);
         type.setTypeName("Emotion");
@@ -210,13 +219,14 @@ class DemoApplicationTests {
     }
 
     @Test
-    public void deleteTypeTest(){
+    public void deleteTypeTest() {
 
         Assertions.assertEquals(1, typeService.deleteTypeById(2));
 
     }
+
     @Test
-    public void updateTypeTest(){
+    public void updateTypeTest() {
 
         Type type = new Type();
         type.setId(2);
@@ -245,18 +255,19 @@ class DemoApplicationTests {
         }
 
     }
+
     @Test
-    public void addCommentTest(){
+    public void addCommentTest() {
         Comment comment = new Comment();
         comment.setWriterId(10002);
         comment.setPostId(3);
         comment.setContent("test2");
 
-        Assertions.assertEquals(1 , commentService.addComment(comment));
+        Assertions.assertEquals(1, commentService.addComment(comment));
     }
 
     @Test
-    public void deleteCommentTest(){
+    public void deleteCommentTest() {
 
         Comment comment = new Comment();
         comment.setId(6);
@@ -269,7 +280,7 @@ class DemoApplicationTests {
     }
 
 
-    public void updateCommentTest(){
+    public void updateCommentTest() {
 
         Comment comment = new Comment();
         comment.setId(4);
@@ -283,7 +294,7 @@ class DemoApplicationTests {
     }
 
     @Test
-    public void queryCommentTest(){
+    public void queryCommentTest() {
 
         Comment comment = new Comment();
         comment.setId(3);
@@ -296,8 +307,9 @@ class DemoApplicationTests {
         Assertions.assertEquals(comment, commentService.queryCommentById(3));
 
     }
+
     @Test
-    public void timestamp(){
+    public void timestamp() {
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         System.out.println(timestamp);
@@ -305,7 +317,7 @@ class DemoApplicationTests {
     }
 
     @Test
-    public void user(){
+    public void user() {
         User user = new User();
         user.setUsername("zpy");
         user.setPassword("afasgasg");
@@ -315,29 +327,33 @@ class DemoApplicationTests {
         userService.addUser(user);
 
     }
+
     @Test
-    public void querypostbyid(){
-       int id = 9;
-       Post p =postService.queryPostById(id);
+    public void querypostbyid() {
+        int id = 9;
+        Post p = postService.queryPostById(id);
         System.out.println(p);
 
     }
+
     @Test
-    public void querypostbyUserid(){
+    public void querypostbyUserid() {
         int id = 1;
-        List<Post> p =postService.queryPostByUserId(id);
+        List<Post> p = postService.queryPostByUserId(id);
         System.out.println(p);
 
     }
+
     @Test
-    public void user2(){
+    public void user2() {
 
         User u = userService.queryUserByName("zpy");
         System.out.println(u);
 
     }
+
     @Test
-    public void setCommentService(){
+    public void setCommentService() {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         Comment c = new Comment();
         c.setIsDeleted(0);
@@ -351,8 +367,9 @@ class DemoApplicationTests {
         commentService.addComment(c);
 
     }
+
     @Test
-    public void asfsafasf(){
+    public void asfsafasf() {
 
 //        Comment c =commentService.queryCommentById(1);
 //        System.out.println(c);
@@ -361,9 +378,10 @@ class DemoApplicationTests {
         System.out.println(cl);
 
     }
+
     @Test
-    public void updateUser(){
-        User u  = new User();
+    public void updateUser() {
+        User u = new User();
         u.setId(1);
         u.setUsername("admin");
         u.setGrade("3");
@@ -371,20 +389,22 @@ class DemoApplicationTests {
         u.setPersonalInfo("这是一个可爱的女孩子");
         userService.updatePerosnalInfo(u);
     }
+
     @Test
     public void very() throws IOException {
         Map<String, Object> map = new HashMap<>();
         map = VerificationCodeGenerator.generateCode();
         System.out.println(map);
     }
+
     @Test
     public void type() {
-        List<Type> t= typeService.queryAllType();
+        List<Type> t = typeService.queryAllType();
         System.out.println(t);
     }
 
     @Test
-    public void pag(){
+    public void pag() {
         int pageNumber = 1;
         int pageSize = 5;
         PageHelper.startPage(pageNumber, pageSize);
@@ -402,6 +422,7 @@ class DemoApplicationTests {
         System.out.println(pageInfo.getPages());
 
     }
+
     @Test
     public void collectcheck() {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -412,6 +433,7 @@ class DemoApplicationTests {
         postCollect.setCollectCheck(0);
         postCollectService.collect(postCollect);
     }
+
     // @Test
     // public void check() {
     //     int c = postCollectService.queryCollectCheckByPosterUserId(1,1);
@@ -422,26 +444,29 @@ class DemoApplicationTests {
         PostCollect postCollect = new PostCollect();
         postCollect.setPostId(1);
         postCollect.setCollectedBy(1);
-        PostCollect res= postCollectService.queryCollectByIdandpost(postCollect);
+        PostCollect res = postCollectService.queryCollectByIdandpost(postCollect);
         System.out.println(res);
     }
+
     @Test
     public void check3() {
         PostCollect postCollect = new PostCollect();
         postCollect.setPostId(1);
         postCollect.setCollectedBy(1);
-        PostCollect res= postCollectService.queryCollectById(1);
+        PostCollect res = postCollectService.queryCollectById(1);
         System.out.println(res);
     }
+
     @Test
     public void check4() {
-        PostLikes pl =new PostLikes();
+        PostLikes pl = new PostLikes();
         pl.setLikedBy(1);
         pl.setPostId(1);
 
         PostLikes a = postLieksService.queryLikesByIdandpost(pl);
         System.out.println(a);
     }
+
     @Test
     public void cancelcollect() {
         PostCollect postCollect = new PostCollect();
@@ -457,6 +482,7 @@ class DemoApplicationTests {
         List<PostCollect> pl = postCollectService.getCollectListByUserId(1);
         System.out.println(pl);
     }
+
     @Test
     public void queasdsadl() {
         int id = 1;
@@ -464,19 +490,19 @@ class DemoApplicationTests {
         List<PostCollect> pcl = postCollectService.getCollectListByUserId(id);
 
         int index = 0;
-        for(PostCollect pc:pcl){
+        for (PostCollect pc : pcl) {
             Post p = new Post();
-            p=postService.queryPostById(pc.getPostId());
-            post.add(index,p);
+            p = postService.queryPostById(pc.getPostId());
+            post.add(index, p);
             index++;
         }
-        for (int i = 0;i<pcl.size();i++){
+        for (int i = 0; i < pcl.size(); i++) {
             String a = userService.queryUserById(post.get(i).getWriterId()).getUsername();
             post.get(i).setWriterName(a);
         }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
-        for (int i = 0;i<pcl.size();i++){
-            post.get(i).setDate(post.get(i).getWrittenTime().toString().substring(0,19));
+        for (int i = 0; i < pcl.size(); i++) {
+            post.get(i).setDate(post.get(i).getWrittenTime().toString().substring(0, 19));
             post.get(i).setDate(sdf.format(post.get(i).getWrittenTime()));
         }
         System.out.println(post);
@@ -485,4 +511,42 @@ class DemoApplicationTests {
 
     }
 
+    @Test
+    public void avatarTest() {
+        //Avatar avatar = new Avatar();
+
+        int id = 1;
+        Avatar res = avatarService.getById(id);
+        System.out.println(res);
+
+
     }
+
+    @Test
+    public void addOneBlockWordsTest() {
+
+        BlockWords words = new BlockWords();
+
+        words.setId(1);
+        words.setWord("diss");
+        Assertions.assertEquals(1, blockWordsService.addOne("diss"));
+    }
+
+    @Test
+    public void delOneBlockWordsTest() {
+
+        BlockWords words = new BlockWords();
+
+        words.setId(1);
+        words.setWord("diss");
+        Assertions.assertEquals(1, blockWordsService.delOne("diss"));
+
+    }
+
+    @Test
+    public void deleteOnePostByAdmin() {
+
+        Assertions.assertEquals(1, postService.deletePostById(2));
+
+    }
+}

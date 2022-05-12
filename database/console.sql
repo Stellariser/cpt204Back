@@ -141,7 +141,7 @@ CREATE TABLE `t_post_like_notification` (
     user_id INT,
     liked_time DATETIME,
     is_read INT DEFAULT 0
-    like_number INT DEFAULT 0 //获得点赞的数量(The number of likes received)
+    like_number INT DEFAULT 0
 );
 
 CREATE TABLE `t_post_comment_notification` (
@@ -150,7 +150,7 @@ CREATE TABLE `t_post_comment_notification` (
     user_by INT,
     comment_time DATETIME,
     is_read INT DEFAULT 0
-    comment_number INT DEFAULT 0  //获得评论的数量(The number of comments received)
+    comment_number INT DEFAULT 0
 );
 
 ALTER TABLE `t_user`
