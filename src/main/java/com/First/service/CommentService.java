@@ -21,4 +21,5 @@ public interface CommentService {
 
     List<Comment> queryCommentByWriterId(int WriterId);
     
+    int updateNewComments(int postId);
 }

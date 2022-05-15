@@ -128,30 +128,33 @@ CREATE TABLE `t_post_collect` (
 ALTER TABLE
     t_post
 ADD
-    total_likes  INT;
+    total_likes INT;
 
 ALTER TABLE
     t_post
 ADD
-    total_collects  INT;
+    total_collects INT;
 
-CREATE TABLE `t_post_like_notification` (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    post_id INT,
-    user_id INT,
-    liked_time DATETIME,
-    is_read INT DEFAULT 0
-    like_number INT DEFAULT 0
-);
+-- CREATE TABLE `t_post_like_notification` (
+--     id INT PRIMARY KEY AUTO_INCREMENT,
+--     post_id INT,
+--     user_id INT,
+--     liked_time DATETIME,
+--     is_read INT DEFAULT 0
+--     like_number INT DEFAULT 0
+-- );
+-- CREATE TABLE `t_post_comment_notification` (
+--     id INT PRIMARY KEY AUTO_INCREMENT,
+--     post_id INT,
+--     user_by INT,
+--     comment_time DATETIME,
+--     is_read INT DEFAULT 0
+--     comment_number INT DEFAULT 0
+-- );
+ALTER TABLE
+    `t_user` CHANGE COLUMN `avator` `avatar` INT;
 
-CREATE TABLE `t_post_comment_notification` (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    post_id INT,
-    user_by INT,
-    comment_time DATETIME,
-    is_read INT DEFAULT 0
-    comment_number INT DEFAULT 0
-);
-
-ALTER TABLE `t_user`
-    CHANGE COLUMN `avator` `avatar` INT;
+ALTER TABLE
+    `t_post`
+ADD
+    `new_comments` INT DEFAULT 0;

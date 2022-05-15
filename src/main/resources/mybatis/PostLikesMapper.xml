@@ -35,12 +35,12 @@
 
     <!-- Increasing like -->
     <update id="updateLike" parameterType="int">
-        update t_post set total_likes = total_likes+1
+        update t_post set total_likes = total_likes+1, new_likes = new_likes+1
         where id = #{postId}
     </update>
 
     <!-- Decreasing like -->
-   <update id="updateLikeCancel" parameterType="int">
+    <update id="updateLikeCancel" parameterType="int">
         update t_post set
         total_likes = total_likes - 1
         where id = #{postId}

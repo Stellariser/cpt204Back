@@ -263,7 +263,7 @@ public class UserController {
             userInfo.put("grade", user.getGrade());
             userInfo.put("major", user.getMajor());
             userInfo.put("personalInfo", user.getPersonalInfo());
-            userInfo.put("avatar",user.getAvatar());
+            userInfo.put("avatar", user.getAvatar());
             map.put("id", user.getId());
             map.put("data", userInfo);
             map.put("status", 200);
@@ -283,7 +283,7 @@ public class UserController {
         for (Post c : post) {
             String a = userService.queryUserById(c.getWriterId()).getUsername();
             c.setWriterName(a);
-            c.setAvatar( userService.queryUserById(c.getWriterId()).getAvatar());
+            c.setAvatar(userService.queryUserById(c.getWriterId()).getAvatar());
         }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
         for (Post c : post) {
@@ -396,4 +396,66 @@ public class UserController {
         return JSONObject.toJSONString(avatarMap);
     }
 
+    @RequestMapping(value = "/checkNotification", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public String checkNotification(Integer userId) {
+        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> checkMap = new HashMap<>();
+
+        User user = userService.queryUserById(userId);
+        int newLikeAndComment = 0;
+        if (user != null) {
+            List<Post> posts = postService.getNoticedPosts(userId);
+            for (Post p : posts) {
+                newLikeAndComment += p.getNewLikes() + p.getNewComments();
+            }
+        }
+        map.put("newLikeAndComment", newLikeAndComment);
+        checkMap.put("data", map);
+        checkMap.put("status", 200);
+        checkMap.put("msg", "Successfully get notification.");
+        return JSONObject.toJSONString(checkMap);
+    }
+
+    @RequestMapping(value = "/getNotificationPost", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public String getNotificationPost(Integer id, int pageNumber, int pageSize) {
+        List<Post> posts = postService.getNoticedPosts(id);
+        PageHelper.startPage(pageNumber, pageSize);
+        PageInfo<Post> pageInfo = new PageInfo<>(posts);
+        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> notificationMap = new HashMap<>();
+
+        notificationMap.put("postList", pageInfo.getList());
+        notificationMap.put("totalpage", pageInfo.getPages());
+        notificationMap.put("pagenum", pageInfo.getPageNum());
+        map.put("data", notificationMap);
+        map.put("totalpage", pageInfo.getPages());
+        map.put("status", 200);
+        map.put("msg", "Successful get notification posts.");
+
+        return JSONObject.toJSONString(map);
+    }
+
+    @RequestMapping(value = "/clearNotification", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public String clearNotification(Integer userId) {
+        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> clearMap = new HashMap<>();
+
+        int result = postService.clearNotification(userId);
+        if (result > 0) {
+            map.put("result", result);
+            clearMap.put("data", map);
+            clearMap.put("status", 200);
+            clearMap.put("msg", "Successfully clear notification.");
+        } else {
+            clearMap.put("status", 0);
+            clearMap.put("msg", "Failed to clear notification.");
+        }
+        return JSONObject.toJSONString(clearMap);
+    }
 }

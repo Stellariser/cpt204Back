@@ -88,5 +88,13 @@ public class PostServiceImpl implements PostService {
         return postMapper.getLastInsert();
     }
 
+    @Override
+    public List<Post> getNoticedPosts(Integer userId) {
+        return postMapper.getNoticedPosts(userId);
+    }
 
+    @Override
+    public int clearNotification(Integer userId) {
+        return postMapper.clearNotification(userId);
+    }
 }

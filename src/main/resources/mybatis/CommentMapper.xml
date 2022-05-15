@@ -47,4 +47,8 @@
         select * from t_comment where writer_id = #{writerId} and is_deleted = 0
     </select>
 
+    <update id="updateNewComments" parameterType='int'>
+        update t_post set new_comments = new_comments+1 where id = #{postId}
+    </update>
+
 </mapper>

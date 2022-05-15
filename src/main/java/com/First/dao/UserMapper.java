@@ -27,7 +27,7 @@ public interface UserMapper {
 
     int updateGender(String gender);
 
-    int  updateGrade(String gender);
+    int updateGrade(String gender);
 
     int updateMajor(String major);
 }

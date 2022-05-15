@@ -77,13 +77,13 @@ public class PostController {
 
         List<Post> Post = postService.queryGlobalPost(postQueryInfo);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
-        for (Post c:Post){
+        for (Post c : Post) {
             String a = userService.queryUserById(c.getWriterId()).getUsername();
             c.setWriterName(a);
-            c.setDate(c.getWrittenTime().toString().substring(0,19));
+            c.setDate(c.getWrittenTime().toString().substring(0, 19));
             c.setDate(sdf.format(c.getWrittenTime()));
         }
-        //Collections.reverse(Post);
+        // Collections.reverse(Post);
         PageInfo<Post> pageInfo = new PageInfo<>(Post);
         HashMap<String, Object> resultMap = new HashMap<>();
         HashMap<String, Object> data = new HashMap<>();
@@ -119,10 +119,10 @@ public class PostController {
         resultMap.put("content", post.getContent());
         resultMap.put("title", post.getTitle());
         assert u != null;
-        resultMap.put("avatar",u.getAvatar());
-        //like
+        resultMap.put("avatar", u.getAvatar());
+        // like
         resultMap.put("likeTotal", post.getTotalLikes());
-        //collect!!
+        // collect!!
         resultMap.put("collectTotal", post.getTotalCollects());
         resultMap.put("meta", meta);
         resultMap.put("status", 200);
@@ -137,11 +137,12 @@ public class PostController {
     public void writeView() throws Exception {
 
     }
+
     @RequestMapping(value = "/querytype", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public String type(){
-        //int anonymous = newPost.getAnonymous();
+    public String type() {
+        // int anonymous = newPost.getAnonymous();
 
         Map<String, Object> typemap = new HashMap<>();
         List<Type> typelist = typeService.queryAllType();
@@ -152,15 +153,16 @@ public class PostController {
         return JSONObject.toJSONString(typemap);
         // return "write";
     }
+
     // Write a post
     @RequestMapping(value = "/write", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public String write(int id,String title,String content,String typeString) throws Exception {
+    public String write(int id, String title, String content, String typeString) throws Exception {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         int writerId = id;
-        int tyl=0;
-        //int anonymous = newPost.getAnonymous();
+        int tyl = 0;
+        // int anonymous = newPost.getAnonymous();
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> postMap = new HashMap<>();
         if (!typeString.equals("")) {
@@ -184,7 +186,7 @@ public class PostController {
             for (int i = 0; i < TL.length; i++) {
                 TLI[i] = Integer.parseInt(TL[i]);
             }
-            for (int i = 0;i<tyl;i++){
+            for (int i = 0; i < tyl; i++) {
                 typeList[i] = TLI[i];
             }
         }
@@ -196,13 +198,13 @@ public class PostController {
         post.setWrittenTime(timestamp);
         post.setContent(blockWordsHandler.replace(content));
         post.setIsDeleted(0);
-        //post.setAnonymous(anonymous);
+        // post.setAnonymous(anonymous);
         postService.addPost(post);
         int newid = postService.getLastInsert();
         TypeToPost typeToPost = new TypeToPost();
         typeToPost.setPostId(newid);
-        if(typeList.length>0){
-            for (int i=0;i<typeList.length;i++){
+        if (typeList.length > 0) {
+            for (int i = 0; i < typeList.length; i++) {
                 typeToPost.setTypeId(typeList[i]);
                 typeToPostService.addTypeToPost(typeToPost);
             }
@@ -232,10 +234,10 @@ public class PostController {
     private com.First.service.CommentService commentService;
 
     // Add comment
-    @RequestMapping(value = "/replyWrite",produces = "text/html;charset=utf-8" ,method = RequestMethod.GET)
+    @RequestMapping(value = "/replyWrite", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public String replyWrite(int posterId,int postId,String content){
+    public String replyWrite(int posterId, int postId, String content) {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
         Map<String, Object> map = new HashMap<>();
@@ -251,9 +253,10 @@ public class PostController {
         comment.setCriticism(0);
         comment.setIsDeleted(0);
         commentService.addComment(comment);
+        commentService.updateNewComments(postId);
 
         map.put("id", commentService.queryCommentById(comment.getId()));
-        map.put("status",200);
+        map.put("status", 200);
         commentMap.put("data", map);
         commentMap.put("status", 200);
         commentMap.put("msg", "Comment successfully posted.");
@@ -297,7 +300,7 @@ public class PostController {
     @RequestMapping(value = "/delete", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public String deletePost(int id){
+    public String deletePost(int id) {
         int postId = id;
         Post post = postService.queryPostById(postId);
         Map<String, Object> map = new HashMap<>();
@@ -319,11 +322,11 @@ public class PostController {
         return JSONObject.toJSONString(deleteMap);
     }
 
-    //Like Post Check
+    // Like Post Check
     @RequestMapping(value = "/checkLikeCollect", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public String likeCollectPostCheck(int viewerId, int postId){
+    public String likeCollectPostCheck(int viewerId, int postId) {
         PostCollect pc = new PostCollect();
         PostLikes pl = new PostLikes();
         pc.setPostId(postId);
@@ -336,30 +339,29 @@ public class PostController {
         postLikesres.setLikeCheck(1);
         postCollectres.setCollectCheck(1);
         try {
-            postLikesres  = postLikesService.queryLikesByIdandpost(pl);
-        }catch (Exception e){
+            postLikesres = postLikesService.queryLikesByIdandpost(pl);
+        } catch (Exception e) {
             postLikesres.setLikeCheck(1);
         }
         try {
             postCollectres = postCollectService.queryCollectByIdandpost(pc);
-        }catch (Exception e){
+        } catch (Exception e) {
             postCollectres.setCollectCheck(1);
         }
 
-        User u = userService.queryUserById(viewerId);
         HashMap<String, Object> resultLikeCollectMap = new HashMap<>();
         HashMap<String, Object> meta = new HashMap<>();
 
-        //resultLikeCollectMap.put("data", u);
+        // resultLikeCollectMap.put("data", u);
 
         try {
             resultLikeCollectMap.put("likeCheck", postLikesres.getLikeCheck());
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             resultLikeCollectMap.put("likeCheck", 1);
         }
         try {
             resultLikeCollectMap.put("collectCheck", postCollectres.getCollectCheck());
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             resultLikeCollectMap.put("collectCheck", 1);
         }
         resultLikeCollectMap.put("meta", meta);
@@ -369,44 +371,40 @@ public class PostController {
         return JSONObject.toJSONString(resultLikeCollectMap);
     }
 
-    //Like Post
+    // Like Post
     @RequestMapping(value = "/likePost", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public String likePost(int postId, int viewerId, int likeopt){
+    public String likePost(int postId, int viewerId, int likeopt) {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        Map<String, Object> map = new HashMap<>();
         Map<String, Object> likeMap = new HashMap<>();
         PostLikes postLikes = new PostLikes();
-        int likeCheck = postLikes.getLikeCheck();
 
-        if(likeopt==0){
+        if (likeopt == 0) {
             PostLikes pl = new PostLikes();
             pl.setPostId(postId);
             pl.setLikedBy(viewerId);
             PostLikes res = postLikesService.queryLikesByIdandpost(pl);
             try {
                 res.getLikeCheck();
-            }catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 postLikes.setPostId(postId);
                 postLikes.setLikedBy(viewerId);
-                postLikes.setLikedTime(timestamp);
-
-                postLikesService.like(postLikes);
-                postLikesService.updateLike(postId);
+                postLikesService.resumeLike(postLikes);
                 likeMap.put("status", 200);
                 likeMap.put("msg", "You've like the post");
                 likeMap.put("opt", 0);
-                return JSONObject.toJSONString(likeMap);
             }
             postLikes.setPostId(postId);
             postLikes.setLikedBy(viewerId);
-            postLikesService.resumeLike(postLikes);
+            postLikes.setLikedTime(timestamp);
+            postLikesService.like(postLikes);
+            postLikesService.updateLike(postId);
             likeMap.put("status", 200);
             likeMap.put("msg", "You've like the post");
             likeMap.put("opt", 0);
-        }
-        else if(likeopt==1){
+            return JSONObject.toJSONString(likeMap);
+        } else if (likeopt == 1) {
             PostLikes pp = new PostLikes();
             pp.setPostId(postId);
             pp.setLikedBy(viewerId);
@@ -420,46 +418,42 @@ public class PostController {
         return JSONObject.toJSONString(likeMap);
     }
 
-    //Collect Post
+    // Collect Post
     @RequestMapping(value = "/collectPost", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin
-    public String collectPost(int postId, int viewerId, int collectopt){
+    public String collectPost(int postId, int viewerId, int collectopt) {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        Map<String, Object> map = new HashMap<>();
         Map<String, Object> collectMap = new HashMap<>();
         PostCollect postCollect = new PostCollect();
 
-        int collectCheck = postCollect.getCollectCheck();
-
-        if(collectopt==0){
+        if (collectopt == 0) {
             PostCollect ps = new PostCollect();
             ps.setPostId(postId);
             ps.setCollectedBy(viewerId);
             PostCollect res = postCollectService.queryCollectByIdandpost(ps);
             try {
                 res.getCollectCheck();
-            }catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 postCollect.setPostId(postId);
                 postCollect.setCollectedBy(viewerId);
-                postCollect.setCollectedTime(timestamp);
-
-                postCollectService.collect(postCollect);
-                postCollectService.updateCollect(postId);
+                postCollectService.resumeCollect(postCollect);
                 collectMap.put("status", 200);
-                collectMap.put("msg", "You've collected the post");
                 collectMap.put("opt", 0);
-                return JSONObject.toJSONString(collectMap);
+                collectMap.put("msg", "You've collected the post");
             }
             postCollect.setPostId(postId);
             postCollect.setCollectedBy(viewerId);
-            postCollectService.resumeCollect(postCollect);
-            collectMap.put("status", 200);
-            collectMap.put("opt", 0);
-            collectMap.put("msg", "You've collected the post");
+            postCollect.setCollectedTime(timestamp);
 
-        }
-        else if(collectopt==1){
+            postCollectService.collect(postCollect);
+            postCollectService.updateCollect(postId);
+            collectMap.put("status", 200);
+            collectMap.put("msg", "You've collected the post");
+            collectMap.put("opt", 0);
+            return JSONObject.toJSONString(collectMap);
+
+        } else if (collectopt == 1) {
             PostCollect p = new PostCollect();
             p.setPostId(postId);
             p.setCollectedBy(viewerId);
