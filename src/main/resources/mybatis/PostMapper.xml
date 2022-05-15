@@ -121,10 +121,10 @@
     </select>
 
     <select id="getNoticedPosts" resultMap="PostResultMap">
-        select * from t_post where new_likes > 0 or new_comments > 0 
+        select * from t_post where (new_likes > 0 or new_comments > 0) and writer_id = #{userId} and is_deleted=0
     </select>
 
-    <update id="clearNotification", parameterType="int">
+    <update id="clearNotification" parameterType="int">
         update t_post set new_likes=0,new_comments=0 where writer_id = #{userId}
     </update>
 
