@@ -61,7 +61,11 @@
     </update>
 
     <select id="getCollectListByUserId" resultMap="PostCollectResultMap">
-        select * from t_post_collect p where collected_by = #{collectedBy} and collect_check = 0 GROUP BY p.id
+        select p.id,p.collect_check,p.collected_by,p.collected_time,p.post_id from t_post_collect p
+        left join t_post tp on p.post_id=tp.id
+        where collected_by = #{collectedBy} and collect_check = 0
+        and tp.is_deleted=0
+        GROUP BY p.id
         order by p.id desc
     </select>
 
