@@ -326,6 +326,7 @@ public class UserController {
             post.add(index, p);
             index++;
         }
+        System.out.println(post);
         for (int i = 0; i < pcl.size(); i++) {
             String a = userService.queryUserById(post.get(i).getWriterId()).getUsername();
             post.get(i).setWriterName(a);
