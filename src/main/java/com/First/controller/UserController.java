@@ -318,7 +318,7 @@ public class UserController {
         postQueryInfo.setPageSize(pageSize);
         List<Post> post = new ArrayList<>();
         List<PostCollect> pcl = postCollectService.getCollectListByUserId(id);
-        System.out.println(pcli.size());
+        // System.out.println(pcli.size());
         int index = 0;
         for (PostCollect pc : pcl) {
             Post p = new Post();

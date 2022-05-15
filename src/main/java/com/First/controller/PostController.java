@@ -96,7 +96,8 @@ public class PostController {
         data.put("postList", pageInfo.getList());
         meta.put("msg", "获取成功");
         meta.put("status", 200);
-        System.out.println(resultMap);
+        // System.out.println(resultMap);
+
         // return pageInfo;
         return JSONObject.toJSONString(resultMap);
     }
@@ -224,7 +225,7 @@ public class PostController {
             @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
         // PageHelper.startPage(pageNum, pageSize);
         // Check if pageSize is properly gotten from the URL
-        System.out.println("Page size is this " + pageSize);
+        // System.out.println("Page size is this " + pageSize);
 
         PageInfo<Post> page = postService.getPostForPage(pageNum, pageSize);
         return page;
@@ -390,20 +391,20 @@ public class PostController {
             } catch (NullPointerException e) {
                 postLikes.setPostId(postId);
                 postLikes.setLikedBy(viewerId);
-                postLikesService.resumeLike(postLikes);
+                postLikes.setLikedTime(timestamp);
+                postLikesService.like(postLikes);
+                postLikesService.updateLike(postId);
                 likeMap.put("status", 200);
                 likeMap.put("msg", "You've like the post");
                 likeMap.put("opt", 0);
+                return JSONObject.toJSONString(likeMap);
             }
             postLikes.setPostId(postId);
             postLikes.setLikedBy(viewerId);
-            postLikes.setLikedTime(timestamp);
-            postLikesService.like(postLikes);
-            postLikesService.updateLike(postId);
+            postLikesService.resumeLike(postLikes);
             likeMap.put("status", 200);
             likeMap.put("msg", "You've like the post");
             likeMap.put("opt", 0);
-            return JSONObject.toJSONString(likeMap);
         } else if (likeopt == 1) {
             PostLikes pp = new PostLikes();
             pp.setPostId(postId);
@@ -437,21 +438,21 @@ public class PostController {
             } catch (NullPointerException e) {
                 postCollect.setPostId(postId);
                 postCollect.setCollectedBy(viewerId);
-                postCollectService.resumeCollect(postCollect);
+                postCollect.setCollectedTime(timestamp);
+
+                postCollectService.collect(postCollect);
+                postCollectService.updateCollect(postId);
                 collectMap.put("status", 200);
-                collectMap.put("opt", 0);
                 collectMap.put("msg", "You've collected the post");
+                collectMap.put("opt", 0);
+                return JSONObject.toJSONString(collectMap);
             }
             postCollect.setPostId(postId);
             postCollect.setCollectedBy(viewerId);
-            postCollect.setCollectedTime(timestamp);
-
-            postCollectService.collect(postCollect);
-            postCollectService.updateCollect(postId);
+            postCollectService.resumeCollect(postCollect);
             collectMap.put("status", 200);
-            collectMap.put("msg", "You've collected the post");
             collectMap.put("opt", 0);
-            return JSONObject.toJSONString(collectMap);
+            collectMap.put("msg", "You've collected the post");
 
         } else if (collectopt == 1) {
             PostCollect p = new PostCollect();
