@@ -42,7 +42,7 @@
     <!-- Decreasing like -->
     <update id="updateLikeCancel" parameterType="int">
         update t_post set
-        total_likes = total_likes - 1
+        total_likes = total_likes - 1,new_likes = new_likes+1
         where id = #{postId}
     </update>
 
@@ -67,8 +67,8 @@
 
 
     <update id="resumeLike" parameterType="com.First.pojo.PostLikes">
-        update t_post_likes set like_check = 0
-        where post_id = #{postId} and liked_by=#{likedBy}
+        update t_post_likes tl,t_post p set tl.like_check = 0,p.total_likes = p.total_likes+1, p.new_likes = p.new_likes+1
+        where tl.post_id = #{postId} and tl.liked_by=#{likedBy} and p.id = #{postId}
     </update>
 
 

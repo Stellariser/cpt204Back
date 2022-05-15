@@ -396,6 +396,11 @@ public class UserController {
         return JSONObject.toJSONString(avatarMap);
     }
 
+
+
+
+
+
     @RequestMapping(value = "/checkNotification", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
