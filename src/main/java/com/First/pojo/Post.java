@@ -30,6 +30,7 @@ public class Post {
     private String date;
     private Time ti;
     private int avatar;
+    private int newComments;
 
     public int getAvatar() {
         return avatar;
@@ -173,5 +174,13 @@ public class Post {
 
     public void setIsDeleted(int isDeleted) {
         this.isDeleted = isDeleted;
+    }
+
+    public int getNewComments() {
+        return newComments;
+    }
+
+    public void setNewComments(int newComments) {
+        this.newComments = newComments;
     }
 }

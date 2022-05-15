@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PostLieksServiceImpl implements PostLikesService {
+public class PostLikesServiceImpl implements PostLikesService {
     @Autowired
     private PostLikesMapper postLikeMapper;
 

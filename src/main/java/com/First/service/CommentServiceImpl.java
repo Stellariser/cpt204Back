@@ -44,4 +44,9 @@ public class CommentServiceImpl implements CommentService {
         return commentMapper.queryCommentByWriterId(WriterId);
     }
 
+    @Override
+    public int updateNewComments(int postId) {
+        return commentMapper.updateNewComments(postId);
+    }
+
 }

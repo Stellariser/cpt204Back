@@ -36,4 +36,7 @@ public interface PostService {
 
     int getLastInsert();
 
+    List<Post> getNoticedPosts(Integer userId);
+
+    int clearNotification(Integer userId);
 }

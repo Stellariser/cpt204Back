@@ -16,6 +16,7 @@
         <result column="criticism" jdbcType="BIGINT" property="criticism" />
         <result column="views" jdbcType="BIGINT" property="views" />
         <result column="is_deleted" jdbcType="BIGINT" property="isDeleted" />
+        <result column="new_comments" jdbcType="BIGINT" property="newComments" />
     </resultMap>
 
     <insert id="addPost" parameterType="com.First.pojo.Post">
@@ -40,6 +41,10 @@
 
     <update id="updateNewLikes" parameterType="com.First.pojo.Post">
         update t_post set new_likes=#{newLikes} where id =#{id}
+    </update>
+
+    <update id="updateNewComments" parameterType="com.First.pojo.Post">
+        update t_post set new_comments=#{newComments} where id =#{id}
     </update>
 
     <update id="updatePostCriticism" parameterType="com.First.pojo.Post">
@@ -115,5 +120,12 @@
         select max(id) from t_post
     </select>
 
+    <select id="getNoticedPosts" resultMap="PostResultMap">
+        select * from t_post where new_likes > 0 or new_comments > 0 
+    </select>
+
+    <update id="clearNotification", parameterType="int">
+        update t_post set new_likes=0,new_comments=0 where writer_id = #{userId}
+    </update>
 
 </mapper>

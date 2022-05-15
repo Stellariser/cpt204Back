@@ -17,7 +17,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import com.First.BlockWordsChecher.BlockWordsHandler;
 
 @SpringBootTest
 class DemoApplicationTests {
@@ -34,7 +33,7 @@ class DemoApplicationTests {
     @Autowired
     private PostCollectServiceImpl postCollectService;
     @Autowired
-    private PostLieksServiceImpl postLieksService;
+    private PostLikesServiceImpl postLieksService;
     @Autowired
     private AvatarServiceImpl avatarService;
     @Autowired
@@ -91,7 +90,6 @@ class DemoApplicationTests {
     //postTest
     @Test
     public void getPosttext2() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
 
         List<Post> postList = postService.queryAllPost();
         for (Post p : postList) {

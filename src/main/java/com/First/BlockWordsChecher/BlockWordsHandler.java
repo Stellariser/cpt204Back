@@ -4,18 +4,16 @@ import java.util.Set;
 
 import com.First.pojo.BlockWords;
 import com.First.service.BlockWordsServiceImpl;
-import com.First.BlockWordsChecher.BlockWordsHandler;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BlockWordsHandler {
-    @Autowired
-    private BlockWordsServiceImpl blockWordsService;
+    private final BlockWordsServiceImpl blockWordsService;
+
+    public BlockWordsHandler(BlockWordsServiceImpl blockWordsService) {
+        this.blockWordsService = blockWordsService;
+    }
 
     public String replace(String content) {
         Set<BlockWords> blockWordsSet = blockWordsService.listAll();

@@ -31,5 +31,7 @@ public interface PostMapper {
     //see the list of posts
     List<Post> getAllPostPresent();
 
+    List<Post> getNoticedPosts(Integer userId);
 
+    int clearNotification(Integer userId);
 }
