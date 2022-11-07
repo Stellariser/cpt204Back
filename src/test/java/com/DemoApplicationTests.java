@@ -1,18 +1,30 @@
 package com;
 
+import com.First.Utils.PythonRun;
 import com.First.VO.PostQueryInfo;
 import com.First.VerificationCode.VerificationCodeGenerator;
 import com.First.pojo.*;
 
-import java.io.IOException;
+import java.io.*;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.First.service.*;
 
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -554,6 +566,108 @@ class DemoApplicationTests {
         System.out.println(a);
 
 
+    }
+
+
+    @Test
+    public void flask() {
+        System.out.println(blockWordsService.listAll());
+        String a = "丁真";
+        blockWordsHandler.replace(a);
+        System.out.println(a);
+    }
+
+
+
+    @Test
+    public void cmdPythonControl(){
+
+        BufferedReader in = null;
+        try{
+            String [] args1 = new String[] {"python","D:\\ICS\\ModelDeploy\\ForJava\\AreaRest.py","--file ./terminal/1.png"};
+            String args2 = "python AreaRest.py";
+
+            Process proc = Runtime.getRuntime().exec("cmd /c cd /d D:\\ICS\\ModelDeploy\\ForJava && "+"python AreaRest.py &&");
+
+
+            in = new BufferedReader(new InputStreamReader(proc.getInputStream(),"gbk"));
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+            while ((line = in.readLine())!=null){
+                sb.append(line);
+            }
+            proc.waitFor();
+            System.out.println(sb.toString());
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if(in!=null){
+                try{
+                    in.close();
+                }catch(IOException e ){
+                    e.printStackTrace();
+                }
+            }
+        }
+
 
     }
+    @Test
+    public void cmdPythonControl2() throws IOException {
+
+        String pyPath = "D:\\ICS\\ModelDeploy\\ForJava\\AreaRest.py"; // python文件路径
+        String pyEnvironment = "D:\\ICS\\anaconda\\python.exe"; // 默认为python，如果使用了anaconda创建了环境，可以找到对应的路径并替换，类似于"E:\\Anaconda3\\envs\\xxx\\python.exe"。
+        PythonRun pythonRun = new PythonRun(); // 创建实例
+        pythonRun.setEnvironment(pyEnvironment); // 设置环境
+        pythonRun.setRoot("D:\\ICS\\ModelDeploy\\ForJava"); // 设置python项目的执行目录，若不设置，在调用了其它包时，可能会出现错误。如果没有import其它文件夹下的包或库，可以忽略。
+        System.out.println(pythonRun.run(pyPath,"--file ./terminal/1.png")); // 参数为：(String path, String ...args)
+
+
+
+
+
+    }
+
+
+
+
+    @Test
+    public void Springboottofalsk() throws IOException {
+
+        FileInputStream inputStream = null;
+        Base64.Encoder encoder = Base64.getEncoder();
+        inputStream = new FileInputStream("D:\\Desktop\\DevelopmentEnvironment\\src\\main\\resources\\static\\img\\2022\\08\\04\\af68cbf7-70b5-4a8c-8203-56dd34c3ddb9.png");
+        int available = inputStream.available();
+        byte[] bytes = new byte[available];
+        inputStream.read(bytes);
+        String base64Str = encoder.encodeToString(bytes);
+        Map<String, Object> map = new HashMap<>();
+        map.put("img",base64Str);
+        CloseableHttpClient client = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost("http://127.0.0.1:5000/predict");
+        List<NameValuePair> params = new ArrayList<>();
+        params.add(new BasicNameValuePair("img", base64Str));
+        httpPost.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+        CloseableHttpResponse response = client.execute(httpPost);
+        String responseString = new BasicResponseHandler().handleResponse(response);
+        Map<String, Object> resultmap = JSONObject.parseObject(responseString, new TypeReference<Map<String, Object>>() {});
+        System.out.println(resultmap.get("Cany"));
+        client.close();
+
+
+    }
+
+    @Test
+    public void cmdPythonControl3() throws IOException {
+
+        String a = new String("{\"Cany\":796.5272507897607,\"Space\":13945.041777850221,\"success\":true}");
+        Map<String, Object> map = JSONObject.parseObject(a, new TypeReference<Map<String, Object>>() {});
+        System.out.println(map.get("Cany"));
+
+    }
+
+    //netstat -ano | findstr 80
+    //taskkill -PID 7936 -F
+
+
 }

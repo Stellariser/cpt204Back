@@ -106,12 +106,11 @@ public class UserController {
         return JSONObject.toJSONString(registerMap);
     }
 
-    @RequestMapping(value = "/login", produces = "text/html;charset=utf-8", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", produces = "text/html;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public String login(@RequestBody Map<String, Object> loginFormMap) {
-        String username = (String) loginFormMap.get("username");
-        String password = (String) loginFormMap.get("password");
+    public String login(String username,String password) {
+
 
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> loginMap = new HashMap<>();
@@ -122,13 +121,16 @@ public class UserController {
         } else if (!userInfo.getPassword().equals(password)) {
             loginMap.put("status", 1);
             loginMap.put("msg", "Password is incorrect.");
+
         } else {
             map.put("id", userInfo.getId());
             loginMap.put("data", map);
             loginMap.put("status", 200);
             loginMap.put("msg", "Login successfully.");
+
         }
-        return JSONObject.toJSONString(loginMap);
+        //return JSONObject.toJSONString(loginMap);
+        return loginMap.get("status").toString();
     }
 
     // Update user avatar

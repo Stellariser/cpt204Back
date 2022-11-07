@@ -1,6 +1,8 @@
 package com.First.controller;
 
-import java.io.IOException;
+import java.awt.image.RenderedImage;
+import java.io.*;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,6 +11,8 @@ import com.alibaba.fastjson.JSONObject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.imageio.ImageIO;
 
 @Controller
 @RequestMapping("/VerificationCode")
